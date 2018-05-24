@@ -1,0 +1,21 @@
+{
+  "name": "NUCBC Project 2",
+  "description": "All Your Base Are Belong To Us",
+  "scripts": {
+  },
+  "env": {
+  },
+  "formation": {
+    "web": {
+      "quantity": 1
+    }
+  },
+  "addons": [
+
+  ],
+  "buildpacks": [
+    {
+      "url": "heroku/nodejs"
+    }
+  ]
+}
