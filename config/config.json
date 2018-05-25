@@ -1,4 +1,3 @@
-//On Heroku, be sure to set an process.env.NODE_ENV to "heroku"
 {
   "development": {
     "username": "root",
