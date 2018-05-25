@@ -1,9 +1,18 @@
+//On Heroku, be sure to set an process.env.NODE_ENV to "heroku"
 {
   "development": {
     "username": "root",
     "password": "ou812",
     "database": "blogger",
     "host": "127.0.0.1",
+    "port": 3306,
+    "dialect": "mysql"
+  },
+  "heroku": {
+    "username": "hnzbqzi6sef6xabk",
+    "password": "q90e95aoamx6jxfv",
+    "database": "gl7htl0662syql2q",
+    "host": "zf4nk2bcqjvif4in.cbetxkdyhwsb.us-east-1.rds.amazonaws.com",
     "port": 3306,
     "dialect": "mysql"
   },
