@@ -1,8 +1,8 @@
 {
   "development": {
     "username": "root",
-    "password": "ou812",
-    "database": "blogger",
+    "password": "Chicag@1",
+    "database": "newsfeed",
     "host": "127.0.0.1",
     "port": 3306,
     "dialect": "mysql"
