@@ -7,6 +7,14 @@
     "port": 3306,
     "dialect": "mysql"
   },
+  "heroku": {
+    "username": "hnzbqzi6sef6xabk",
+    "password": "q90e95aoamx6jxfv",
+    "database": "gl7htl0662syql2q",
+    "host": "zf4nk2bcqjvif4in.cbetxkdyhwsb.us-east-1.rds.amazonaws.com",
+    "port": 3306,
+    "dialect": "mysql"
+  },
   "test": {
     "username": "root",
     "password": null,
