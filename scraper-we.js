@@ -18,7 +18,15 @@ scraper.scrape().on('done', function (err, statusCode, content) {
                 request(targetUrl, function (error, response, body) {
                     if (!error && response.statusCode === 200) {
                         scrape(targetUrl, function (error, metadata) {
-                            console.log(JSON.stringify(metadata, null, 2))
+                            var author = metadata.general.author
+                            var item = ((metadata.schemaOrg.items).find(function (element) {
+                                if (element.properties.datePublished != null) {
+                                    return element.properties.datePublished
+                                }
+                            }))
+                            var datePublished = item.properties.datePublished[0]
+                            var headline = item.properties.headline[0]
+                            console.log(datePublished, author, headline)
                         });
                     }
                 })
