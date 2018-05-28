@@ -1,0 +1,171 @@
+{
+    "general": {
+        "appleTouchIcons": [
+            {
+                "href": "/apple-touch-icon.png",
+                "sizes": "180x180"
+            }
+        ],
+        "icons": [
+            {
+                "href": "/favicon-32x32.png",
+                "type": "image/png"
+            },
+            {
+                "href": "/favicon-16x16.png",
+                "type": "image/png"
+            }
+        ],
+        "canonical": "https://www.washingtonexaminer.com/policy/defense-national-security/mike-pompeo-us-should-expose-wealth-of-corrupt-iranian-leaders",
+        "description": "Secretary of State Mike Pompeo wants to expose the wealth of Iranian leaders as part of a campaign to stoke frustration with the regime’s economic management and aggressive foreign policy.",
+        "title": "Mike Pompeo: US should expose wealth of corrupt Iranian leaders",
+        "lang": "en"
+    },
+    "openGraph": {
+        "admins": "1285945407",
+        "pages": [
+            "40656699159",
+            "145162987277",
+            "678139762207846",
+            "164551463670987",
+            "196827180341946",
+            "135894683092536",
+            "671894649524588",
+            "620299931325737",
+            "427031140640300",
+            "283609611781099",
+            "194967534010090",
+            "193254747388429"
+        ],
+        "title": "Mike Pompeo: US should expose wealth of corrupt Iranian leaders",
+        "url": "https://www.washingtonexaminer.com/policy/defense-national-security/mike-pompeo-us-should-expose-wealth-of-corrupt-iranian-leaders",
+        "image": {
+            "url": "https://mediadc.brightspotcdn.com/dims4/default/93340b6/2147483647/strip/true/crop/1060x557+0+0/resize/1200x630!/quality/90/?url=https%3A%2F%2Fmediadc.brightspotcdn.com%2Fc9%2F99%2Fbd7a2e9e4903b446b3338faa736f%2Fproxy
+-2.jpeg",
+            "secure_url": "https://mediadc.brightspotcdn.com/dims4/default/93340b6/2147483647/strip/true/crop/1060x557+0+0/resize/1200x630!/quality/90/?url=https%3a%2f%2fmediadc.brightspotcdn.com%2fc9%2f99%2fbd7a2e9e4903b446b3338faa736f%
+2fproxy-2.jpeg",
+            "width": "1200",
+            "height": "630",
+            "type": "image/jpeg",
+            "alt": "mike pompeo"
+        },
+        "description": "Secretary of State Mike Pompeo wants to expose the wealth of Iranian leaders as part of a campaign to stoke frustration with the regime’s economic management and aggressive foreign policy.",
+        "site_name": "Washington Examiner",
+        "type": "article",
+        "author": "https://www.washingtonexaminer.com/author/joel-gehrke",
+        "published_time": "2018-05-25T22:39:45.314",
+        "modified_time": "2018-05-25T22:39:45.568",
+        "section": "Defense & National Security",
+        "tag": [
+            "News",
+            "Foreign Policy",
+            "National Security",
+            "Mike Pompeo",
+            "Iran",
+            "Congress",
+            "Maxine Waters",
+            "Nuclear Deal",
+            "Middle East"
+        ],
+        "app_id": "190451957673826"
+    },
+    "schemaOrg": {
+        "items": [
+            {
+                "properties": {
+                    "mainEntity": [
+                        {
+                            "properties": {
+                                "articleBody": [
+                                    " \n         \n         \n          Secretary of State Mike Pompeo wants to expose the wealth of Iranian leaders as part of a campaign to stoke frustration with the regime’s economic management and agg
+ressive foreign policy. \n          “You have senior leaders that are pocketing money, using businesses that are nominally fronts, and frankly, just stealing,” Pompeo told the Persian affiliate of Voice of America, a U.S.-funded outlet,
+in an interview published Friday. “To the extent we can prove that and demonstrate that, I’d welcome the chance to expose it so the Iranian people can judge for themselves whether these are the individuals they want to lead their country
+.” \n          House lawmakers passed a bill in December requiring the Treasury Department to produce a report on the assets of Ayatollah Ali Khamenei and other regime officials. The legislation was opposed by most Democrats, who regarde
+d it as a threat to the implementation of the Iran nuclear deal. With President Trump having withdrawn the U.S. from the deal, Pompeo is pursuing an aggressive sanctions strategy designed to force the Iranian regime to change behavior or
+ risk popular revolt.\n          \n           \n          \n          “This wealth is being squandered so that ordinary Iranian citizens are both sending their young men off to fight and die and living lives that aren’t as secure and as
+wealthy as they could be if Iran would simply change its behavior,” Pompeo, a former House Republican, said. \n          But Pompeo denied that the Trump administration is pursuing regime change, as such, and even discouraged expatriate
+Iranian activists from agitating for that outcome. “It’s not about changing the regime,” he said. “It’s about changing the behavior of the leadership in Iran to comport with what the Iranian people really want them to do.” \n          Re
+p. Bruce Poliquin, R-Maine, who authored the House legislation, made a similar argument during the debate on the proposal. “Reports have indicated these funds are being used to support and sponsor terrorism around the region and to under
+mine our own national security interests,” he said in December. “Iran, the world’s leading state sponsor of terrorism, cannot be trusted and it’s important for the security of the region and for the United States for these secret funds t
+o be exposed publicly to the world.” \n          Such documentation of regime assets might strengthen U.S. efforts to deter international investment in Iran, if Democratic warnings hold true. “The true purpose of this legislation is to c
+reate reputational risk for companies that might seek to do legitimate business with Iran,” Rep. Maxine Waters, D-Calif., said during the debate.  \n          Waters offered that prediction to argue that Iran would regard the bill as a v
+iolation of the nuclear deal, known formally as the Joint Comprehensive Plan of Action. That’s a moot point, as far as U.S. policymakers are concerned, although European allies are trying to keep the pact intact. A companion to Poliquin’
+s bill is pending in the Senate, where it was co-sponsored by Utah Republican Orrin Hatch and Arkansas Republican Tom Cotton. \n           “We think it’s very important,” Pompeo said. “It’s just as important as an informational matter. T
+he Iranian people deserve the truth.”\n          \n         \n       "
+                                ],
+                                "author": [
+                                    {
+                                        "properties": {
+                                            "datePublished": [
+                                                "2018-05-25T22:39:45.314Z"
+                                            ],
+                                            "name": [
+                                                "\n           by \n          Joel Gehrke \n         "
+                                            ]
+                                        },
+                                        "type": [
+                                            "http://schema.org/Person"
+                                        ]
+                                    }
+                                ],
+                                "headline": [
+                                    "Mike Pompeo: US should expose wealth of corrupt Iranian leaders"
+                                ]
+                            },
+                            "type": [
+                                "http://schema.org/Article"
+                            ]
+                        }
+                    ]
+                },
+                "type": [
+                    "http://schema.org/WebPage"
+                ]
+            },
+            {
+                "properties": {},
+                "type": [
+                    "http://schema.org/SiteNavigationElement"
+                ]
+            },
+            {
+                "properties": {},
+                "type": [
+                    "http://schema.org/WPHeader"
+                ]
+            },
+            {
+                "properties": {},
+                "type": [
+                    "http://schema.org/SiteNavigationElement"
+                ]
+            },
+            {
+                "properties": {},
+                "type": [
+                    "https://schema.org/WPFooter"
+                ]
+            },
+            {
+                "properties": {},
+                "type": [
+                    "http://schema.org/SiteNavigationElement"
+                ]
+            }
+        ]
+    },
+    "twitter": {
+        "card": "summary_large_image",
+        "creator": "@Joelmentum",
+        "description": "Secretary of State Mike Pompeo wants to expose the wealth of Iranian leaders as part of a campaign to stoke frustration with the regime’s economic management and aggressive foreign policy.",
+        "image": {
+            "url": "https://mediadc.brightspotcdn.com/dims4/default/bdde923/2147483647/strip/true/crop/1060x596+0+0/resize/1200x675!/quality/90/?url=https%3A%2F%2Fmediadc.brightspotcdn.com%2Fc9%2F99%2Fbd7a2e9e4903b446b3338faa736f%2Fproxy
+-2.jpeg",
+            "alt": "Mike Pompeo"
+        },
+        "site": "@DCExaminer",
+        "title": "Mike Pompeo: US should expose wealth of corrupt Iranian leaders",
+        "widgets": {
+            "csp": "on"
+        }
+    }
