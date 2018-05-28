@@ -14,13 +14,22 @@ var newsQuery = {
   page: 2
 }
 
+function sleep(milliseconds) {
+  var start = new Date().getTime();
+  for (var i = 0; i < 1e7; i++) {
+    if ((new Date().getTime() - start) > milliseconds){
+      break;
+    }
+  }
+}
 
 db.Source.findAll().then(function (dbSources) {
   console.log(JSON.stringify(dbSources, null, 2))
   dbSources.forEach(dbSource => {
     newsapi.v2.everything({
       sources: dbSource.id,
-      from: "2018-05-01"
+      from: "2018-05-02",
+      to: "2018-05-02"
     }).then(response => {
       // console.log(JSON.stringify(response, null, 2));
       if (response.status == "ok") {
@@ -29,7 +38,10 @@ db.Source.findAll().then(function (dbSources) {
           article.source = article.source.id
           console.log(article)
           // process.exit()
-          db.Article.create(article).then(console.log(article))
+          db.Article.create(article).then(console.log(article)).catch(err => {
+            throw(err)
+            process.exit()
+          })
         });
       } else {
         console.log(JSON.stringify(response, null, 2));
@@ -37,7 +49,10 @@ db.Source.findAll().then(function (dbSources) {
       }
 
 
-    });
+    }).catch(err => {
+      console.log(err)
+      throw(err)
+    })
   });
 
 })
