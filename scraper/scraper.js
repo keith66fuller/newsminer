@@ -12,8 +12,9 @@ const Article = require('newspaperjs').Article
 
 
 let inputs = [
-    {
+    {   name: "Washingtom Examiner",
         seedUrl: 'https://www.washingtonexaminer.com/news',
+        sections: [''],
         selectors: ['.HeroTextBelow-media', '.TextSimplePromo-title', '.TextDescriptionPromo-title']
     },
     {
@@ -106,19 +107,88 @@ let inputs = [
     // }
 ]
 
-inputs.forEach(element => {
+shuffle(inputs).forEach(element => {
     getSite(element)
 });
 
-function getSite(obj) {
-    const seedUrl = obj.seedUrl
-    const selectors = obj.selectors
+async function metascraper(url) {
+    let article = {
+        author: [],
+        headline: null,
+        url: url,
+        imageUrl: null,
+        keyWords: []
+    }
+
+    var whoCares1 = await Article(url)
+        .then(result => {
+            //console.log("####RESULT:  "+JSON.stringify(result, null, 2))
+            article.author   = result.author
+            article.headline = result.title
+            article.imageUrl = result.topImage
+            article.keyWords = result.keywords
+            article.date     = result.date
+
+            for (var p in article) {
+                console.log("P=== "+p)
+                if (article[p] == "") {
+                    fbArticle = fallBackScrape(url)
+                    console.log("183",JSON.stringify(article, null, 2))
+                    console.log("184",JSON.stringify(fbArticle, null, 2))
+                    process.exit()
+                    for (var p in article) {
+                        if (article[p] == null) {
+                            if (fbArticle[p] != null) {
+                                article[p] = fbArticle[p]
+                            }
+                        }
+                    }
+                    break
+                }
+            }
+
+            // process.exit();
+        }).catch(reason => {
+            console.log(reason);
+            
+        })
+}
+
+async function fallBackScrape(url) {
+    let article = {}
+    console.log("115",url)
+    await request(url, function (error, response, body) {
+        if (!error && response.statusCode === 200) {
+            scrape(url, function (error, metadata) {
+
+                // process.exit()
+
+                console.log("METADATA: "+JSON.stringify(metadata))
+                article.author   = findId(metadata, ["author"])
+                article.date     = findId(metadata, ["published", "datePublished", "published_time", "modified", "dateModified", "modified_time"])
+                article.headline = findId(metadata, ["title", "headline"])
+                article.url      = findId(metadata, ["url", "canonical"])
+
+                console.log(statusCode,JSON.stringify(article))
+            });
+        } else {
+            console.log(statusCode,JSON.stringify(error))
+        }
+        return article
+    })
+    
+}
+
+
+function getSite(siteObj) {
+    const seedUrl   = siteObj.seedUrl
+    const selectors = siteObj.selectors
     const host = seedUrl.match(/https?:\/\/([^\/]+)/gi)
 
-    const request = require("request")
-    const cheerio = require('cheerio')
+    const request     = require("request")
+    const cheerio     = require('cheerio')
     const nodeScraper = require("node-scraper")
-    const scraper = nodeScraper(seedUrl, {
+    const scraper     = nodeScraper(seedUrl, {
         selectors: selectors
     });
     const scrape = require('html-metadata');
@@ -129,74 +199,12 @@ function getSite(obj) {
             content.forEach(item => {
                 (item.content).forEach(element => {
                     var c = cheerio.load(element.html)
-                    var targetUrl = c('a').attr('href')
-                    targetUrl = targetUrl.split('#')[0]
+                    var targetUrl = c('a').attr('href').split('#')[0]
                     if (!targetUrl.match(/^http/)) {
                         targetUrl = host + targetUrl
                     }
 
-                    let article = {
-                        author: [],
-                        headline: null,
-                        url: targetUrl,
-                        imageUrl: null,
-                        keyWords: []
-                    }
-
-                    async function metascraper() {
-                        var whoCares1 = await Article(targetUrl)
-                            .then(result => {
-                                console.log("####RESULT:  "+JSON.stringify(result, null, 2))
-                                article.author = result.author
-                                article.headline = result.title
-                                article.imageUrl = result.topImage
-                                article.keyWords = result.keywords
-                                article.date = result.date
-
-                                // process.exit();
-                            }).catch(reason => {
-                                console.log(reason);
-                                request(targetUrl, function (error, response, body) {
-                                    if (!error && response.statusCode === 200) {
-                                        scrape(targetUrl, function (error, metadata) {
-
-                                            // process.exit()
-
-
-                                            article.author   = findId(metadata, ["author"])
-                                            article.date     = findId(metadata, ["published", "datePublished", "published_time", "modified", "dateModified", "modified_time"])
-                                            article.headline = findId(metadata, ["title", "headline"])
-                                            article.url      = findId(metadata, ["url", "canonical"])
-                                        });
-                                    }
-                                })
-
-                            })
-                            
-                    
-
-
-                        var whoCares2 = await request(targetUrl, function (error, response, body) {
-                            if (!error && response.statusCode === 200) {
-                                scrape(targetUrl, function (error, metadata) {
-                                    console.log("####METADATA:  "+JSON.stringify(metadata, null, 2))
-                                    // process.exit()
-
-
-                                    // article.author   = findId(metadata, ["author"])
-                                    // article.date     = findId(metadata, ["published", "datePublished", "published_time", "modified", "dateModified", "modified_time"])
-                                    // article.headline = findId(metadata, ["title", "headline"])
-                                    // article.url      = findId(metadata, ["url", "canonical"])
-                                });
-                            } else {
-                                console.log("################# ERROR ON METADATA ###################")
-                            }
-                        })
-                    }
-
-                    async function whoCares() {
-                        var whatever = await metascraper();
-                    }
+                    let article  = metascraper(targetUrl)
 
                     
                 })
@@ -222,3 +230,22 @@ function findId(obj, id) {
         }
     }
 }
+
+function shuffle(array) {
+    var currentIndex = array.length, temporaryValue, randomIndex;
+  
+    // While there remain elements to shuffle...
+    while (0 !== currentIndex) {
+  
+      // Pick a remaining element...
+      randomIndex = Math.floor(Math.random() * currentIndex);
+      currentIndex -= 1;
+  
+      // And swap it with the current element.
+      temporaryValue = array[currentIndex];
+      array[currentIndex] = array[randomIndex];
+      array[randomIndex] = temporaryValue;
+    }
+  
+    return array;
+  }
