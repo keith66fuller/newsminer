@@ -1,8 +1,8 @@
 {
   "development": {
     "username": "root",
-    "password": "Chicag@1",
-    "database": "newsfeed",
+    "password": "ou812",
+    "database": "newsminer",
     "host": "127.0.0.1",
     "port": 3306,
     "dialect": "mysql"
