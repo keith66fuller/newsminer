@@ -18,11 +18,5 @@ module.exports = function (sequelize, DataTypes) {
     }]
   });
 
-  Article.associate = function (models) {
-    Article.hasOne(models.Source, {
-      foreignKey: 'id',
-      onDelete: "cascade"
-    })
-  };
   return Article;
 };

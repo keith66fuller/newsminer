@@ -9,5 +9,11 @@ module.exports = function (sequelize, DataTypes) {
         timestamps: false
     });
 
-    return Source;
+    Source.associate = function(models) {
+        Source.hasMany(models.Article, {
+          onDelete: "cascade"
+        });
+      };
+      
+      return Source;
 };
