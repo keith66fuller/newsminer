@@ -9,7 +9,13 @@ module.exports = function (sequelize, DataTypes) {
     firstName: DataTypes.STRING,
     lastName: DataTypes.STRING,
     email: DataTypes.STRING,
-    password: DataTypes.STRING
+    password: DataTypes.STRING,
+    sources: DataTypes.STRING,
+    customExcludedWords: DataTypes.STRING,
+    customInitialTimeRange: DataTypes.STRING,
+    maxWords: DataTypes.STRING,
+    maxArticles: DataTypes.STRING,
+    maxAuthors: DataTypes.STRING
   }, {
     timestamps: false,
     indexes: [{
@@ -17,12 +23,6 @@ module.exports = function (sequelize, DataTypes) {
       fields: ['email']
     }]
   });
-
-  User.associate = function(models) {
-    User.hasMany(models.Source, {
-      onDelete: "cascade"
-    });
-  };
 
   return User;
 };

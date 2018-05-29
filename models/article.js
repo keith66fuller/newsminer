@@ -6,8 +6,14 @@ module.exports = function (sequelize, DataTypes) {
       primaryKey: true
     },
     author: DataTypes.STRING,
-    title: DataTypes.STRING,
-    url: DataTypes.STRING,
+    title: {
+      type: DataTypes.STRING,
+      allowNull: false
+    },
+    url: {
+      type: DataTypes.STRING,
+      allowNull: false
+    },
     urlToImage: DataTypes.STRING,
     publishedAt: DataTypes.DATE
   }, {
