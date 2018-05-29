@@ -1,7 +1,21 @@
-const NewsAPI = require('newsapi');
-const newsapi = new NewsAPI('aaa06c5b808049bab494e222bec1381f');
-
 var db = require("./models");
+var apikey = ''
+
+db.globalSetting.findOne({
+  where: {
+    id: 'apikey'
+  },
+  include: [db.globalSetting]
+}).then(function(dbApikey) {
+  console.log('APIKEY'+dbApikey.value)
+  apikey = dbApikey.value
+  process.exit();
+  const NewsAPI = require('newsapi');
+const newsapi = new NewsAPI(apikey);
+
+})
+
+
 
 var newsQuery = {
   q: 'bitcoin',

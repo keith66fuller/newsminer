@@ -1,131 +1,131 @@
 $(document).ready(function() {
-  // Getting jQuery references to the post body, title, form, and author select
+  // Getting jQuery references to the article body, title, form, and source select
   var bodyInput = $("#body");
   var titleInput = $("#title");
   var cmsForm = $("#cms");
-  var authorSelect = $("#author");
+  var sourceSelect = $("#source");
   // Adding an event listener for when the form is submitted
   $(cmsForm).on("submit", handleFormSubmit);
-  // Gets the part of the url that comes after the "?" (which we have if we're updating a post)
+  // Gets the part of the url that comes after the "?" (which we have if we're updating a article)
   var url = window.location.search;
-  var postId;
-  var authorId;
-  // Sets a flag for whether or not we're updating a post to be false initially
+  var articleId;
+  var sourceId;
+  // Sets a flag for whether or not we're updating a article to be false initially
   var updating = false;
 
-  // If we have this section in our url, we pull out the post id from the url
-  // In '?post_id=1', postId is 1
-  if (url.indexOf("?post_id=") !== -1) {
-    postId = url.split("=")[1];
-    getPostData(postId, "post");
+  // If we have this section in our url, we pull out the article id from the url
+  // In '?article_id=1', articleId is 1
+  if (url.indexOf("?article_id=") !== -1) {
+    articleId = url.split("=")[1];
+    getArticleData(articleId, "article");
   }
-  // Otherwise if we have an author_id in our url, preset the author select box to be our Author
-  else if (url.indexOf("?author_id=") !== -1) {
-    authorId = url.split("=")[1];
+  // Otherwise if we have an source_id in our url, preset the source select box to be our Source
+  else if (url.indexOf("?source_id=") !== -1) {
+    sourceId = url.split("=")[1];
   }
 
-  // Getting the authors, and their posts
-  getAuthors();
+  // Getting the sources, and their articles
+  getSources();
 
-  // A function for handling what happens when the form to create a new post is submitted
+  // A function for handling what happens when the form to create a new article is submitted
   function handleFormSubmit(event) {
     event.preventDefault();
-    // Wont submit the post if we are missing a body, title, or author
-    if (!titleInput.val().trim() || !bodyInput.val().trim() || !authorSelect.val()) {
+    // Wont submit the article if we are missing a body, title, or source
+    if (!titleInput.val().trim() || !bodyInput.val().trim() || !sourceSelect.val()) {
       return;
     }
-    // Constructing a newPost object to hand to the database
-    var newPost = {
+    // Constructing a newArticle object to hand to the database
+    var newArticle = {
       title: titleInput
         .val()
         .trim(),
       body: bodyInput
         .val()
         .trim(),
-      AuthorId: authorSelect.val()
+      SourceId: sourceSelect.val()
     };
 
-    // If we're updating a post run updatePost to update a post
-    // Otherwise run submitPost to create a whole new post
+    // If we're updating a article run updateArticle to update a article
+    // Otherwise run submitArticle to create a whole new article
     if (updating) {
-      newPost.id = postId;
-      updatePost(newPost);
+      newArticle.id = articleId;
+      updateArticle(newArticle);
     }
     else {
-      submitPost(newPost);
+      submitArticle(newArticle);
     }
   }
 
-  // Submits a new post and brings user to blog page upon completion
-  function submitPost(post) {
-    $.post("/api/posts", post, function() {
+  // Submits a new article and brings user to blog page upon completion
+  function submitArticle(article) {
+    $.article("/api/articles", article, function() {
       window.location.href = "/blog";
     });
   }
 
-  // Gets post data for the current post if we're editing, or if we're adding to an author's existing posts
-  function getPostData(id, type) {
+  // Gets article data for the current article if we're editing, or if we're adding to an source's existing articles
+  function getArticleData(id, type) {
     var queryUrl;
     switch (type) {
-    case "post":
-      queryUrl = "/api/posts/" + id;
+    case "article":
+      queryUrl = "/api/articles/" + id;
       break;
-    case "author":
-      queryUrl = "/api/authors/" + id;
+    case "source":
+      queryUrl = "/api/sources/" + id;
       break;
     default:
       return;
     }
     $.get(queryUrl, function(data) {
       if (data) {
-        console.log(data.AuthorId || data.id);
-        // If this post exists, prefill our cms forms with its data
+        console.log(data.SourceId || data.id);
+        // If this article exists, prefill our cms forms with its data
         titleInput.val(data.title);
         bodyInput.val(data.body);
-        authorId = data.AuthorId || data.id;
-        // If we have a post with this id, set a flag for us to know to update the post
+        sourceId = data.SourceId || data.id;
+        // If we have a article with this id, set a flag for us to know to update the article
         // when we hit submit
         updating = true;
       }
     });
   }
 
-  // A function to get Authors and then render our list of Authors
-  function getAuthors() {
-    $.get("/api/authors", renderAuthorList);
+  // A function to get Sources and then render our list of Sources
+  function getSources() {
+    $.get("/api/sources", renderSourceList);
   }
-  // Function to either render a list of authors, or if there are none, direct the user to the page
-  // to create an author first
-  function renderAuthorList(data) {
+  // Function to either render a list of sources, or if there are none, direct the user to the page
+  // to create an source first
+  function renderSourceList(data) {
     if (!data.length) {
-      window.location.href = "/authors";
+      window.location.href = "/sources";
     }
     $(".hidden").removeClass("hidden");
     var rowsToAdd = [];
     for (var i = 0; i < data.length; i++) {
-      rowsToAdd.push(createAuthorRow(data[i]));
+      rowsToAdd.push(createSourceRow(data[i]));
     }
-    authorSelect.empty();
+    sourceSelect.empty();
     console.log(rowsToAdd);
-    console.log(authorSelect);
-    authorSelect.append(rowsToAdd);
-    authorSelect.val(authorId);
+    console.log(sourceSelect);
+    sourceSelect.append(rowsToAdd);
+    sourceSelect.val(sourceId);
   }
 
-  // Creates the author options in the dropdown
-  function createAuthorRow(author) {
+  // Creates the source options in the dropdown
+  function createSourceRow(source) {
     var listOption = $("<option>");
-    listOption.attr("value", author.id);
-    listOption.text(author.name);
+    listOption.attr("value", source.id);
+    listOption.text(source.name);
     return listOption;
   }
 
-  // Update a given post, bring user to the blog page when done
-  function updatePost(post) {
+  // Update a given article, bring user to the blog page when done
+  function updateArticle(article) {
     $.ajax({
       method: "PUT",
-      url: "/api/posts",
-      data: post
+      url: "/api/articles",
+      data: article
     })
       .then(function() {
         window.location.href = "/blog";

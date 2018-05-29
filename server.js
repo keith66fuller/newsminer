@@ -39,6 +39,6 @@ db.sequelize.sync().then(function() {
   });
 });
 
-require("./newsapimod")
+// require("./newsapimod")
 
 
