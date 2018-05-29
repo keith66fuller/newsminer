@@ -4,7 +4,9 @@ module.exports = function (sequelize, DataTypes) {
             type: DataTypes.STRING,
             primaryKey: true
         },
-        name: DataTypes.STRING
+        name: DataTypes.STRING,
+        oldest: DataTypes.DATE,
+        newest: DataTypes.DATE
     }, {
         timestamps: false
     });
