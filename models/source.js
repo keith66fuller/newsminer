@@ -4,16 +4,18 @@ module.exports = function (sequelize, DataTypes) {
             type: DataTypes.STRING,
             primaryKey: true
         },
-        name: DataTypes.STRING
+        name: DataTypes.STRING,
+        oldest: DataTypes.DATE,
+        newest: DataTypes.DATE
     }, {
         timestamps: false
     });
 
-    Source.associate = function (models) {
+    Source.associate = function(models) {
         Source.hasMany(models.Article, {
-            onDelete: "cascade"
+          onDelete: "cascade"
         });
-    };
-
-    return Source;
+      };
+      
+      return Source;
 };

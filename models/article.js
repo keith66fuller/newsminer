@@ -1,24 +1,28 @@
 module.exports = function (sequelize, DataTypes) {
   var Article = sequelize.define("Article", {
-    source: DataTypes.STRING,
+    id: {
+      type: DataTypes.INTEGER,
+      autoIncrement: true,
+      primaryKey: true
+    },
     author: DataTypes.STRING,
-    title: DataTypes.STRING,
+    title: {
+      type: DataTypes.STRING,
+      allowNull: false
+    },
     url: {
       type: DataTypes.STRING,
-      primaryKey: true
+      allowNull: false
     },
     urlToImage: DataTypes.STRING,
     publishedAt: DataTypes.DATE
   }, {
-    timestamps: false
+    timestamps: false,
+    indexes: [{
+      unique: true,
+      fields: ['url']
+    }]
   });
 
-  Article.associate = function(models) {
-    Article.belongsTo(models.Source, {
-      foreignKey: {
-        allowNull: false
-      }
-    });
-  };
   return Article;
 };

@@ -1,19 +1,30 @@
 {
   "development": {
+    "username": "hnzbqzi6sef6xabk",
+    "password": "q90e95aoamx6jxfv",
+    "database": "gl7htl0662syql2q",
+    "host": "zf4nk2bcqjvif4in.cbetxkdyhwsb.us-east-1.rds.amazonaws.com",
+    "port": 3306,
+    "dialect": "mysql",
+    "logging": true
+  },
+  "developmentA": {
     "username": "root",
     "password": "ou812",
     "database": "newsminer",
     "host": "127.0.0.1",
     "port": 3306,
-    "dialect": "mysql"
-  },
+    "dialect": "mysql",
+    "logging": false
+  }, 
   "heroku": {
     "username": "hnzbqzi6sef6xabk",
     "password": "q90e95aoamx6jxfv",
     "database": "gl7htl0662syql2q",
     "host": "zf4nk2bcqjvif4in.cbetxkdyhwsb.us-east-1.rds.amazonaws.com",
     "port": 3306,
-    "dialect": "mysql"
+    "dialect": "mysql",
+    "logging": false
   },
   "test": {
     "username": "root",
@@ -21,7 +32,8 @@
     "database": "database_test",
     "host": "127.0.0.1",
     "port": 3306,
-    "dialect": "mysql"
+    "dialect": "mysql",
+    "logging": false
   },
   "production": {
     "username": "root",
@@ -29,6 +41,7 @@
     "database": "database_production",
     "host": "127.0.0.1",
     "port": 3306,
-    "dialect": "mysql"
+    "dialect": "mysql",
+    "logging": false
   }
 }
