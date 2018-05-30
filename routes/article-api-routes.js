@@ -1,6 +1,8 @@
 const db = require("../models");
 const Sequelize = require("sequelize");
+
 const Op = Sequelize.Op;
+
 const utility = require("../utility/excludedWords")
 const excludedWords = utility.excludedWords
 
@@ -40,7 +42,7 @@ function processCounts(objArr) {
 function sortByCount(a, b) {
   if (a[1] > b[1])
     return -1;
-    if (a[1] < b[1])
+  if (a[1] < b[1])
     return 1;
   return 0;
 }
@@ -57,27 +59,23 @@ module.exports = function (app) {
 
   // POST route for getting all of the articles filtered by "query" which is in the JSON POST body.
   app.post("/api/articles", function (req, res) {
-    // var query = req.body
-    console.log("QUERY: " + JSON.stringify(query, null, 2))
-    var query = {
-      SourceId: {
-        [Op.or]: ["cnn", "bbc-news"]
-      },
-      author: {
-        [Op.or]: ["Laura Hudson",
-        "Brian Stelter",
-        "Analysis by Chris Cillizza, CNN Editor-at-large",
-        "Rebecca Berg, CNN",
-        "Alex Marquardt And Lawrence Crook Iii",
-        "Analysis by Oren Liebermann, CNN",
-        "macamilarinc",
-        "Kaitlan Collins, Sarah Westwood, Pamela Brown and Juana Summers, CNN",
-        "BBC News"
-        ]
-      }
-    };
+    console.log("REQUEST: " + JSON.stringify(req.body, null, 2))
+
+    let where = {}
+
+    if (req.body.sources) {
+      where.SourceId = { [Op.or]: req.body.sources }
+    }
+
+    if (req.body.authors) {
+      where.author = { [Op.or]: req.body.authors }
+    }
+
+    console.log("WHERE str: " + JSON.stringify(where, null, 2) + "\nWHERE o: " + where)
+
+
     db.Article.findAll({
-      where: query
+      where: where
     }).then(function (dbArticle) {
       // console.log("DBARTICLE: "+JSON.stringify(dbArticle, null, 2))
       let articles = []
@@ -131,7 +129,7 @@ module.exports = function (app) {
         ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
         // Process Sources
         incObj(sourcesObj, article.SourceId)
-        
+
 
         ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
         // Process article
@@ -139,7 +137,7 @@ module.exports = function (app) {
 
       });
 
-      let words   = processCounts(wordsObj)
+      let words = processCounts(wordsObj)
       let authors = processCounts(authorsObj)
       let sources = processCounts(sourcesObj)
 
