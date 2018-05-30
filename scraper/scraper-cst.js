@@ -1,9 +1,9 @@
-var seedUrl = 'http://www.chicagotribune.com/business/'
+var seedUrl = 'https://chicago.suntimes.com/section/news/'
 var request = require("request")
 const cheerio = require('cheerio')
 var nodeScraper = require("node-scraper")
 var scraper = nodeScraper(seedUrl, {
-  selectors: ['.trb_outfit_relatedListTitle']
+  selectors: ['.cst_article']
 });
 var scrape = require('html-metadata');
 scraper.scrape().on('done', function (err, statusCode, content) {
@@ -13,25 +13,24 @@ scraper.scrape().on('done', function (err, statusCode, content) {
     content.forEach(item => {
       (item.content).forEach(element => {
         var c = cheerio.load(element.html)
-        var targetUrl = 'http://www.chicagotribune.com' + c('a').attr('href')
+        var targetUrl = c('a').attr('href')
         targetUrl = targetUrl.split('#')[0]
         request(targetUrl, function (error, response, body) {
           if (!error && response.statusCode === 200) {
             scrape(targetUrl, function (error, metadata) {
-              var author=metadata.general.author
-              var item = ((metadata.schemaOrg.items).find(function(element) {
+              var author = metadata.general.author
+              var item = ((metadata.schemaOrg.items).find(function (element) {
                 if (element.properties.datePublished != null) {
                   return element.properties.datePublished
                 }
               }))
-              var datePublished=item.properties.datePublished[0]
-              var headline=item.properties.headline[0]
-              console.log(datePublished,author,headline)
+              var datePublished = item.properties.datePublished[0]
+              var headline = item.properties.headline[0]
+              console.log(datePublished, author, headline)
             });
           }
         })
       })
     });
-
   }
 });
