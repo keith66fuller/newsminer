@@ -3,9 +3,6 @@ const Sequelize = require("sequelize");
 const Op = Sequelize.Op;
 const utility = require("../utility/excludedWords")
 const excludedWords = utility.excludedWords
-var wordCount = {}
-var authorCount = {}
-var sourceCount = {}
 
 function sortByCount(arr, objCounts) {
   // arr:       an array of scalar values
@@ -23,8 +20,34 @@ function sortByCount(arr, objCounts) {
   //    barfoo: 13
   //  }
   // Output = [{'foobar':114},{},{},{}]
+
+  if (wordCount[a] > wordCount[b])
+    return -1;
+  if (wordCount[a] < wordCount[b])
+    return 1;
+  return 0;
+
 }
 
+function processCounts(objArr) {
+  let arrResult = []
+  for (var p in objArr) {
+    arrResult.push([p, objArr[p]])
+  }
+  return arrResult.sort(sortByCount)
+}
+
+function sortByCount(a, b) {
+  if (a[1] > b[1])
+    return -1;
+    if (a[1] < b[1])
+    return 1;
+  return 0;
+}
+
+function incObj(obj, p) {
+  obj[p] = (typeof obj[p] === "undefined") ? 1 : ++obj[p]
+}
 module.exports = function (app) {
 
   app.post("/api/query", function (req, res) {
@@ -32,50 +55,27 @@ module.exports = function (app) {
     res.send(JSON.stringify(req.body.params, null, 2))
   })
 
-  function wordSort(a, b) {
-    if (wordCount[a] > wordCount[b])
-      return -1;
-    if (wordCount[a] < wordCount[b])
-      return 1;
-    return 0;
-  }
-  function authorSort(a, b) {
-    if (authorCount[a] > authorCount[b])
-      return -1;
-    if (authorCount[a] < authorCount[b])
-      return 1;
-    return 0;
-  }
-  function sourceSort(a, b) {
-    if (sourceCount[a] > sourceCount[b])
-      return -1;
-    if (sourceCount[a] < sourceCount[b])
-      return 1;
-    return 0;
-  }
-  // GET route for getting all of the articles
-  // Filtered by "query" which is in the JSON POST body.
+  // POST route for getting all of the articles filtered by "query" which is in the JSON POST body.
   app.post("/api/articles", function (req, res) {
-    var authors = {}
-    var query = req.body
-    console.log("QUERY: "+JSON.stringify(query, null, 2))
-    // var query = {
-    //   SourceId: {
-    //     [Op.or]: ["cnn", "bbc-news"]
-    //   },
-    //   author: {
-    //     [Op.or]: ["Laura Hudson",
-    //     "Brian Stelter",
-    //     "Analysis by Chris Cillizza, CNN Editor-at-large",
-    //     "Rebecca Berg, CNN",
-    //     "Alex Marquardt And Lawrence Crook Iii",
-    //     "Analysis by Oren Liebermann, CNN",
-    //     "macamilarinc",
-    //     "Kaitlan Collins, Sarah Westwood, Pamela Brown and Juana Summers, CNN",
-    //     "BBC News"
-    //     ]
-    //   }
-    // };
+    // var query = req.body
+    console.log("QUERY: " + JSON.stringify(query, null, 2))
+    var query = {
+      SourceId: {
+        [Op.or]: ["cnn", "bbc-news"]
+      },
+      author: {
+        [Op.or]: ["Laura Hudson",
+        "Brian Stelter",
+        "Analysis by Chris Cillizza, CNN Editor-at-large",
+        "Rebecca Berg, CNN",
+        "Alex Marquardt And Lawrence Crook Iii",
+        "Analysis by Oren Liebermann, CNN",
+        "macamilarinc",
+        "Kaitlan Collins, Sarah Westwood, Pamela Brown and Juana Summers, CNN",
+        "BBC News"
+        ]
+      }
+    };
     db.Article.findAll({
       where: query
     }).then(function (dbArticle) {
@@ -83,16 +83,10 @@ module.exports = function (app) {
       let articles = []
 
       let wordsObj = {}
-      let tempWords = []
-      let words = []
-
       let authorsObj = {}
-      let tempAuthors = []
-      let authors = []
 
       let sourcesObj = {}
-      let tempSources = []
-      let sources = []
+
       dbArticle.forEach(article => {
         ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
         // Process Words
@@ -100,8 +94,7 @@ module.exports = function (app) {
         article.title.split(" ").forEach(function (word) {
           // console.log("WORD: "+word)
           if (excludedWords.indexOf(word.toLowerCase()) == -1 && word.match(/[a-z]+/i)) {
-            wordCount[word] = (typeof wordCount[word] === "undefined") ? 1 : ++wordCount[word]
-            wordsObj[word] = wordCount[word]
+            incObj(wordsObj, word)
           }
         })
 
@@ -109,26 +102,36 @@ module.exports = function (app) {
         // Process Authors
         //  Split authors string on commas, dashes, "by", and "and"
         if (typeof article.author != 'undefined' && article.author != null) {
-          console.log("ORIGINAL AUTHOR: "+article.author)
+          // console.log("ORIGINAL AUTHOR: " + article.author)
           article.author.split(/ +(at|and|by) +/i).forEach(a => {
-          a.split(/ +- +| *, */).forEach(author => {
-              author.trim()
-              if (author == "") { return }
-              if (author.toLowerCase() == article.SourceId.toLowerCase()) { return }
-              if (! author.match(/[a-z]+/i)) { return }
-              if (["a","at","by", "and"].indexOf(author.toLowerCase()) != -1) { return }
-              console.log("\tAUTHOR: "+author)
-              authorCount[author] = (typeof authorCount[author] === "undefined") ? 1 : ++authorCount[author]
-              authorsObj[author] = authorCount[author]
+            a.split(/ +- +| *, */).forEach(author => {
+              author = author.trim()
+              if (author == "") {
+                // Reject blank author
+                return
+              }
+              if (author.toLowerCase() == article.SourceId.toLowerCase()) {
+                //reject author that is the same as source
+                return
+              }
+              if (!author.match(/[a-z]+/i)) {
+                //reject author with no alpha characters
+                return
+              }
+              if (["a", "at", "by", "and"].indexOf(author.toLowerCase()) != -1) {
+                //reject bogus parts of speech authors
+                return
+              }
+              // console.log("\tAUTHOR: " + author)
+              incObj(authorsObj, author)
             })
           });
         }
 
         ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
         // Process Sources
-        let source = article.SourceId
-        sourceCount[source] = (typeof sourceCount[source] === "undefined") ? 1 : ++sourceCount[source]
-        sourcesObj[source] = sourceCount[source]
+        incObj(sourcesObj, article.SourceId)
+        
 
         ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
         // Process article
@@ -136,31 +139,9 @@ module.exports = function (app) {
 
       });
 
-      ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
-      // Process Words
-      for (var p in wordsObj) { tempWords.push(p) }
-      tempWords.sort(wordSort)
-      for (var i = 0; i<tempWords.length; i++) {
-        words.push( [ tempWords[i], wordCount[tempWords[i]] ] )
-      }
-
-      ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
-      // Process Authors
-
-      for (var p in authorsObj) { tempAuthors.push(p) }
-      tempAuthors.sort(authorSort)
-      for (var i = 0; i<tempAuthors.length; i++) {
-        authors.push( [ tempAuthors[i], authorCount[tempAuthors[i]] ] )
-      }
-
-      ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
-      // Process Sources
-
-      for (var p in sourcesObj) { tempSources.push(p) }
-      tempSources.sort(sourceSort)
-      for (var i = 0; i<tempSources.length; i++) {
-        sources.push( [ tempSources[i], sourceCount[tempSources[i]] ] )
-      }
+      let words   = processCounts(wordsObj)
+      let authors = processCounts(authorsObj)
+      let sources = processCounts(sourcesObj)
 
       ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
       // Response Object
