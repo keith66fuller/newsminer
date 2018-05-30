@@ -5,6 +5,7 @@ const utility = require("../utility/excludedWords")
 const excludedWords = utility.excludedWords
 var wordCount = {}
 var authorCount = {}
+var sourceCount = {}
 
 function sortByCount(arr, objCounts) {
   // arr:       an array of scalar values
@@ -45,6 +46,13 @@ module.exports = function (app) {
       return 1;
     return 0;
   }
+  function sourceSort(a, b) {
+    if (sourceCount[a] > sourceCount[b])
+      return -1;
+    if (sourceCount[a] < sourceCount[b])
+      return 1;
+    return 0;
+  }
   // GET route for getting all of the articles
   // Filtered by "query" which is in the JSON POST body.
   app.post("/api/articles", function (req, res) {
@@ -72,15 +80,21 @@ module.exports = function (app) {
       where: query
     }).then(function (dbArticle) {
       // console.log("DBARTICLE: "+JSON.stringify(dbArticle, null, 2))
-      var wordsObj = {}
-      var tempWords = []
-      var words = []
+      let articles = []
 
-      var authorsObj = {}
-      var tempAuthors = []
-      var authors = []
+      let wordsObj = {}
+      let tempWords = []
+      let words = []
+
+      let authorsObj = {}
+      let tempAuthors = []
+      let authors = []
+
+      let sourcesObj = {}
+      let tempSources = []
+      let sources = []
       dbArticle.forEach(article => {
-        //
+        ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
         // Process Words
         // console.log(article.title)
         article.title.split(" ").forEach(function (word) {
@@ -91,7 +105,7 @@ module.exports = function (app) {
           }
         })
 
-        //
+        ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
         // Process Authors
         //  Split authors string on commas, dashes, "by", and "and"
         if (typeof article.author != 'undefined' && article.author != null) {
@@ -108,46 +122,54 @@ module.exports = function (app) {
               authorsObj[author] = authorCount[author]
             })
           });
-          
         }
 
-
-
-        //
+        ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
         // Process Sources
+        let source = article.SourceId
+        sourceCount[source] = (typeof sourceCount[source] === "undefined") ? 1 : ++sourceCount[source]
+        sourcesObj[source] = sourceCount[source]
 
+        ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+        // Process article
+        articles.push(article)
 
       });
-      for (var p in wordsObj) {
-        tempWords.push(p)
-      }
+
+      ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+      // Process Words
+      for (var p in wordsObj) { tempWords.push(p) }
       tempWords.sort(wordSort)
       for (var i = 0; i<tempWords.length; i++) {
-        // console.log(tempWords[i],wordCount[tempWords[i]])
-        words.push({
-          word: tempWords[i],
-          count: wordCount[tempWords[i]]
-        })
+        words.push( [ tempWords[i], wordCount[tempWords[i]] ] )
       }
 
-      for (var p in authorsObj) {
-        tempAuthors.push(p)
-      }
+      ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+      // Process Authors
+
+      for (var p in authorsObj) { tempAuthors.push(p) }
       tempAuthors.sort(authorSort)
       for (var i = 0; i<tempAuthors.length; i++) {
-        // console.log(tempauthors[i],authorCount[tempauthors[i]])
-        authors.push({
-          author: tempAuthors[i],
-          count: authorCount[tempAuthors[i]]
-        })
+        authors.push( [ tempAuthors[i], authorCount[tempAuthors[i]] ] )
       }
 
+      ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+      // Process Sources
 
+      for (var p in sourcesObj) { tempSources.push(p) }
+      tempSources.sort(sourceSort)
+      for (var i = 0; i<tempSources.length; i++) {
+        sources.push( [ tempSources[i], sourceCount[tempSources[i]] ] )
+      }
 
+      ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+      // Response Object
 
       res.json({
+        articles: articles,
         words: words,
-        authors: authors
+        authors: authors,
+        sources: sources
       });
     });
   });

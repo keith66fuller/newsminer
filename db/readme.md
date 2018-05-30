@@ -1,0 +1,1 @@
+This /db directory contains snapshots of important database tables.  These are useful in the event we lose our database or are unable to query APIs.
