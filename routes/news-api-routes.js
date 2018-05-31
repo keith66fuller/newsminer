@@ -7,6 +7,7 @@ module.exports = function (app) {
   }).then(dbApikey => {
     const NewsAPI = require('newsapi');
     const newsapi = new NewsAPI(dbApikey.value)
+
     // For every source in the database, query newsapi to get the number of results
     // db.Source.findAll().then(function (dbSources) {
     //   // console.log(JSON.stringify(dbSources, null, 2))

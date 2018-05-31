@@ -65,15 +65,18 @@ module.exports = function (app) {
     let where = {}
 
     if (req.body.sources) {
-      where.SourceId = { [Op.or]: req.body.sources }
+      where.SourceId = req.body.sources
+      // where.SourceId = { [Op.or]: req.body.sources }
     }
 
     if (req.body.authors) {
-      where.author = { [Op.like]: '%'+req.body.authors+'%' }
+      where.author = req.body.authors
+      // where.author = { [Op.or]: req.body.authors }
     }
 
     if (req.body.words) {
-      where.title = { [Op.like]: '%'+req.body.words+'%' }
+      // where.title = { [Op.like]: '%'+req.body.words+'%' }
+      where.title = { [Op.regexp]: '.+'+req.body.words+'.+' }
     }
 
     console.log("WHERE str: " + JSON.stringify(where, null, 2) + "\nWHERE o: " + where)
