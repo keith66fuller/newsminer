@@ -50,6 +50,7 @@ function sortByCount(a, b) {
 function incObj(obj, p) {
   obj[p] = (typeof obj[p] === "undefined") ? 1 : ++obj[p]
 }
+
 module.exports = function (app) {
 
   app.post("/api/query", function (req, res) {
@@ -62,14 +63,13 @@ module.exports = function (app) {
     console.log("REQUEST: " + JSON.stringify(req.body, null, 2))
 
     let where = {}
-    let like  = ""
 
     if (req.body.sources) {
       where.SourceId = { [Op.or]: req.body.sources }
     }
 
     if (req.body.authors) {
-      where.author = { [Op.or]: req.body.authors }
+      where.author = { [Op.like]: '%'+req.body.authors+'%' }
     }
 
     if (req.body.words) {

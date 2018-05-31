@@ -36,7 +36,7 @@ $(document).ready(function () {
         console.log("Sources: " + JSON.stringify(sources));
         console.log("Authors: " + JSON.stringify(authors));
 
-        // query.authors = authors;
+        query.authors = authors;
 
         [
             ["#word_sel",   words],
@@ -45,7 +45,7 @@ $(document).ready(function () {
         ].forEach(e => {
             selectUpdate(e[0], e[1])
         });
-
+        console.log("QUERY PRE POST: "+JSON.stringify(query, null, 2))
         $.post("/api/articles/", query);
     }
 
