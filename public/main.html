@@ -18,16 +18,20 @@
 
         /* Set height of the grid so .sidenav can be 100% (adjust as needed) */
         .row.content {
-            height: 600px
+            height: 600px;
         }
 
         /* Set gray background color and 100% height */
         .sidenav {
-            padding-top: 20px;
+            padding-top: 40px;
             background-color: black;
             height: 100%;
         }
-
+        .sidenav-right {
+            padding-top: 40px;
+            background-color: black;
+            height: 100%;
+        }
         /* Set black background color, white text and some padding */
         footer {
             background-color:maroon;
@@ -70,8 +74,9 @@
                     <span class="icon-bar"></span>
                     <span class="icon-bar"></span>
                 </button>
-                <a class="navbar-brand" href="#">Logo</a>
+                <a class="navbar-brand" href="#">Newsies</a>
             </div>
+
             <div class="collapse navbar-collapse" id="myNavbar">
                 <ul class="nav navbar-nav navbar-right">
                     <li>
@@ -95,8 +100,8 @@
             </div>
             <div class="col-sm-6 text-left">
                 <h1 class = "text-center">Your News</h1>
-                <br>
-                <!-- <table style="width:100%">
+                <!-- <br>
+                <table style="width:100%">
                         <tr>
                           <th>Author</th>
                           <th>Headline</th> 
@@ -112,11 +117,12 @@
                           <td><b>It's Gonna Be A Hot One</b></td> 
                           <td>Sun Times</td>
                         </tr>
-                      </table> -->
-                      <br> 
+                      </table>
+                      <br>  -->
                       <div class="container col-sm-12">
                         <h2>Article</h2>
                         <div class="well articles">
+                        <object data="placeholder.jpeg"></object>
                         <p>Healine</p>
                         <p>Byline</p>
                         </div>
@@ -145,7 +151,7 @@
                 <!-- <h3>Test</h3>
                 <p>Lorem ipsum...</p> -->
             </div>
-            <div class="col-sm-3 sidenav">
+            <div class="col-sm-3 sidenav-right">
                     <div class="well">
                         <p>Tag Cloud</p>
                     </div>
