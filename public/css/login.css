@@ -1,0 +1,58 @@
+/* CSS STYLESHEET FOR LOGIN PAGE */
+
+/* Remove the navbar's default margin-bottom and rounded borders */
+.navbar {
+    margin-bottom: 0;
+    border-radius: 0;
+    background-color: black !important;
+    color: white;
+}
+
+.navbar:hover {
+    color: grey;
+}
+
+body {
+    padding-top: 55px;
+}
+
+.a-footer {
+    color: white;
+}
+
+a:hover {
+    color: grey;
+    text-decoration: none;
+    cursor:pointer;
+}
+
+/* .row.content {
+    border: 1px solid black;
+} */
+
+#google-login, #github-login {
+    color: black !important;
+    border: 1px solid black;
+    padding: 15px;
+}
+
+#google-login:hover, #github-login:hover {
+    color: grey !important;
+}
+
+/* Set black background color, white text and some padding */
+footer {
+    background-color:black;
+    color: white;
+    padding: 15px;
+}
+
+footer {
+    background-color:black;
+    color: white;
+    padding: 15px;
+}
+
+.logo {
+    background-color: black;
+}
