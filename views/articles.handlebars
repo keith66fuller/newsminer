@@ -1,0 +1,27 @@
+<h1>NewsMiner Articles</h1>
+
+<p>Articles by Source</p>
+
+<div class="container">
+  <h2>Sources</h2>
+  
+  <table class="table table-hover">
+    <thead>
+      <tr>
+        <th>Author</th>
+        <th></th>
+        <th>Title</th>
+      </tr>
+    </thead>
+    <tbody style="text-align: left;">
+      {{#each articles}}
+        <tr>
+            <td>{{this.author}}</td>
+            <td><img src="{{this.urlToImage}}" alt=""  width="70"></td>
+            <td><a href="#" onClick="window.open('{{this.url}}', '_blank')">{{this.title}}</a></td>
+        </tr>
+      {{/each}}
+    </tbody>
+  </table>
+</div>
+<img src="" alt="" sizes="" srcset="">
