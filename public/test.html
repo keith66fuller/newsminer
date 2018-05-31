@@ -2,7 +2,7 @@
 <html lang="en">
 
 <head>
-    <title>News</title>
+    <title>News Miner Test</title>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
@@ -13,14 +13,32 @@
 
 <body>
 
-<form name="form">
-
-<input type="submit" value="Submit">
-
-</form>
+    <form name="form">
 
 
-<button class="goButton" >GO</button>
+
+        <div class="form-group">
+            <label for="word_sel">Filter by Word</label>
+            <select class="form-control" id="word_sel">
+                    <option>Pick a word on which to filter</option>
+            </select>
+        </div>
+
+        <div class="form-group">
+            <label for="author_sel">Filter by Author</label>
+            <select class="form-control" id="author_sel">
+                    <option>Pick an author on which to filter</option>
+            </select>
+        </div>
+
+        <div class="form-group">
+            <label for="source_sel">Filter by Source</label>
+            <select class="form-control" id="source_sel">
+                <option>Pick a source on which to filter</option>
+            </select>
+        </div>
+
+        <button type="button" class="btn btn-danger">Reset to Default Query</button>
 
 </body>
 

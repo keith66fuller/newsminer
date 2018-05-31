@@ -31,9 +31,8 @@ require("./routes/html-routes.js")(app);
 require("./routes/source-api-routes.js")(app);
 require("./routes/article-api-routes.js")(app);
 require("./routes/user-api-routes.js")(app);
+require("./routes/news-api-routes.js")(app);
 
-// Get articles from API in background
-require("./newsapi/newsapimod")
 
 // Syncing our sequelize models and then starting our Express app
 // =============================================================
