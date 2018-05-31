@@ -4,8 +4,8 @@ module.exports = function(app) {
   app.get("/api/sources", function(req, res) {
       include: [db.Article]
     db.Source.findAll({
-    }).then(function(dbSources) {
-      res.json(dbSources);
+    }).then(function(dbSource) {
+      res.json(dbSource);
     });
   });
 

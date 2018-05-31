@@ -99,6 +99,9 @@ module.exports = function (app) {
         // console.log(article.title)
         article.title.split(" ").forEach(function (word) {
           // console.log("WORD: "+word)
+
+          //trim punctuation from word
+          word = word.replace(/^[^a-z]+|[^a-z]+$/gi, "");
           if (excludedWords.indexOf(word.toLowerCase()) == -1 && word.match(/[a-z]+/i)) {
             incObj(wordsObj, word)
           }

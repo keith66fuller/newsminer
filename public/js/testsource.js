@@ -16,7 +16,8 @@ $(document).ready(function () {
 
     $('table').on('click', 'tr', null, function(event) {
         console.log('ROW '+$(this).data('id')+' clicked.');
-        
+        window.open('/source/'+$(this).data('id'));
+
     })
 
 
