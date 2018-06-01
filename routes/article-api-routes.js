@@ -34,7 +34,7 @@ function sortByCount(arr, objCounts) {
 function processCounts(objArr) {
   let arrResult = []
   for (var p in objArr) {
-    arrResult.push([p, objArr[p]])
+    arrResult.push({p: objArr[p]})
   }
   return arrResult.sort(sortByCount)
 }
@@ -105,6 +105,8 @@ module.exports = function (app) {
           if (excludedWords.indexOf(word.toLowerCase()) == -1 && word.match(/[a-z]+/i)) {
             incObj(wordsObj, word)
           }
+        }).then(function() {
+          console.log("wordsObj "+JSON.stringify(wordsObj, null, 2))
         })
 
         ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
@@ -148,7 +150,7 @@ module.exports = function (app) {
 
       });
 
-      let words = processCounts(wordsObj)
+      let words   = processCounts(wordsObj)
       let authors = processCounts(authorsObj)
       let sources = processCounts(sourcesObj)
 
