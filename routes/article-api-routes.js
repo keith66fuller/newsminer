@@ -39,6 +39,17 @@ function processCounts(objArr) {
   return arrResult.sort(sortByCount)
 }
 
+function makeWordCloud(objArr) {
+  let arrResult = []
+  for (var p in objArr) {
+    arrResult.push({
+      key: p,
+      value: objArr[p]
+    })
+  }
+  return arrResult
+}
+
 function sortByCount(a, b) {
   if (a[1] > b[1])
     return -1;
@@ -148,18 +159,16 @@ module.exports = function (app) {
 
       });
 
-      let words = processCounts(wordsObj)
-      let authors = processCounts(authorsObj)
-      let sources = processCounts(sourcesObj)
 
       ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
       // Response Object
 
       res.json({
         articles: articles,
-        words: words,
-        authors: authors,
-        sources: sources
+        words:   processCounts(wordsObj),
+        authors: processCounts(authorsObj),
+        sources: processCounts(sourcesObj),
+        wordcloud: makeWordCloud(wordsObj)
       });
     });
   });
