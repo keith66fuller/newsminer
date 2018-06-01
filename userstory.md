@@ -1,7 +1,7 @@
 # Description
-AS A...book editor.
-I WANT...a function that will give me a title according to the AP style guide.
-SO THAT...I don't have to think about it and have books titled automatically.
+AS A...news junkie.
+I WANT...a webpage where I can pull news from a ton of sources and filter based on my preferences
+SO THAT...I don't have to go to different websites to find different articles.
 
 # Acceptance criteria
 -GIVEN...that I have a title with numbers in it
