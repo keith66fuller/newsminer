@@ -2,7 +2,6 @@
 <html lang="en">
 
 <head>
-
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
@@ -10,7 +9,8 @@
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css" integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm"
         crossorigin="anonymous">
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
-    <link rel="stylesheet" type="text/css" media="screen" href="./css/main.css">
+    <link rel="stylesheet" type="text/css" media="screen" href="./css/login.css">
+    <script src="https://www.gstatic.com/firebasejs/4.12.1/firebase.js"></script>
 </head>
 
 <body>
@@ -23,14 +23,13 @@
             </button>
             <div class="collapse navbar-collapse" id="navbarResponsive">
                 <ul class="navbar-nav ml-auto">
-                    <li class="nav-item">
+                    <li class="nav-item active">
                         <a class="nav-link" href="#">Home
                             <span class="sr-only">(current)</span>
                         </a>
                     </li>
-                    <li class="nav-item active">
+                    <li class="nav-item">
                         <a class="nav-link" href="./main.html">Main</a>
-                            <span class="sr-only">(current)</span>
                     </li>
                     <li class="nav-item">
                         <a class="nav-link" href="./user-setup.html">Profile</a>
@@ -43,52 +42,42 @@
         </div>
     </nav>
 
-
-    <div class="jumbotron jumbotron-fluid">
-        <div class="container word-cloud">
-            <h1 class="display-4">WORD CLOUD</h1>
-            <p class="lead">This is where our word cloud would go</p>
+    <div class="container-fluid text-center">
+        <div class="row content">
+            <div class="col-sm-12">
+                <div class="card-body">
+                    <img class="logo" src="./img/news-miner.png">
+                    <br>
+                    <br>
+                    <p>Your Daily Source for All Things News</p>
+                </div>
+            </div>
         </div>
     </div>
 
     <div class="container-fluid text-center">
         <div class="row content">
-            <div class="col-sm-8 text-left">
-                <h1 class="text-center">Your News</h1>
-                <br>
-                <table style="width:100%">
-                    <tr>
-                        <th>Author</th>
-                        <th>Headline</th>
-                        <th>Source</th>
-                    </tr>
-                    <tr>
-                        <td>Keith</td>
-                        <td>All Your Base Are Belong To Us!</td>
-                        <td>Tribune</td>
-                    </tr>
-                    <tr>
-                        <td>James</td>
-                        <td>It's Gonna Be A Hot One</td>
-                        <td>Sun Times</td>
-                    </tr>
-                </table>
-            </div>
-            <div class="col-sm-4 sidenav">
-                <div class="well">
-                    <p>FILTER AREA</p>
+            <div class="col-sm-12">
+                <div class="card-body">
+                    <a href="#" id="google-login">
+                        <img src="./img/google.jpg" alt="Google" height="42" width="42">Login with Google
+                    </a>
+                </div>
+                <div class="card-body">
+                    <a href="#" id="github-login">
+                        <img src="./img/github.png" alt="Github" height="42" width="42">Login with GitHub
+                    </a>
                 </div>
             </div>
         </div>
     </div>
-    
+
     <footer class="container-fluid text-center">
         <p>&copy; 2018 AllYourBase-AreBelongToUs</p>
         <a class="a-footer" href="https://dashboard.heroku.com/apps/salty-taiga-82539">Heroku</a>
         <br>
         <a class="a-footer" href="https://github.com/allYourBase-AreBelongToUs/project_2/tree/master">Github</a>
     </footer>
-
 </body>
 
 </html>

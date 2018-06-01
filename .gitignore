@@ -60,7 +60,5 @@ typings/
 # next.js build output
 .next
 
-# ignore a file Type
-*.json
-
-/config/config.json
+# config.json
+#config/config.json
