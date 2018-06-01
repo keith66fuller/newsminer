@@ -1,0 +1,113 @@
+{
+    "general": {
+        "appleTouchIcons": [
+            {
+                "href": "http://www.trbas.com/jive/prod/common/images/chinews-apple-touch-icon.1q2w3_94554d959ec79959c59a94283f117703.png"
+            }
+        ],
+        "author": "George Houde",
+        "canonical": "http://www.chicagotribune.com/news/local/breaking/ct-met-donnie-rudd-life-insurance-20171017-story.html",
+        "description": "Prosecutors will be able to introduce life insurance information at the trial of a former Chicago-area attorney charged with the murder of his young bride.",
+        "robots": "noodp, noydir",
+        "title": "Life insurance details to be allowed at trial of man accused in 1973 death of wife - Chicago Tribune",
+        "lang": "en-US"
+    },
+    "openGraph": {
+        "title": "Life insurance details to be allowed at trial of man accused in 1973 death of wife",
+        "description": "Prosecutors will be able to introduce life insurance information at the trial of a former Chicago-area attorney charged with the murder of his young bride.",
+        "page_id": "5953023255",
+        "app_id": "306836229411287",
+        "type": "article",
+        "url": "http://www.chicagotribune.com/news/local/breaking/ct-met-donnie-rudd-life-insurance-20171017-story.html",
+        "image": {
+            "url": "http://www.trbimg.com/img-59e67b34/turbine/ct-met-donnie-rudd-life-insurance-20171017"
+        },
+        "site_name": "chicagotribune.com",
+        "content_tier": "metered",
+        "pages": [
+            "5953023255",
+            "104061989632161",
+            "330360537007411",
+            "264870045299",
+            "73734231949",
+            "53310156364",
+            "40762490776",
+            "60569705796",
+            "121922684499844",
+            "182379588445160",
+            "62915602634",
+            "1987930441432108",
+            "119608021389933",
+            "745745225518281"
+        ]
+    },
+    "schemaOrg": {
+        "items": [
+            {
+                "properties": {
+                    "xpath": [
+                        "/html/head/meta[@name='Description']/@content",
+                        "/html/head/meta[@property='og:title']/@content"
+                    ]
+                },
+                "type": [
+                    "http://schema.org/SpeakableSpecification"
+                ]
+            },
+            {
+                "properties": {
+                    "articleSection": [
+                        "/news/local/#nt=breadcrumb",
+                        "/news/local/breaking/#nt=breadcrumb",
+                        "/news/#nt=breadcrumb"
+                    ],
+                    "author": [
+                        "George Houde"
+                    ],
+                    "dateModified": [
+                        "2017-10-17T14:50:43-0700"
+                    ],
+                    "image": [
+                        ""
+                    ],
+                    "datePublished": [
+                        "2017-10-17T16:50:00CDT"
+                    ],
+                    "headline": [
+                        "Life insurance details to be allowed at trial of man accused in 1973 death of wife"
+                    ],
+                    "isAccessibleForFree": [
+                        "False"
+                    ],
+                    "articleBody": [
+                        "\n                    \n                        \n                          Prosecutors will be able to introduce life insurance information at the trial of a former Chicago-area attorney charged with killing his young bride more than four decades ago, a Cook County judge ruled Tuesday.Judge Marc Martin issued the ruling in the case against Donnie Rudd, formerly of Rolling Meadows, who is facing two counts of first-degree murder in the 1973 death of Noreen Kumeta Rudd.Prosecutors argued in previous hearings that Rudd, 75, persuaded Noreen to take out the maximum life insurance policies offered to employees by the Quaker Oats Co. Both worked for the business in Barrington at the time, Rudd as a patent attorney and Noreen as a librarian.After she died in a car accident that prosecutors say was staged by her husband, he collected $120,000 in insurance proceeds, Assistant State’s Attorney Maria McCarthy told Martin at a hearing Oct. 6. It was the motive for killing her, she said.\n            \n            \n  “He killed her for the proceeds,” McCarthy argued. “Noreen meant nothing to him. She was a brief blip on the screen of his life.”Defense attorney Timothy Grace, seeking to keep the insurance information out of the case, argued that the information was irrelevant.“There is no evidence of any of this,” Grace said at the Oct. 6 hearing. “There is no evidence to establish that (my client) knew he would benefit. All we know is that he received money.”Citing precedent, Martin ruled that the insurance constituted evidence that could be allowed at trial.\n  \n        Noreen Rudd was 19 when she died and had been married to Rudd for 27 days, authorities said. Rudd staged the car accident and told police she was thrown from the car and struck her head on a rock when he was forced off Dundee Road in Barrington Hills, prosecutors allege.The case was ruled an accident until Arlington Heights police investigators exhumed her body in 2013 and pathologists declared her death a homicide. Police obtained a warrant and arrested Rudd in Sugar Land, Texas, where he had been living.Police were reviewing the 1991 killing of an Arlington Heights woman in which Rudd remains a suspect, leading them to review Noreen Rudd’s death,
+authorities said.Rudd’s next court date is Dec. 14 in Rolling Meadows branch court. No trial date has been set. He remains free on $4 million bond.\n        \n            George Houde is a freelance reporter.RELATEDMan accused
+of killing wife in '73 wants statements to police quashed »Ex-school board member indicted in alleged killing of wife in '73 »\n      \n\n      \n\n                      "
+                    ],
+                    "hasPart": [
+                        {
+                            "properties": {
+                                "cssSelector": [
+                                    ".trb_ar_bd"
+                                ],
+                                "isAccessibleForFree": [
+                                    "False"
+                                ]
+                            },
+                            "type": [
+                                "http://schema.org/WebPageElement"
+                            ]
+                        }
+                    ]
+                },
+                "type": [
+                    "http://schema.org/Article"
+                ]
+            }
+        ]
+    },
+    "twitter": {
+        "card": "summary",
+        "site": "@chicagotribune"
+    }
+}
