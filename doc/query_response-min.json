@@ -1,0 +1,98 @@
+{
+    "articles": [
+        {
+            "id": 489,
+            "author": "obayda",
+            "title": "السعودية تكسب الاحترام أمام إيطاليا وتونس تحرج البرتغال",
+            "url": "https://arabic.cnn.com/sport/2018/05/29/saudi-arabia-italy-tunisia-portugal",
+            "urlToImage": "https://i.cdn.turner.com/dr/cnnarabic/cnnarabic/release/sites/default/files/styles/og_image/public/image/GettyImages-963372604.jpg?itok=MfDhMpVR",
+            "publishedAt": "2018-05-28T20:44:44.000Z",
+            "SourceId": "cnn"
+        },
+        {
+            "id": 490,
+            "author": "Kevin Liptak, CNN",
+            "title": "Trump ramps up pressure to get North Korea summit on track - CNN",
+            "url": "https://www.cnn.com/2018/05/28/politics/north-korea-trump-summit/index.html",
+            "urlToImage": "https://cdn.cnn.com/cnnnext/dam/assets/180510111821-trump-kim-jong-summit-clean-051118-restricted-super-tease.jpg",
+            "publishedAt": "2018-05-28T20:06:00.000Z",
+            "SourceId": "cnn"
+        },
+        {
+            "id": 491,
+            "author": "NULL",
+            "title": "Pilot accused in plot to kidnap, deport student",
+            "url": "https://www.cnn.com/videos/us/2018/05/28/pilot-accused-kidnap-deport-chinese-flight-student-lah.cnn",
+            "urlToImage": "https://cdn.cnn.com/cnnnext/dam/assets/180528110603-piloto-azafata-secuestrar-estudiante-aviacin-chino-deportarlo-cafe-cnnee-00000000-super-tease.jpg",
+            "publishedAt": "2018-05-28T19:38:15.000Z",
+            "SourceId": "cnn"
+        },
+        {
+            "id": 492,
+            "author": "obayda",
+            "title": "وزراء إعلام الدول الأربع: يجب التصدي للقنوات المسيسة\" التي تستخدمها بعض الدول\"",
+            "url": "https://arabic.cnn.com/middle-east/2018/05/28/ministers-four-countries-channels-political-agenda",
+            "urlToImage": "https://i.cdn.turner.com/dr/cnnarabic/cnnarabic/release/sites/default/files/styles/og_image/public/image/DeTfWbSWsAESpCC.jpg?itok=FDcvNHji",
+            "publishedAt": "2018-05-28T19:23:43.000Z",
+            "SourceId": "cnn"
+        }
+    ],
+    "words": [
+        [
+            "North",
+            5
+        ],
+        [
+            "Starbucks",
+            4
+        ],
+        [
+            "Kim",
+            4
+        ],
+        [
+            "al",
+            4
+        ],
+        [
+            "China",
+            3
+        ],
+        [
+            "experts",
+            3
+        ],
+    ]
+    "authors": [
+        [
+            "obayda",
+            5
+        ],
+        [
+            "abelhaik",
+            4
+        ],
+        [
+            "AngelaBonachera",
+            3
+        ],
+        [
+            "Danielle Wiener-Bronner",
+            3
+        ],
+        [
+            "sayish",
+            3
+        ],
+        [
+            "Mark Lieber",
+            2
+        ],
+    ],
+    "sources": [
+        [
+            "cnn",
+            133
+        ]
+    ]
+}

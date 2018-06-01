@@ -1,0 +1,18 @@
+{  
+    "SourceId": {
+        "[Op.or]": ["cnn", "bbc-news"]
+      },
+    "author": {
+        "[Op.or]": [
+            "Laura Hudson",
+            "Brian Stelter",
+            "Analysis by Chris Cillizza, CNN Editor-at-large",
+            "Rebecca Berg, CNN",
+            "Alex Marquardt And Lawrence Crook Iii",
+            "Analysis by Oren Liebermann, CNN",
+            "macamilarinc",
+            "Kaitlan Collins, Sarah Westwood, Pamela Brown and Juana Summers, CNN",
+            "BBC News"
+        ]
+    }
+}
