@@ -11,6 +11,7 @@
         crossorigin="anonymous">
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
     <link rel="stylesheet" type="text/css" media="screen" href="./css/main.css">
+    <link href="https://fonts.googleapis.com/css?family=PT+Serif" rel="stylesheet">
 </head>
 
 <body>
@@ -23,20 +24,15 @@
             </button>
             <div class="collapse navbar-collapse" id="navbarResponsive">
                 <ul class="navbar-nav ml-auto">
-                    <li class="nav-item">
-                        <a class="nav-link" href="#">Home
-                            <span class="sr-only">(current)</span>
-                        </a>
-                    </li>
                     <li class="nav-item active">
                         <a class="nav-link" href="./main.html">Main</a>
-                            <span class="sr-only">(current)</span>
+                        <span class="sr-only">(current)</span>
                     </li>
                     <li class="nav-item">
                         <a class="nav-link" href="./user-setup.html">Profile</a>
                     </li>
                     <li class="nav-item">
-                        <a class="nav-link" href="#">Contact</a>
+                        <a class="nav-link" href="./contact.html">Contact</a>
                     </li>
                 </ul>
             </div>
@@ -53,8 +49,8 @@
 
     <div class="container-fluid text-center">
         <div class="row content">
-            <div class="col-sm-8 text-left">
-                <h1 class="text-center">Your News</h1>
+            <div class="col-sm-12 col-md-8 text-left">
+                <h1 class="text-center">The Latest</h1>
                 <br>
                 <table style="width:100%">
                     <tr>
@@ -74,20 +70,52 @@
                     </tr>
                 </table>
             </div>
-            <div class="col-sm-4 sidenav">
-                <div class="well">
-                    <p>FILTER AREA</p>
-                </div>
+            <div class="col-sm-6 col-md-4 sidenav">
+                <form>
+                    <h2>Search By</h2>
+                    <div class="form-group row">
+                        <label for="author" class="col-sm-2 col-form-label">Author:</label>
+                        <div>
+                            <input type="text" class="form-control" id="filter-by-author" placeholder="last name, first name">
+                        </div>
+                    </div>
+                    <div class="form-group row">
+                        <label for="news-source" class="col-sm-2 col-form-label">News Source:</label>
+                        <div>
+                            <input type="text" class="form-control" id="filter-by-source" placeholder="e.g: New York Times">
+                        </div>
+                    </div>
+                    <div>
+                        Article Date:
+                        <input type="text" name="date-range" value="mm/dd/yyyy">
+                    </div><br>
+                    <div>
+                        <button type="submit" class="btn btn-primary main-submit">Submit</button>
+                    </div>
+                </form>
             </div>
         </div>
     </div>
-    
+
     <footer class="container-fluid text-center">
         <p>&copy; 2018 AllYourBase-AreBelongToUs</p>
         <a class="a-footer" href="https://dashboard.heroku.com/apps/salty-taiga-82539">Heroku</a>
         <br>
         <a class="a-footer" href="https://github.com/allYourBase-AreBelongToUs/project_2/tree/master">Github</a>
     </footer>
+
+    <script type="text/javascript">
+        $(function() {
+            $('input[name="date-range"]').daterangepicker({
+                singleDatePicker: true,
+                showDropdowns: true
+            }, 
+            function(start, end, label) {
+                var years = moment().diff(start, 'years');
+                alert("You are " + years + " years old.");
+            });
+        });
+    </script>
 
 </body>
 
