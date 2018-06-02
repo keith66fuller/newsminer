@@ -25,4 +25,8 @@ module.exports = function(app) {
   app.get("/testsource", function(req, res) {
     res.sendFile(path.join(__dirname, "../public/testsource.html"));
   });
+
+  app.get("/wordcloud", function(req, res) {
+    res.sendFile(path.join(__dirname, "../public/wordcloud.html"));
+  });
 };
