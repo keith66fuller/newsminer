@@ -84,7 +84,7 @@ module.exports = function (app) {
 
     let where = {}
     
-    let wclimit = req.body.wclimit?req.body.limit:100
+    let wclimit = req.body.wclimit?req.body.wclimit:100
 
     if (req.body.sources) {
       where.SourceId = req.body.sources
@@ -173,6 +173,7 @@ module.exports = function (app) {
 
       ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
       // Response Object
+      console.log(wclimit);
 
       res.json({
         articles: articles,
