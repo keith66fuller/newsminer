@@ -1,32 +1,22 @@
-# User Story
-As a News Junkie
-I want a web app that display news from my choice of sources
-So that I don't have to go to separate sources for news
+# Description
+AS A...news junkie.
+I WANT...a webpage where I can pull news from a ton of sources and filter based on my preferences
+SO THAT...I don't have to go to different websites to find different articles.
 
-As a News Junkie
-I want a web app that keeps my profile private
-So that other uses don't have access to my news preferences
+# Acceptance criteria
+-GIVEN...that I have a title with numbers in it
+WHEN...I convert to a title
+THEN...the number is unchanged.
 
-# Acceptance Criteria
-GIVEN that I have a list of new sources
-WHEN I add few sources to my list
-THEN they should be saved in my profile
+-GIVEN...that I have a lowercase word in my title
+WHEN...I convert to a title
+THEN the first letter of the word will be capitalized.
 
-GIVEN that I have a a list of new titles every day
-WHEN I add it to my profile
-THEN it should save it my profile
+-GIVEN...that I have a word that has upper and lowercase letters
+WHEN...I convert to a title
+THEN...only the first letter of the word is converted to uppercase.
 
-GIVEN when I go to the home page
-WHEN I try to access the news
-THEN it should prompt me for authentication
-
-GIVEN that I am able to authenticate successfully
-WHEN I login for the first time
-THEN it should prompt me to create a profile first
-
-                    OR 
-GIVEN that I have a preposition or other small word that I don't want capitalized in my title
-AND it is not the first word of the title
-WHEN I convert it to a title
-THEN that word will not be capitalized
-
+-GIVEN...that I have a preposition or other small word that I don't want capitalized
+WHEN...I convert to a title
+AND...it is not the first word
+THEN...that word will not be capitalized.

@@ -40,6 +40,7 @@ $(document).ready(function () {
         console.log("Words: " + JSON.stringify(words));
         console.log("Sources: " + JSON.stringify(sources));
         console.log("Authors: " + JSON.stringify(authors));
+        console.log("Word Cloud: " + JSON.stringify(data.wordcloud));
 
         result = {
             sources: sources,
