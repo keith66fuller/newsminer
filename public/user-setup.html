@@ -6,12 +6,14 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
     <title>News Miner</title>
-    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css" integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css" integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm"
+        crossorigin="anonymous">
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
     <link rel="stylesheet" type="text/css" media="screen" href="./css/main.css">
 </head>
 
 <body>
+
     <nav class="navbar navbar-expand-lg navbar-dark bg-dark fixed-top">
         <div class="container">
             <a class="navbar-brand" href="#">News Miner</a>
@@ -23,17 +25,18 @@
                 <ul class="navbar-nav ml-auto">
                     <li class="nav-item">
                         <a class="nav-link" href="#">Home
+                            <span class="sr-only">(current)</span>
                         </a>
                     </li>
-                    <li class="nav-item">
-                        <a class="nav-link" href="./main.html">Main</a>
-                    </li>
                     <li class="nav-item active">
-                        <a class="nav-link" href="./user-setup.html">Profile</a>
-                            <span class="sr-only">(current)</span>
+                        <a class="nav-link" href="./main.html">Main</a>
+                        <span class="sr-only">(current)</span>
                     </li>
                     <li class="nav-item">
-                        <a class="nav-link" href="#">Contact</a>
+                        <a class="nav-link" href="./user-setup.html">Profile</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="./contact.html">Contact</a>
                     </li>
                 </ul>
             </div>
@@ -41,41 +44,31 @@
     </nav>
 
     <div class="container-fluid text-center">
-        <div class="row content">
-            <div class="col-sm-3 sidenav">
-                <div class="well">
-                    <p>Authors</p>
-                </div>
-                <div class="well">
-                    <p>Source</p>
-                </div>
-            </div>
-            <div class="col-sm-6 text-left">
-                <h1 class="text-center">Setup</h1>
-                <br>
-                <p class="news-options">
-                    Subscribe to the following news sources:
-                    <br>
-                    <br>
-                    <input id="checkBox" type="checkbox">Chicago Sun Times
-                    <br>
-                    <br>
-                    <input id="checkBox" type="checkbox">Chicago Tribune
-                    <br>
-                    <br>
-                    <input id="checkBox" type="checkbox">New York Times
-                    <br>
-                    <br>
-                    <input id="checkBox" type="checkbox">Washington Enquirer
-                    <br>
-                    <br>
-                    <input type="submit">
-                </p>
-                <hr>
-            </div>
-            <div class="col-sm-3 sidenav">
-                <div class="well">
-                    <p>Tag Cloud</p>
+        <div class="row">
+            <div class="col-sm-12 text-left">
+                <div class="form-check user-setup">
+                    <h1 class="text-center">Edit Your Profile</h1>
+                    <input class="form-check-input" type="checkbox" id="gridCheck1">
+                    <label class="form-check-label" for="gridCheck1">
+                        Chicago Sun Times
+                    </label><br>
+                    <input class="form-check-input" type="checkbox" id="gridCheck1">
+                    <label class="form-check-label" for="gridCheck1">
+                        Chicago Tribune
+                    </label><br>
+                    <input class="form-check-input" type="checkbox" id="gridCheck1">
+                    <label class="form-check-label" for="gridCheck1">
+                        New York Times
+                    </label><br>
+                    <input class="form-check-input" type="checkbox" id="gridCheck1">
+                    <label class="form-check-label" for="gridCheck1">
+                        Washington Enquirer
+                    </label><br><br>
+                    <div class="form-group row">
+                        <div class="col-sm-4">
+                            <button type="submit" class="btn btn-primary user-setup-submit">Submit</button>
+                        </div>
+                    </div>
                 </div>
             </div>
         </div>
@@ -87,6 +80,7 @@
         <br>
         <a class="a-footer" href="https://github.com/allYourBase-AreBelongToUs/project_2/tree/master">Github</a>
     </footer>
+
 </body>
 
 </html>
