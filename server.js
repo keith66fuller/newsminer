@@ -24,6 +24,7 @@ app.use(bodyParser.json());
 
 // Static directory
 app.use(express.static("public"));
+app.use('/bower_components',express.static("bower_components"));
 
 // Handlebars
 var exphbs = require("express-handlebars");
