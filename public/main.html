@@ -11,6 +11,9 @@
         crossorigin="anonymous">
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
     <link rel="stylesheet" type="text/css" media="screen" href="./css/main.css">
+    <script type="text/javascript" src="../bower_components/d3/d3.js"></script>
+    <script type="text/javascript" src="../bower_components/d3-cloud/d3.layout.cloud.js"></script>
+    <script type="text/javascript" src="./js/tags.js"></script>
 </head>
 
 <body>
@@ -45,9 +48,12 @@
 
 
     <div class="jumbotron jumbotron-fluid">
-        <div class="container word-cloud">
-            <h1 class="display-4">WORD CLOUD</h1>
-            <p class="lead">This is where our word cloud would go</p>
+        <div class="container word-cloud" style="width:100%">
+            <!-- <h1 class="display-4">WORD CLOUD</h1> -->
+            <!-- <p class="lead">This is where our word cloud would go</p> -->
+            <div id="vis">
+
+            </div>
         </div>
     </div>
 
@@ -90,5 +96,7 @@
     </footer>
 
 </body>
+
+<script type="text/javascript" src="./js/word-cloud.js"></script>
 
 </html>

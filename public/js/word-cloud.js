@@ -1,10 +1,12 @@
 var fill = d3.scale.category20b();
 
-var w = window.innerWidth,
-    h = window.innerHeight;
+// var w = window.innerWidth,
+//     h = window.innerHeight;
 
-// var w = 200,
-//     h = 200;
+// var w = 100,
+//     h = 100;
+var w = window.innerWidth,
+        h = 800 ;
 
 var max,
     fontSize;
@@ -36,10 +38,12 @@ else if (window.addEventListener) {
 }
 
 function draw(data, bounds) {
-    var w = window.innerWidth,
-        h = window.innerHeight;
-    // var w = 200,
-    //     h = 200;
+    // var w = window.innerWidth,
+    //     h = window.innerHeight;
+    var w = 1200,
+        h = 400;
+    //    var w = (".word-cloud").innerWidth,
+    //     h = (".word-cloud").innerHeight;
     
     svg.attr("width", w).attr("height", h);
 
