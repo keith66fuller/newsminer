@@ -1,5 +1,6 @@
 const db = require("../models");
 const Sequelize = require("sequelize");
+var moment = require("moment");
 
 const Op = Sequelize.Op;
 
@@ -79,12 +80,45 @@ module.exports = function (app) {
   })
 
   // POST route for getting all of the articles filtered by "query" which is in the JSON POST body.
+  // req.body = {
+  //   toDate: date,
+  //   fromDate: date,
+  //   sources: "string",
+  //   authors: "string",
+  //   words: "string",
+  // }
+
+  // res = {
+  //   articles: articles,
+  //   words:   processCounts(wordsObj),
+  //   authors: processCounts(authorsObj),
+  //   sources: processCounts(sourcesObj),
+  //   wordcloud: sortWords(wordsObj, wclimit)
+  // }
+
+
+
   app.post("/api/articles", function (req, res) {
     console.log("REQUEST: " + JSON.stringify(req.body, null, 2))
 
-    let where = {}
     
     let wclimit = req.body.wclimit?req.body.wclimit:100
+
+
+    let toDate = req.body.toDate?req.body.toDate:moment().format('YYYY-MM-DD HH:mm:ss')
+    let fromDate = req.body.fromDate?req.body.fromDate:moment().subtract(1, 'days').format('YYYY-MM-DD HH:mm:ss')
+
+    console.log("fromDate: "+fromDate)
+    console.log("toDate: "+toDate)
+    let where = {
+      publishedAt: {
+        [Op.and]:
+        {
+          [Op.lt]: toDate,
+          [Op.gt]: fromDate
+        }
+      }
+    }
 
     if (req.body.sources) {
       where.SourceId = req.body.sources
