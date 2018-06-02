@@ -1,9 +1,10 @@
-var tags = []
+var tags = [];
+var wcLimit = 20;
 $(document).ready(function() {
-    $.post("/api/articles/")
+    $.post("/api/articles/",wcLimit)
             .done(data => {
-                tags = data.wordcloud;
-                console.log(data);
+                tags = data.wordcloud[0];
+                console.log(data.wordcloud[0]);
             });
 });
 
