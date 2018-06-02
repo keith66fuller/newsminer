@@ -23,13 +23,9 @@ const moment = require("moment");
 const INTERVAL = 10000;
 
 module.exports = function apiScheduler() {
-    db.globalSetting.findOne({
-        where: {
-            id: 'apikey'
-        }
-    }).then(dbApikey => {
+
         const NewsAPI = require('newsapi');
-        const newsapi = new NewsAPI(dbApikey.value)
+        const newsapi = new NewsAPI(process.env.NEWSAPIKEY)
         const today = moment().format('YYYY-MM-DD 23:59:59')
         /////////////////////////////////////////////////////////////////////////////////////////////////////////////
         /////////////                          call the api                                        //////////////////
@@ -159,5 +155,5 @@ module.exports = function apiScheduler() {
                     }, INTERVAL, dbSources)
                 })
             })
-    })
+
 }
