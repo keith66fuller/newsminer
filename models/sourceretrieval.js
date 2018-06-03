@@ -13,7 +13,7 @@ module.exports = function (sequelize, DataTypes) {
     pagesRetrieved: {
       type: DataTypes.INTEGER
     },
-    mostRecent: DataTypes.DATE
+    startAt: DataTypes.DATE
   }, {
     timestamps: true,
     indexes: [ { unique: true, fields: [ 'source', 'date' ] } ]

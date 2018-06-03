@@ -32,3 +32,24 @@ For each source
         schedule the next run of this function in 90 seconds.
     else
         schedule the next run of this function for tomorrow at 00:00
+
+
+* Search Retrieval
+    If we haven't pulled a source at all
+        pull from one hour ago
+    
+    If we have finished the 1 hour pull
+        pull from 24 hours ago
+    
+    If we have finished the 24 hour pull
+        pull from 48 hours ago
+    
+    When doing a pull
+        If we don't know the number of pages in the pull
+            pull 1 page
+            get the number of pages for the pull
+        else
+            if have we pulled all the pages
+                TODO
+            else
+                pull the next page

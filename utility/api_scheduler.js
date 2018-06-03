@@ -20,140 +20,142 @@ const db = require("../models");
 const Sequelize = require("sequelize");
 const Op = Sequelize.Op;
 const moment = require("moment");
-const INTERVAL = 10000;
+const todayOnly = moment().format('YYYY-MM-DD');
+const NewsAPI = require('newsapi');
+const newsapi = new NewsAPI(process.env.NEWSAPIKEY);
+const today = moment().format('YYYY-MM-DD 23:59:59');
+const UPDATE = true;
+const util = require("util");
 
-module.exports = function apiScheduler() {
 
-        const NewsAPI = require('newsapi');
-        const newsapi = new NewsAPI(process.env.NEWSAPIKEY)
-        const today = moment().format('YYYY-MM-DD 23:59:59')
-        /////////////////////////////////////////////////////////////////////////////////////////////////////////////
-        /////////////                          call the api                                        //////////////////
-        /////////////////////////////////////////////////////////////////////////////////////////////////////////////
-        function callApi(source, mostRecent, page) {
-            db.ApiCounter.findOne({
-                where: {
-                    date: today
-                }
-            }).then(dbApiCounter => {
-                if (dbApiCounter >= 1000) {
-                    console.log("NO MORE API CALLS FOR " + today)
-                } else {
-                    console.log("THIS IS API CALL # " + dbApiCounter.counter + " for " + today)
-                    newsapi.v2.everything({
-                        sources: source,
-                        pageSize: 100,
-                        page: 1,
-                        to: mostRecent,
-                        sortBy: 'publishedAt'
-                    }).then(response => {
-                        // Update our API call counter in DB
-                        db.ApiCounter.increment('counter', {
+
+
+function updateApiCounters(intervalObj) {
+    // Update the API call counter in DB
+    // If we reach hourly (250) or daily (1000) api call limits, cancel the setInterval
+    const today = moment().utc().format('YYYY-MM-DD');
+    const hour = moment().utc().format('YYYY-MM-DD HH:00:00');
+    [
+        {
+            obj: db.ApiCounterD,
+            temporal: today,
+            where: { date: today },
+            limit: 1000,
+            handle: "Daily"
+        },
+        {
+            obj: db.ApiCounterH,
+            temporal: hour,
+            where: { hour: hour },
+            limit: 250,
+            handle: "Hourly"
+        }
+    ].forEach(e => {
+        e.obj.findOrCreate({
+            where: e.where,
+            defaults: {
+                counter: 0
+            }
+        }).spread((obj, created) => {
+            console.log((created ? "New" : "Existing") + " API " + e.handle + " call counter for " + e.temporal + " is " + obj.counter);
+            obj.increment('counter', { by: 1 })
+                .then(obj => {
+                    if (obj.counter >= e.limit) {
+                        console.log("WARNING: " + e.handle + " call limit exceeded!")
+                        clearInterval(intervalObj)
+                    }
+                })
+        })
+    })
+}
+
+function callApi(intervalObj, source, startAt, page) {
+    /////////////////////////////////////////////////////////////////////////////////////////////////////////////
+    /////////////                          call the news api                                   //////////////////
+    /////////////////////////////////////////////////////////////////////////////////////////////////////////////
+
+    process.env.APICALLED = true
+    updateApiCounters(intervalObj);
+    if (UPDATE) {
+        newsapi.v2.everything({
+            sources: source,
+            pageSize: 100,
+            page: 1,
+            from: startAt,
+            sortBy: 'publishedAt'
+        }).then(response => {
+            // console.log("API response: "+JSON.stringify(response, null, 2))
+            if (response.status == "ok" && response.totalResults) {
+                console.log("SOURCE: " + source + " PAGE: " + page + " TOTAL RESULTS: " + response.totalResults + " -- " + Math.round(response.totalResults / 100) + " more requests are needed today");
+                if (typeof response.articles[0] != 'undefined') {
+                    db.SourceRetrieval.update({
+                        startAt: response.articles[response.articles.length - 1].publishedAt,
+                        totalArticles: response.totalResults
+                    }, {
                             where: {
+                                source: source,
                                 date: today
                             }
-                        }).then(function() {
-                            // console.log("API response: "+JSON.stringify(response, null, 2))
-                            if (response.status == "ok" && response.totalResults) {
-                                console.log("SOURCE: " + source + " PAGE: " + page + " TOTAL RESULTS: " + response.totalResults + " -- "+Math.round(response.totalResults/100)+" more requests are needed today");
-                                if (typeof response.articles[0] != 'undefined') {
-                                    db.SourceRetrieval.update({
-                                        mostRecent: response.articles[response.articles.length -1 ].publishedAt,
-                                        totalArticles: response.totalResults
-                                    }, {
-                                        where: {
-                                            source: source,
-                                            date: today
-                                        }
-                                    }).then(function () {
-                                        (response.articles).forEach(article => {
-                                            article.SourceId = article.source.id
-                                            article.source = article.source.id
-                                            db.Article.create(article).catch(error => {})
-                                        });
-                                    })
-                                } else {
-                                        console.log("Response articles is UNDEFINED")
-                                }
-                            } else {
-                                console.log("BAD response to api call ==> " + JSON.stringify(response, null, 2));
-                            }
+                        }).then(function () {
+                            (response.articles).forEach(article => {
+                                article.SourceId = article.source.id
+                                article.source = article.source.id
+                                console.log(article.publishedAt, article.title)
+                                db.Article.create(article).catch(error => { })
+                            });
                         })
-
-
-                    })
+                } else {
+                    console.log("Response articles is UNDEFINED")
                 }
-            })
-        }
+            } else {
+                console.log("BAD response to api call ==> " + JSON.stringify(response, null, 2));
+            }
+        })
+    }
+}
 
-        console.log("Date is " + today)
-        db.ApiCounter.findOrCreate({
+
+
+
+module.exports = function apiScheduler() {
+    let sourceIdx = 0;
+    db.Source.findAll().then(function (dbSources) {
+        let apiSchedulerInterval = setInterval(function (dbSources) {
+            const now = moment().utc()
+            const oneHourAgo = moment().utc().subtract(1,'h');
+            let dbSource = dbSources[sourceIdx]
+            console.log("Querying Source " + dbSource.id + " " + sourceIdx + "/" + dbSources.length +" TODAY: " + now.format('YYYY-MM-DD') + " HOUR: " + now.format('YYYY-MM-DD HH:00:00'))
+            db.SourceRetrieval.findOrCreate({
                 where: {
-                    date: today
+                    date: now.format('YYYY-MM-DD'),
+                    source: dbSource.id
                 },
                 defaults: {
-                    counter: 0
+                    totalArticles: 0,
+                    totalPages: 0,
+                    pagesRetrieved: 0,
+                    startAt: oneHourAgo
+                }
+            }).spread((dbSourceRetrieval, created) => {
+                console.log("dbSourceRetrieval " + JSON.stringify(dbSourceRetrieval, null, 2))
+                const getPagesCount = created ? 1 : ++dbSourceRetrieval.pagesRetrieved;
+                const startAt = dbSourceRetrieval.startAt
+                const whatPass = created ? "first" : "subsequent";
+                console.log("Getting a " + whatPass + " pass at " + dbSource.id + " starting at  " + startAt)
+                callApi(apiSchedulerInterval, dbSource.id, startAt, getPagesCount);
+
+                // TODO: update sourceRetrieval with most recent article got.
+
+            }).then(function () {
+                if (sourceIdx < dbSources.length - 1) {
+                    sourceIdx++;
+                    console.log("Go to next source");
+                } else {
+                    sourceIdx = 0;
+                    console.log(dbSource.id + "=================================== Done with all sources");
                 }
             })
-            .spread((dbApiCounter, created) => {
-                const reqCtr = dbApiCounter.counter
-                console.log((created ? "New" : "Existing") + " API call counter for " + today + " is " + reqCtr);
-
-
-                /////////////////////////////////////////////////////////////////////////////////////////////////////////////
-                /////////////                          loop through sources                                //////////////////
-                /////////////////////////////////////////////////////////////////////////////////////////////////////////////
-
-                //For every source in the database, query newsapi to get the number of results
-                db.Source.findAll().then(function (dbSources) {
-                    // console.log(JSON.stringify(dbSources, null, 2))
-                    // console.log("Querying Source " + JSON.stringify(dbSource.id, null, 2))
-                    let sourceIdx = 0;
-
-                    let apiSchedulerTimeout = setInterval(function (dbSources) {
-                        let dbSource = dbSources[sourceIdx]
-                        console.log("Querying Source " + dbSource.id + " " + sourceIdx + "/" + dbSources.length)
-
-                        db.SourceRetrieval.findOrCreate({
-                            where: {
-                                source: dbSource.id
-                            },
-                            defaults: {
-                                date: today,
-                                totalArticles: 0,
-                                totalPages: 0,
-                                pagesRetrieved: 0,
-                                mostRecent: today
-                            }
-                        }).spread((dbSourceRetrieval, created) => {
-                            const mr = moment(dbSourceRetrieval.mostRecent).format('YYYY-MM-DD HH:mm:ss');
-                            if (created) {
-                                console.log("Getting a first pass at " + dbSource.id + " Most Recent: " + mr)
-                                callApi(dbSource.id, dbSource.mostRecent, 1);
-                            } else {
-                                    
-                                    console.log("Getting a subsequent pass at " + dbSource.id + " with " + dbSourceRetrieval.pagesRetrieved + " pages retrieved so far and Most Recent: " + mr)
-                                    callApi(dbSource.id, mr, ++dbSourceRetrieval.pagesRetrieved);
-                                    db.SourceRetrieval.update({
-                                        pagesRetrieved: dbSourceRetrieval.pagesRetrieved
-                                    }, {
-                                        where: {
-                                            source: dbSource.id,
-                                            date: today
-                                        }
-                                    })
-                            }
-                        }).then(function () {
-                            if (sourceIdx < dbSources.length - 1) {
-                                sourceIdx++;
-                                console.log("Go to next source");
-                            } else {
-                                sourceIdx = 0;
-                                console.log(dbSource.id + "=================================== Done with all sources");
-                            }
-                        })
-                    }, INTERVAL, dbSources)
-                })
-            })
+        }, process.env.API_INTERVAL, dbSources)
+    })
 
 }

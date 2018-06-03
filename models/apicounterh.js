@@ -1,7 +1,7 @@
 module.exports = function (sequelize, DataTypes) {
-  var ApiCounter = sequelize.define("ApiCounter", {
-    date: {
-      type: DataTypes.DATEONLY,
+  var ApiCounterH = sequelize.define("ApiCounterH", {
+    hour: {
+      type: DataTypes.TIME,
       primaryKey: true
     },
     counter: {
@@ -12,5 +12,5 @@ module.exports = function (sequelize, DataTypes) {
     timestamps: true
   });
 
-  return ApiCounter;
+  return ApiCounterH;
 };
