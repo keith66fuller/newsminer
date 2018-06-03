@@ -122,25 +122,19 @@ module.exports = function apiScheduler() {
     db.Source.findAll().then(function (dbSources) {
         let apiSchedulerInterval = setInterval(function (dbSources) {
             const now = moment().utc()
-            const today = moment().utc().format('YYYY-MM-DD 23:59:59')
-            const hour = moment().utc().format('YYYY-MM-DD HH:00:00')
-            const oneHourAgo = now.subtract(1,"hour");
+            const oneHourAgo = moment().utc().subtract(1,'h');
             let dbSource = dbSources[sourceIdx]
-            console.log("APISCHEDULER TODAY: " + now.format('YYYY-MM-DD') + " HOUR: " + now.format('YYYY-MM-DD HH:00:00'))
-            console.log("Querying Source " + dbSource.id + " " + sourceIdx + "/" + dbSources.length)
-
-            console.log("One Hour Ago "+oneHourAgo.format('YYYY-MM-DD HH:mm:SS'))
-            process.exit();
+            console.log("Querying Source " + dbSource.id + " " + sourceIdx + "/" + dbSources.length +" TODAY: " + now.format('YYYY-MM-DD') + " HOUR: " + now.format('YYYY-MM-DD HH:00:00'))
             db.SourceRetrieval.findOrCreate({
                 where: {
-                    date: today,
+                    date: now.format('YYYY-MM-DD'),
                     source: dbSource.id
                 },
                 defaults: {
                     totalArticles: 0,
                     totalPages: 0,
                     pagesRetrieved: 0,
-                    startAt: oneHourAgo.toString()
+                    startAt: oneHourAgo
                 }
             }).spread((dbSourceRetrieval, created) => {
                 console.log("dbSourceRetrieval " + JSON.stringify(dbSourceRetrieval, null, 2))
