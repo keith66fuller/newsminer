@@ -9,6 +9,13 @@ module.exports = function (app) {
     });
   });
 
+  app.get("/api/sourceretrieval", function (req, res) {
+    db.SourceRetrieval.findAll({
+    }).then(function (dbSource) {
+      res.json(dbSource);
+    });
+  });
+
   app.get("/api/sources/:id", function (req, res) {
     db.Source.findOne({
       where: {
