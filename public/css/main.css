@@ -10,22 +10,48 @@
 
 body {
     padding-top: 55px;
+    font-family: 'PT Serif', serif;
+}
+
+.word-cloud {
+    text-align: center;
+    height: 400px;
 }
 
 /* Set height of the grid so .sidenav can be 100% (adjust as needed) */
 .row.content {
-    height: 600px
+    height: 600px;
+    padding: 10px;
+    border: 1px solid black;
+}
+
+.main-submit {
+    background-color: black !important;
+    color: white;
+}
+
+.user-setup {
+    margin-left: 20px;
+}
+
+.user-setup-submit {
+    background-color: black !important;
+    color: white;
 }
 
 .a-footer {
     color: white;
 }
 
+.form-group {
+    justify-content: center;
+}
+
 /* Set gray background color and 100% height */
 .sidenav {
-    padding-top: 20px;
-    background-color: grey;
+    background-color: white;
     height: 100%;
+    border: 1px solid black;
 }
 
 /* Set black background color, white text and some padding */
