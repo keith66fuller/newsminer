@@ -1,14 +1,14 @@
 $(document).ready(function () {
 
-    $.post("/api/articles/", { wclimit: 20 })
+    $.post("/api/articles/", { wclimit: 100 })
         .done(data => {
-            var weight = 40;
+            // var weight = 40;
             var tags = data.wordcloud;
             
             console.log(tags.length)
             for (i = 0; i < tags.length; i++) {
-                tags[i].value = weight;
-                weight-=2;
+                tags[i].value = Math.log2(tags[i].value)*2;
+                // weight-=2;
                 // console.log(tags[i].value)
             }
             
@@ -27,8 +27,8 @@ $(document).ready(function () {
 
         // var w = 100,
         //     h = 100;
-        var w = window.innerWidth,
-            h = 800;
+        var w = 2000,
+            h = 700;
 
         var max,
             fontSize;
@@ -45,8 +45,8 @@ $(document).ready(function () {
             .on("end", draw);
 
         var svg = d3.select("#vis").append("svg")
-            .attr("width", w)
-            .attr("height", h);
+            .attr("width",w)
+            .attr("height",h);
 
         var vis = svg.append("g").attr("transform", "translate(" + [w >> 1, h >> 1] + ")");
 
@@ -62,8 +62,8 @@ $(document).ready(function () {
         function draw(data, bounds) {
             // var w = window.innerWidth,
             //     h = window.innerHeight;
-            var w = 1200,
-                h = 400;
+            var w = 1500,
+                h = 1000;
             //    var w = (".word-cloud").innerWidth,
             //     h = (".word-cloud").innerHeight;
 
@@ -114,7 +114,7 @@ $(document).ready(function () {
                     console.log(d.text.toLowerCase());
                 });
 
-            vis.transition().attr("transform", "translate(" + [w >> 1, h >> 1] + ")scale(" + scale + ")");
+            vis.transition().attr("transform", "translate(" + [750,210] + ")scale(" + scale + ")");
         }
 
         function update() {

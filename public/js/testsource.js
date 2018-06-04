@@ -11,6 +11,7 @@ $(document).ready(function () {
             $('tbody').append(tRow);
 
         });
+        console.log(sourcesObj);
     });
 
 
