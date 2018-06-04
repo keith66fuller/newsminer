@@ -31,12 +31,13 @@ $(document).ready(function () {
     }
 
     function doQuery(data) {
-        var articles = (data.articles).length;
+        // var articles = (data.articles).length;
+        // var articles = makeArrayFromEachElement_0(data.articles.title)
         var words = makeArrayFromEachElement_0(data.words);
         var sources = makeArrayFromEachElement_0(data.sources);
         var authors = makeArrayFromEachElement_0(data.authors);
 
-        console.log("Articles: " + articles);
+        console.log("Articles: " + JSON.stringify(data.articles));
         console.log("Words: " + JSON.stringify(words));
         console.log("Sources: " + JSON.stringify(sources));
         console.log("Authors: " + JSON.stringify(authors));
@@ -48,7 +49,18 @@ $(document).ready(function () {
             words: words
         };
 
-        updatePage(result)
+        data.articles.forEach(article => {
+            let tRow = $('<tr>').data('id',article.id);
+            $(tRow).append($('<td>').text(article.author));
+            // $(tRow).append('<img src="'+article.urlToImage+'" width="20" height="20"/>')
+            $(tRow).append($('<td>').text(article.title));
+            $(tRow).append($('<td>').text(article.SourceId));
+            // $(tRow).append($('<td>').text(article.newest));
+            $('tbody').append(tRow);
+
+        });
+        console.log(sourcesObj);
+        // updatePage(result)
 
         
         // $.post("/api/articles/", query);

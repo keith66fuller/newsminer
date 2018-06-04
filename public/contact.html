@@ -6,11 +6,13 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
     <title>News Miner</title>
-    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css" integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css" integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm"
+        crossorigin="anonymous">
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
-    <script src="./js//login.js"></script>
-    <link rel="stylesheet" type="text/css" media="screen" href="./css/login.css">
+    <link rel="stylesheet" type="text/css" media="screen" href="./css/contact.css">
     <script src="https://www.gstatic.com/firebasejs/4.12.1/firebase.js"></script>
+    <link href="https://fonts.googleapis.com/css?family=Oswald:700|Patua+One|Roboto+Condensed:700" rel="stylesheet">
+    <link href="https://maxcdn.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css" rel="stylesheet">
 </head>
 
 <body>
@@ -23,8 +25,6 @@
             </button>
             <div class="collapse navbar-collapse" id="navbarResponsive">
                 <ul class="navbar-nav ml-auto">
-                    <li class="nav-item active">
-                    </li>
                     <li class="nav-item">
                         <a class="nav-link" href="./main.html">Main</a>
                     </li>
@@ -43,7 +43,6 @@
         <div class="row content">
             <div class="col-sm-12">
                 <div class="card-body">
-                    <!-- <img class="logo" src="./img/news-miner.png"> -->
                     <br>
                     <br>
                     <p>Your Daily Source for All Things News</p>
@@ -52,22 +51,36 @@
         </div>
     </div>
 
-    <div class="container-fluid text-center">
-        <div class="row content">
-            <div class="col-sm-12">
-                <div class="card-body">
-                    <a href="#" id="google-login">
-                        <img src="./img/google.jpg" alt="Google" height="42" width="42">Login with Google
-                    </a>
+
+
+
+    <div class="contact-section">
+        <div class="container">
+          <h2>Contact Us</h2>
+          <div class="row">
+        <div class="container contact-form">
+            <div class="col-lg-12 centered">
+              <form class="form-horizontal">
+                <div class="form-group">
+                  <label for="exampleInputName2">Name</label>
+                  <input type="text" class="form-control" id="exampleInputName2" placeholder="Jane Doe">
                 </div>
-                <div class="card-body">
-                    <a href="#" id="github-login">
-                        <img src="./img/github.png" alt="Github" height="42" width="42">Login with GitHub
-                    </a>
+                <div class="form-group">
+                  <label for="exampleInputEmail2">Email</label>
+                  <input type="email" class="form-control" id="exampleInputEmail2" placeholder="jane.doe@example.com">
                 </div>
+                <div class="form-group ">
+                  <label for="exampleInputText">Your Message</label>
+                 <textarea  class="form-control" placeholder="Description"></textarea> 
+                </div>
+                <button type="submit" class="btn btn-default">Send Message</button>
+              </form>
+              <hr>
             </div>
+          </div> 
         </div>
     </div>
+
 
     <footer class="container-fluid text-center">
         <p>&copy; 2018 AllYourBase-AreBelongToUs</p>

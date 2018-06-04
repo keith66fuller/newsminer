@@ -1,0 +1,79 @@
+/* CSS STYLESHEET FOR MAIN PAGE */
+
+/* Remove the navbar's default margin-bottom and rounded borders */
+.navbar {
+    margin-bottom: 0;
+    border-radius: 0;
+    background-color: black !important;
+    color: white;
+}
+
+body {
+    padding-top: 55px;
+    font-family: 'PT Serif', serif;
+}
+
+.word-cloud {
+    text-align: center;
+    height: 400px;
+}
+
+/* Set height of the grid so .sidenav can be 100% (adjust as needed) */
+.row.content {
+    height: 600px;
+    padding: 10px;
+    border: 1px solid black;
+}
+
+.main-submit {
+    background-color: black !important;
+    color: white;
+}
+
+.user-setup {
+    margin-left: 20px;
+}
+
+.user-setup-submit {
+    background-color: black !important;
+    color: white;
+}
+
+.a-footer {
+    color: white;
+}
+
+.form-group {
+    justify-content: center;
+}
+
+/* Set gray background color and 100% height */
+.sidenav {
+    background-color: white;
+    height: 100%;
+    border: 1px solid black;
+}
+
+/* Set black background color, white text and some padding */
+footer {
+    background-color:black;
+    color: white;
+    padding: 15px;
+}
+
+/* settings for sidenav background and size */
+.well {
+    height: 250px;
+    background-color: white;
+}
+
+/* On small screens, set height to 'auto' for sidenav and grid */
+@media screen and (max-width: 767px) {
+    .sidenav {
+        height: auto;
+        padding: 15px;
+    }
+    .row.content {
+        height: auto;
+    }
+}

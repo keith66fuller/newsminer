@@ -2,137 +2,130 @@
 <html lang="en">
 
 <head>
-    <title>News</title>
-    <meta charset="utf-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1">
-    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
+
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>News Miner</title>
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css" integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm"
+        crossorigin="anonymous">
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
-    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
-    <style>
-        /* Remove the navbar's default margin-bottom and rounded borders */
-        .navbar {
-            margin-bottom: 0;
-            border-radius: 0;
-            background-color: maroon;
-        }
-
-        /* Set height of the grid so .sidenav can be 100% (adjust as needed) */
-        .row.content {
-            height: 600px
-        }
-
-        /* Set gray background color and 100% height */
-        .sidenav {
-            padding-top: 20px;
-            background-color: black;
-            height: 100%;
-        }
-
-        /* Set black background color, white text and some padding */
-        footer {
-            background-color:maroon;
-            color: white;
-            padding: 15px;
-        }
-
-        /* settings for sidenav background and size */
-        .well {
-            height: 250px;
-            background-color: grey;
-        }
-
-        /* On small screens, set height to 'auto' for sidenav and grid */
-        @media screen and (max-width: 767px) {
-            .sidenav {
-                height: auto;
-                padding: 15px;
-            }
-            .row.content {
-                height: auto;
-            }
-        }
-    </style>
+    <link rel="stylesheet" type="text/css" media="screen" href="./css/main.css">
+    <script type="text/javascript" src="../bower_components/d3/d3.js"></script>
+    <script type="text/javascript" src="../bower_components/d3-cloud/d3.layout.cloud.js"></script>
+    <script type="text/javascript" src="./js/main-article-list.js"></script>
+    <link href="https://fonts.googleapis.com/css?family=PT+Serif" rel="stylesheet">
 </head>
 
 <body>
-
-    <nav class="navbar navbar-inverse">
-        <div class="container-fluid">
-            <div class="navbar-header">
-                <button type="button" class="navbar-toggle" data-toggle="collapse" data-target="#myNavbar">
-                    <span class="icon-bar"></span>
-                    <span class="icon-bar"></span>
-                    <span class="icon-bar"></span>
-                </button>
-                <a class="navbar-brand" href="#">Logo</a>
-            </div>
-            <div class="collapse navbar-collapse" id="myNavbar">
-                <ul class="nav navbar-nav navbar-right">
-                    <li>
-                        <a href="#">
-                            <span class="glyphicon glyphicon-log-in"></span>Profile</a>
+    <nav class="navbar navbar-expand-lg navbar-dark bg-dark fixed-top">
+        <div class="container">
+            <a class="navbar-brand" href="#">News Miner</a>
+            <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarResponsive" aria-controls="navbarResponsive"
+                aria-expanded="false" aria-label="Toggle navigation">
+                <span class="navbar-toggler-icon"></span>
+            </button>
+            <div class="collapse navbar-collapse" id="navbarResponsive">
+                <ul class="navbar-nav ml-auto">
+                    <li class="nav-item active">
+                        <a class="nav-link" href="./main.html">Main</a>
+                        <span class="sr-only">(current)</span>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="./user-setup.html">Profile</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="./contact.html">Contact</a>
                     </li>
                 </ul>
             </div>
         </div>
     </nav>
 
+
+    <div class="jumbotron jumbotron-fluid">
+            <div class="word-cloud" style="width:100%">
+        <!-- <div class="container word-cloud" style="width:100%"> -->
+            <!-- <h1 class="display-4">WORD CLOUD</h1> -->
+            <!-- <p class="lead">This is where our word cloud would go</p> -->
+            <div id="vis">
+
+            </div>
+        </div>
+    </div>
+
     <div class="container-fluid text-center">
         <div class="row content">
-            <div class="col-sm-3 sidenav">
-                <div class="well">
-                    <p>Authors</p>
-                </div>
-                <div class="well">
-                    <p>Source</p>
-                </div>
-            </div>
-            <div class="col-sm-6 text-left">
-                <h1 class = "text-center">Your News</h1>
+            <div class="col-sm-12 col-md-8 text-left">
+                <h1 class="text-center">The Latest</h1>
                 <br>
                 <table style="width:100%">
-                        <tr>
-                          <th>Author</th>
-                          <th>Headline</th> 
-                          <th>Source</th>
-                        </tr>
-                        <hr>
-                          <td>Keith</td>
-                          <td><b>All Your Base Are Belong To Us!</b></td> 
-                          <td>Tribune</td>
-                        </tr>
-                        <tr>
-                          <td>James</td>
-                          <td><b>It's Gonna Be A Hot One</b></td> 
-                          <td>Sun Times</td>
-                        </tr>
-                      </table>
-                      <br> 
-                <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore
-                    magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea
-                    commodo consequat. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt
-                    mollit anim id est laborum consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et
-                    dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip
-                    ex ea commodo consequat.</p>
-                <hr>
-                <!-- <h3>Test</h3>
-                <p>Lorem ipsum...</p> -->
+                    <tr>
+                        <th>Author</th>
+                        <th>Headline</th>
+                        <th>Source</th>
+                    </tr>
+                    <tr>
+                        <td>Keith</td>
+                        <td>All Your Base Are Belong To Us!</td>
+                        <td>Tribune</td>
+                    </tr>
+                    <tr>
+                        <td>James</td>
+                        <td>It's Gonna Be A Hot One</td>
+                        <td>Sun Times</td>
+                    </tr>
+                </table>
             </div>
-            <div class="col-sm-3 sidenav">
-                    <div class="well">
-                        <p>Tag Cloud</p>
+            <div class="col-sm-6 col-md-4 sidenav">
+                <form>
+                    <h2>Search By</h2>
+                    <div class="form-group row">
+                        <label for="author" class="col-sm-2 col-form-label">Author:</label>
+                        <div>
+                            <input type="text" class="form-control" id="filter-by-author" placeholder="last name, first name">
+                        </div>
                     </div>
-                </div>
+                    <div class="form-group row">
+                        <label for="news-source" class="col-sm-2 col-form-label">News Source:</label>
+                        <div>
+                            <input type="text" class="form-control" id="filter-by-source" placeholder="e.g: New York Times">
+                        </div>
+                    </div>
+                    <div>
+                        Article Date:
+                        <input type="text" name="date-range" value="mm/dd/yyyy">
+                    </div><br>
+                    <div>
+                        <button type="submit" class="btn btn-primary main-submit">Submit</button>
+                    </div>
+                </form>
+            </div>
         </div>
     </div>
 
     <footer class="container-fluid text-center">
         <p>&copy; 2018 AllYourBase-AreBelongToUs</p>
-        <a href="https://dashboard.heroku.com/apps/salty-taiga-82539">Heroku</a>
+        <a class="a-footer" href="https://dashboard.heroku.com/apps/salty-taiga-82539">Heroku</a>
         <br>
-        <a href="https://github.com/allYourBase-AreBelongToUs/project_2/tree/master">Github</a>
+        <a class="a-footer" href="https://github.com/allYourBase-AreBelongToUs/project_2/tree/master">Github</a>
     </footer>
 
+    <script type="text/javascript">
+        $(function() {
+            $('input[name="date-range"]').daterangepicker({
+                singleDatePicker: true,
+                showDropdowns: true
+            }, 
+            function(start, end, label) {
+                var years = moment().diff(start, 'years');
+                alert("You are " + years + " years old.");
+            });
+        });
+    </script>
+
 </body>
+
+<script type="text/javascript" src="./js/word-cloud.js"></script>
 
 </html>

@@ -6,14 +6,14 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
     <title>News Miner</title>
-    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css" integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css" integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm"
+        crossorigin="anonymous">
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
-    <script src="./js//login.js"></script>
-    <link rel="stylesheet" type="text/css" media="screen" href="./css/login.css">
-    <script src="https://www.gstatic.com/firebasejs/4.12.1/firebase.js"></script>
+    <link rel="stylesheet" type="text/css" media="screen" href="./css/main.css">
 </head>
 
 <body>
+
     <nav class="navbar navbar-expand-lg navbar-dark bg-dark fixed-top">
         <div class="container">
             <a class="navbar-brand" href="#">News Miner</a>
@@ -23,10 +23,9 @@
             </button>
             <div class="collapse navbar-collapse" id="navbarResponsive">
                 <ul class="navbar-nav ml-auto">
-                    <li class="nav-item active">
-                    </li>
                     <li class="nav-item">
                         <a class="nav-link" href="./main.html">Main</a>
+                        <span class="sr-only">(current)</span>
                     </li>
                     <li class="nav-item">
                         <a class="nav-link" href="./user-setup.html">Profile</a>
@@ -40,30 +39,31 @@
     </nav>
 
     <div class="container-fluid text-center">
-        <div class="row content">
-            <div class="col-sm-12">
-                <div class="card-body">
-                    <!-- <img class="logo" src="./img/news-miner.png"> -->
-                    <br>
-                    <br>
-                    <p>Your Daily Source for All Things News</p>
-                </div>
-            </div>
-        </div>
-    </div>
-
-    <div class="container-fluid text-center">
-        <div class="row content">
-            <div class="col-sm-12">
-                <div class="card-body">
-                    <a href="#" id="google-login">
-                        <img src="./img/google.jpg" alt="Google" height="42" width="42">Login with Google
-                    </a>
-                </div>
-                <div class="card-body">
-                    <a href="#" id="github-login">
-                        <img src="./img/github.png" alt="Github" height="42" width="42">Login with GitHub
-                    </a>
+        <div class="row">
+            <div class="col-sm-12 text-left">
+                <div class="form-check user-setup">
+                    <h1 class="text-center">Edit Your Profile</h1>
+                    <input class="form-check-input" type="checkbox" id="gridCheck1">
+                    <label class="form-check-label" for="gridCheck1">
+                        Chicago Sun Times
+                    </label><br>
+                    <input class="form-check-input" type="checkbox" id="gridCheck1">
+                    <label class="form-check-label" for="gridCheck1">
+                        Chicago Tribune
+                    </label><br>
+                    <input class="form-check-input" type="checkbox" id="gridCheck1">
+                    <label class="form-check-label" for="gridCheck1">
+                        New York Times
+                    </label><br>
+                    <input class="form-check-input" type="checkbox" id="gridCheck1">
+                    <label class="form-check-label" for="gridCheck1">
+                        Washington Enquirer
+                    </label><br><br>
+                    <div class="form-group row">
+                        <div class="col-sm-4">
+                            <button type="submit" class="btn btn-primary user-setup-submit">Submit</button>
+                        </div>
+                    </div>
                 </div>
             </div>
         </div>
@@ -75,6 +75,7 @@
         <br>
         <a class="a-footer" href="https://github.com/allYourBase-AreBelongToUs/project_2/tree/master">Github</a>
     </footer>
+
 </body>
 
 </html>

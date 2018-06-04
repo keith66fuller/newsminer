@@ -72,5 +72,13 @@ exports.excludedWords = [
     "will",
     "with",
     "you",
-    "your"
+    "your",
+    "him",
+    "her",
+    "himself",
+    "herself",
+    "say",
+    "said",
+    "think",
+    "thought"
 ]

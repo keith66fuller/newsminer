@@ -4,13 +4,13 @@ const Op = Sequelize.Op;
 
 module.exports = function (app) {
 
-    app.get("/api/getAllUsers", function (req, res) {
+    app.get("/api/user/all", function (req, res) {
         db.User.findAll({}).then(function (dbUsers) {
             res.send(dbUsers)
         })
     })
 
-    app.get("/api/getUser/:username", function (req, res) {
+    app.get("/api/user/:username", function (req, res) {
         db.User.findOne({
             where: {
                 username: req.params.username
@@ -20,13 +20,13 @@ module.exports = function (app) {
         })
     })
 
-    app.post("/api/createUser", function (req, res) {
+    app.post("/api/user", function (req, res) {
         db.User.create(req.body).then(function (dbUser) {
             res.json(dbUser)
         })
     })
 
-    app.delete("/api/authors/:username", function (req, res) {
+    app.delete("/api/user/:username", function (req, res) {
         db.User.destroy({
             where: {
                 id: req.params.username

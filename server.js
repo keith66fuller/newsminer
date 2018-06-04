@@ -24,6 +24,12 @@ app.use(bodyParser.json());
 
 // Static directory
 app.use(express.static("public"));
+app.use('/bower_components',express.static("bower_components"));
+
+// Handlebars
+var exphbs = require("express-handlebars");
+app.engine("handlebars", exphbs({ defaultLayout: "main" }));
+app.set("view engine", "handlebars");
 
 // Routes
 // =============================================================
@@ -31,9 +37,12 @@ require("./routes/html-routes.js")(app);
 require("./routes/source-api-routes.js")(app);
 require("./routes/article-api-routes.js")(app);
 require("./routes/user-api-routes.js")(app);
+require("./routes/source-routes.js")(app);
 
-// Get articles from API in background
-require("./newsapi/newsapimod")
+// Start he API retrieval scheduler
+const apiScheduler = require("./utility/api_scheduler");
+
+
 
 // Syncing our sequelize models and then starting our Express app
 // =============================================================
@@ -41,6 +50,10 @@ db.sequelize.sync().then(function() {
   app.listen(PORT, function() {
     console.log("App listening on PORT " + PORT);
   });
+console.log("ENV: "+process.env.APISCHEDULER)
+  if (process.env.APISCHEDULER == "true") {
+    apiScheduler();
+  }
 });
 
 
