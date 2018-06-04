@@ -112,26 +112,24 @@ function callApi(intervalObj, source, startAt, page) {
                                 article.source = article.source.id
                                 db.Article.create(article)
                                     .catch(error => {
-                                        // console.log("ERROR: " + article.publishedAt, article.title)
+                                        // console.log("ERROR: "+error+" " + article.publishedAt, article.title)
                                     })
                                     .then(() => {
                                         // console.log("TEST " + article.publishedAt + " " + newStartAt + " " + article.title)
+                                        console.log("ADDED: " + article.publishedAt, article.title)
                                         if (moment(article.publishedAt).isSameOrAfter(startAt) && moment(article.publishedAt).isSameOrAfter(newStartAt)) {
+                                            console.log("New Newest " + article.publishedAt + " " + newStartAt + " " + article.title)
                                             newStartAt = article.publishedAt;
-                                            console.log("Added " + article.publishedAt + " " + newStartAt + " " + article.title)
                                             db.Source.update(
-                                                {
-                                                    newest: newStartAt
-                                                },
-                                                {
-                                                    where: { id: source }
-                                                })
-                                                .then(() => {
-                                                    console.log("New startAt for " + source + " : " + newStartAt)
-                                                })
-                                                .catch(err => {
-                                                    console.log("ERROR updating source: "+err)
-                                                })
+                                                { newest: newStartAt },
+                                                { where: { id: source } }
+                                            )
+                                            .then(() => {
+                                                console.log("New startAt for " + source + " : " + newStartAt)
+                                            })
+                                            .catch(err => {
+                                                console.log("ERROR updating source: " + err)
+                                            })
                                         }
                                     })
                             });
