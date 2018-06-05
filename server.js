@@ -26,6 +26,11 @@ app.use(bodyParser.json());
 app.use(express.static("public"));
 app.use('/bower_components',express.static("bower_components"));
 
+express.static.mime.define({'text/javascript': ['js']});
+
+
+
+
 // Handlebars
 var exphbs = require("express-handlebars");
 app.engine("handlebars", exphbs({ defaultLayout: "main" }));
