@@ -8,6 +8,11 @@ const UPDATE = process.env.APISCHEDULER;
 const util = require("util");
 const cTable = require('console.table');
 
+if (UPDATE) {
+    const NewsAPI = require('newsapi');
+    const newsapi = new NewsAPI(process.env.NEWSAPIKEY);
+}
+
 function updateApiCounter(obj1) {
     return new Promise((resolve, reject) => {
         obj1.obj.findOrCreate({
