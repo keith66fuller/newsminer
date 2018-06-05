@@ -4,18 +4,17 @@ $(document).ready(function () {
         .done(data => {
             // var weight = 40;
             var tags = data.wordcloud;
-            
+
             console.log(tags.length)
             for (i = 0; i < tags.length; i++) {
-                tags[i].value = Math.log2(tags[i].value)*2;
+                tags[i].value = Math.log2(tags[i].value) * 2;
                 // weight-=2;
                 // console.log(tags[i].value)
             }
-            
-            console.log(tags);
-            createWordCloud(tags);
+
+            // createWordCloud(tags);
         });
-    
+
 
     function createWordCloud(t) {
 
@@ -29,6 +28,12 @@ $(document).ready(function () {
         //     h = 100;
         var w = 2000,
             h = 700;
+
+        var bounds = Math.min(
+            w / Math.abs(bounds[1].x - w / 2),
+            w / Math.abs(bounds[0].x - w / 2),
+            h / Math.abs(bounds[1].y - h / 2),
+            h / Math.abs(bounds[0].y - h / 2)) / 2 : 1;
 
         var max,
             fontSize;
@@ -45,8 +50,8 @@ $(document).ready(function () {
             .on("end", draw);
 
         var svg = d3.select("#vis").append("svg")
-            .attr("width",w)
-            .attr("height",h);
+            .attr("width", w)
+            .attr("height", h);
 
         var vis = svg.append("g").attr("transform", "translate(" + [w >> 1, h >> 1] + ")");
 
@@ -114,12 +119,12 @@ $(document).ready(function () {
                     console.log(d.text.toLowerCase());
                 });
 
-            vis.transition().attr("transform", "translate(" + [750,210] + ")scale(" + scale + ")");
+            vis.transition().attr("transform", "translate(" + [750, 210] + ")scale(" + scale + ")");
         }
 
         function update() {
             // layout.font('impact').spiral('rectangular');
-            layout.font('impact').rotate(function() { return ~~(Math.random() * 2) * 90; });
+            layout.font('impact').rotate(function () { return ~~(Math.random() * 2) * 90; });
             fontSize = d3.scale['sqrt']().range([10, 100]);
             if (tags.length) {
                 fontSize.domain([+tags[tags.length - 1].value || 1, +tags[0].value]);
