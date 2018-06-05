@@ -3,10 +3,8 @@ const Sequelize = require("sequelize");
 const Op = Sequelize.Op;
 const moment = require("moment");
 const todayOnly = moment().format('YYYY-MM-DD');
-const NewsAPI = require('newsapi');
-const newsapi = new NewsAPI(process.env.NEWSAPIKEY);
 const today = moment().format('YYYY-MM-DD 23:59:59');
-const UPDATE = true;
+const UPDATE = process.env.APISCHEDULER;
 const util = require("util");
 const cTable = require('console.table');
 
