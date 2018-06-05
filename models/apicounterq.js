@@ -1,6 +1,6 @@
 module.exports = function (sequelize, DataTypes) {
-  var ApiCounterH = sequelize.define("ApiCounterH", {
-    hour: {
+  var ApiCounterQ = sequelize.define("ApiCounterQ", {
+    qPeriod: {
       type: DataTypes.DATE,
       primaryKey: true
     },
@@ -8,9 +8,13 @@ module.exports = function (sequelize, DataTypes) {
       type: DataTypes.INTEGER,
       default: 0
     },
+    exceeded: {
+      type: DataTypes.BOOLEAN,
+      default: false
+    }
   }, {
     timestamps: true
   });
 
-  return ApiCounterH;
+  return ApiCounterQ;
 };

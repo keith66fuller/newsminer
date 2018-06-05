@@ -1,4 +1,4 @@
-The problem is that the newsapi free key only allows 1000 request/day, and 250 requests/hr
+The problem is that the newsapi free key only allows 1000 request/day, and 250 requests / 6hrs
 
 That comes to one request every 86 seconds.
 

@@ -8,6 +8,10 @@ module.exports = function (sequelize, DataTypes) {
       type: DataTypes.INTEGER,
       default: 0
     },
+    exceeded: {
+      type: DataTypes.BOOLEAN,
+      default: false
+    }
   }, {
     timestamps: true
   });
