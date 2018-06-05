@@ -1,21 +1,25 @@
 $(document).ready(function () {
 
+    // $.getscript("./main-article-list.js", function () {
+    //     queryArticles();
+    // });
+
     $.post("/api/articles/", { wclimit: 100 })
         .done(data => {
             // var weight = 40;
             var tags = data.wordcloud;
-            
+
             console.log(tags.length)
             for (i = 0; i < tags.length; i++) {
-                tags[i].value = Math.log2(tags[i].value)*2;
+                tags[i].value = Math.log2(tags[i].value) * 2;
                 // weight-=2;
                 // console.log(tags[i].value)
             }
-            
+
             console.log(tags);
             createWordCloud(tags);
         });
-    
+
 
     function createWordCloud(t) {
 
@@ -45,8 +49,8 @@ $(document).ready(function () {
             .on("end", draw);
 
         var svg = d3.select("#vis").append("svg")
-            .attr("width",w)
-            .attr("height",h);
+            .attr("width", w)
+            .attr("height", h);
 
         var vis = svg.append("g").attr("transform", "translate(" + [w >> 1, h >> 1] + ")");
 
@@ -110,16 +114,18 @@ $(document).ready(function () {
                 })
                 .style("cursor", "pointer")
                 .on("click", function (d, i) {
-                    window.open(d.url, "_blank");
+                    // window.open(d.url, "_blank");
+                    $("#word_sel").attr("option",d.text.toLowerCase());
+                    // console.log()
                     console.log(d.text.toLowerCase());
                 });
 
-            vis.transition().attr("transform", "translate(" + [750,210] + ")scale(" + scale + ")");
+            vis.transition().attr("transform", "translate(" + [750, 210] + ")scale(" + scale + ")");
         }
 
         function update() {
             // layout.font('impact').spiral('rectangular');
-            layout.font('impact').rotate(function() { return ~~(Math.random() * 2) * 90; });
+            layout.font('impact').rotate(function () { return ~~(Math.random() * 2) * 90; });
             fontSize = d3.scale['sqrt']().range([10, 100]);
             if (tags.length) {
                 fontSize.domain([+tags[tags.length - 1].value || 1, +tags[0].value]);
