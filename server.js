@@ -43,14 +43,12 @@ require("./routes/source-routes.js")(app);
 const apiScheduler = require("./utility/api_scheduler");
 
 
-
 // Syncing our sequelize models and then starting our Express app
 // =============================================================
 db.sequelize.sync().then(function() {
   app.listen(PORT, function() {
     console.log("App listening on PORT " + PORT);
   });
-console.log("ENV: "+process.env.APISCHEDULER)
   if (process.env.APISCHEDULER == "true") {
     apiScheduler();
   }
