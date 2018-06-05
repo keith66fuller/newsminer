@@ -43,41 +43,28 @@
     </nav>
 
 
-    <div class="jumbotron jumbotron-fluid">
-            <div class="word-cloud" style="width:100%">
-        <!-- <div class="container word-cloud" style="width:100%"> -->
-            <!-- <h1 class="display-4">WORD CLOUD</h1> -->
-            <!-- <p class="lead">This is where our word cloud would go</p> -->
-            <div id="vis">
-
+    <div class="jumbotron jumbotron-fluid" style="width: 100%">
+        <div class="row">
+            <div id="wordCloud" class="word-cloud col-lg-6">
+            </div>
+            <div id="authorCloud" class="word-cloud col-lg-6">
             </div>
         </div>
     </div>
 
     <div class="container-fluid text-center">
         <div class="row content">
-            <div class="col-sm-12 col-md-8 text-left">
-                <h1 class="text-center">The Latest</h1>
-                <br>
+            <div class="col-lg-12 col-sm-12 col-md-8 text-left">
                 <table style="width:100%">
                     <tr>
                         <th>Author</th>
+                        <th></th>
                         <th>Headline</th>
                         <th>Source</th>
                     </tr>
-                    <tr>
-                        <td>Keith</td>
-                        <td>All Your Base Are Belong To Us!</td>
-                        <td>Tribune</td>
-                    </tr>
-                    <tr>
-                        <td>James</td>
-                        <td>It's Gonna Be A Hot One</td>
-                        <td>Sun Times</td>
-                    </tr>
                 </table>
             </div>
-            <div class="col-sm-6 col-md-4 sidenav">
+            <!-- <div class="col-sm-6 col-md-4 sidenav">
                 <form>
                     <h2>Search By</h2>
                     <div class="form-group row">
@@ -95,12 +82,13 @@
                     <div>
                         Article Date:
                         <input type="text" name="date-range" value="mm/dd/yyyy">
-                    </div><br>
+                    </div>
+                    <br>
                     <div>
                         <button type="submit" class="btn btn-primary main-submit">Submit</button>
                     </div>
                 </form>
-            </div>
+            </div> -->
         </div>
     </div>
 
@@ -111,21 +99,19 @@
         <a class="a-footer" href="https://github.com/allYourBase-AreBelongToUs/project_2/tree/master">Github</a>
     </footer>
 
-    <script type="text/javascript">
-        $(function() {
+    <!-- <script type="text/javascript">
+        $(function () {
             $('input[name="date-range"]').daterangepicker({
                 singleDatePicker: true,
                 showDropdowns: true
-            }, 
-            function(start, end, label) {
-                var years = moment().diff(start, 'years');
-                alert("You are " + years + " years old.");
-            });
+            },
+                function (start, end, label) {
+                    var years = moment().diff(start, 'years');
+                    alert("You are " + years + " years old.");
+                });
         });
-    </script>
+    </script> -->
 
 </body>
-
-<script type="text/javascript" src="./js/word-cloud.js"></script>
 
 </html>

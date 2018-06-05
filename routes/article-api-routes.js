@@ -211,7 +211,8 @@ module.exports = function (app) {
         words:   processCounts(wordsObj),
         authors: processCounts(authorsObj),
         sources: processCounts(sourcesObj),
-        wordcloud: sortWords(wordsObj, wclimit)
+        wordcloud: sortWords(wordsObj, wclimit),
+        authorcloud: sortWords(authorsObj, wclimit),
       });
     });
   });
