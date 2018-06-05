@@ -194,7 +194,7 @@ $(document).ready(function () {
                 })
                 .style("cursor", "pointer")
                 .on("click", function (d, i) {
-                    window.open(d.url, "_blank");
+                    window.open("/, "_blank");
                     console.log(d.text.toLowerCase());
                 });
 
