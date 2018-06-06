@@ -54,9 +54,6 @@ db.sequelize.sync().then(function() {
   app.listen(PORT, function() {
     console.log("App listening on PORT " + PORT);
   });
-  if (process.env.APISCHEDULER == "true") {
-    apiScheduler();
-    console.log("Api scheduler will run at "+process.env.API_INTERVAL+" ms intervals")
   }
 });
 
