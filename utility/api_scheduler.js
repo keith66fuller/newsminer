@@ -4,14 +4,8 @@ const Op = Sequelize.Op;
 const moment = require("moment");
 const todayOnly = moment().format('YYYY-MM-DD');
 const today = moment().format('YYYY-MM-DD 23:59:59');
-const UPDATE = process.env.APISCHEDULER;
 const util = require("util");
 const cTable = require('console.table');
-
-if (UPDATE) {
-    const NewsAPI = require('newsapi');
-    const newsapi = new NewsAPI(process.env.NEWSAPIKEY);
-}
 
 function updateApiCounter(obj1) {
     return new Promise((resolve, reject) => {
@@ -121,7 +115,9 @@ function callApi(intervalObj, source, startAt, pageNum, dbSr) {
     console.log("CALLAPI startAt: " + startAt)
     updateApiCounters(intervalObj)
         .then(() => {
-            if (UPDATE) {
+            if (process.env.APISCHEDULER == "true") {
+                const NewsAPI = require('newsapi');
+                const newsapi = new NewsAPI(process.env.NEWSAPIKEY);
                 newsapi.v2.everything({
                     sources: source,
                     pageSize: 100,
