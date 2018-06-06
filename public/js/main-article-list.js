@@ -1,4 +1,25 @@
 $(document).ready(function () {
+
+
+
+    /////////////////////////////////////////////////////////////////////////////////////
+    //                                                                                 //
+    //                                   SLIDER                                        //
+    /////////////////////////////////////////////////////////////////////////////////////
+
+    var wordSlider = $("#wordSlider").slider({
+        min: 0,
+        orientation: 'horizontal'
+    });
+    var authorSlider = $("#authorSlider").slider({
+        min: 0,
+        orientation: 'horizontal'
+    });
+
+
+
+
+
     var query = {
         sources: [],
         authors: null,
@@ -98,12 +119,18 @@ $(document).ready(function () {
         // w=1500
         // h=700
 
-        $('#'+divId).empty();
+        // This empties the entire div
+        // $('#'+divId).empty();
+
+        // This removes the SVG
+        d3.select('#' + divId + ' svg ').remove();
+
+        $('svg').remove();
 
         let div = document.getElementById(divId);
         
         let position = div.getBoundingClientRect();
-        console.log('POSITION for '+divId+" --> "+JSON.stringify(position,null,2))
+        // console.log('POSITION for '+divId+" --> "+JSON.stringify(position,null,2))
 
         let bounds = [
             {
@@ -116,7 +143,7 @@ $(document).ready(function () {
             }
         ]
 
-        console.log('BOUNDS for '+divId+" --> "+JSON.stringify(bounds,null,2))
+        // console.log('BOUNDS for '+divId+" --> "+JSON.stringify(bounds,null,2))
 
         var max,
             fontSize;
@@ -148,7 +175,7 @@ $(document).ready(function () {
         }
 
         function draw(data, bounds) {
-            console.log('BOUNDS in draw() --> '+JSON.stringify(bounds,null,2))
+            // console.log('BOUNDS in draw() --> '+JSON.stringify(bounds,null,2))
 
             svg.attr("width", w).attr("height", h);
 
@@ -158,7 +185,7 @@ $(document).ready(function () {
                 h / Math.abs(bounds[1].y - h / 2),
                 h / Math.abs(bounds[0].y - h / 2)) / 2 : 1;
 
-                console.log('SCALE in draw() --> '+JSON.stringify(scale,null,2))
+                // console.log('SCALE in draw() --> '+JSON.stringify(scale,null,2))
             
                 scale = 1.4;
 
@@ -197,9 +224,9 @@ $(document).ready(function () {
                 })
                 .style("cursor", "pointer")
                 .on("click", function (d, i) {
-                    console.log(d.text.toLowerCase());
+                    // console.log(d.text.toLowerCase());
                     query.words = d.text;
-                    console.log(JSON.stringify(query, null, 2))
+                    // console.log(JSON.stringify(query, null, 2))
                     
                     queryArticles();                });
 

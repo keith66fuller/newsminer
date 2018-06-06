@@ -43,6 +43,9 @@ body {
     color: white;
 }
 
+.slider {
+	background: #BABABA;
+}
 .form-group {
     justify-content: center;
 }

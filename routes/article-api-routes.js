@@ -164,7 +164,7 @@ module.exports = function (app) {
         // Process Authors
         //  Split authors string on commas, dashes, "by", and "and"
         if (typeof article.author != 'undefined' && article.author != null) {
-          // console.log("ORIGINAL AUTHOR: " + article.author)
+          console.log("ORIGINAL AUTHOR: " + article.author)
           article.author.split(/ +(at|and|by) +/i).forEach(a => {
             a.split(/ +- +| *, */).forEach(author => {
               author = author.trim()
@@ -176,6 +176,7 @@ module.exports = function (app) {
                 //reject author that is the same as source
                 return
               }
+
               if (!author.match(/[a-z]+/i)) {
                 //reject author with no alpha characters
                 return
@@ -184,7 +185,14 @@ module.exports = function (app) {
                 //reject bogus parts of speech authors
                 return
               }
-              // console.log("\tAUTHOR: " + author)
+
+              
+              if (author.toLowerCase().match(   article.SourceId.toLowerCase().replace("-"," ")   )) {
+                //reject authors that contain the source name
+                return
+              }
+
+              console.log("\tAUTHOR: " + author)
               incObj(authorsObj, author)
             })
           });

@@ -11,9 +11,10 @@
         crossorigin="anonymous">
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
     <link rel="stylesheet" type="text/css" media="screen" href="./css/main.css">
-    
+
     <script type="text/javascript" src="./bower_components/d3/d3.js"></script>
     <script type="text/javascript" src="./bower_components/d3-cloud/d3.layout.cloud.js"></script>
+    <script type="text/javascript" src="./bower_components/bootstrap-slider/bootstrap-slider.js"></script>
     <script type="text/javascript" src="./js/main-article-list.js"></script>
     <link href="https://fonts.googleapis.com/css?family=PT+Serif" rel="stylesheet">
 </head>
@@ -47,10 +48,33 @@
     <div class="jumbotron jumbotron-fluid" style="width: 100%">
         <div class="row">
             <div id="wordCloud" class="word-cloud col-lg-6">
+                <input id="wordSlider" class="slider" data-slider-id='wordSlider' type="text" data-slider-min="1" data-slider-max="00" data-slider-step="1"
+                    data-slider-value="50" />
             </div>
             <div id="authorCloud" class="word-cloud col-lg-6">
+                <input id="authorSlider" class="slider" data-slider-id='authorSlider' type="text" data-slider-min="1" data-slider-max="00"
+                    data-slider-step="1" data-slider-value="50" />
             </div>
         </div>
+
+        <div class="row">
+
+
+
+            <!-- <div id="wordSlider" class="col-lg-6">
+                <input id="wordSlider" class="slider" data-slider-id='wordSlider' type="text" data-slider-min="1" data-slider-max="00" data-slider-step="1"
+                    data-slider-value="50" />
+            </div>
+
+
+
+            <div id="authorSlider" class="col-lg-6">
+                <input id="authorSlider" class="slider" data-slider-id='authorSlider' type="text" data-slider-min="1" data-slider-max="00"
+                    data-slider-step="1" data-slider-value="50" />
+            </div> -->
+        </div>
+
+        
     </div>
 
     <div class="container-fluid text-center">
