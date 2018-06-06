@@ -6,12 +6,28 @@ $(document).ready(function () {
     //                                                                                 //
     //                                   SLIDER                                        //
     /////////////////////////////////////////////////////////////////////////////////////
-    $( function() {
-        $( "#wordSlider" ).slider();
-      } );
-    $( function() {
-        $( "#authorSlider" ).slider();
-      } );
+    $(function () {
+        $("#wordSlider")
+            .slider({
+                change:  (event, ui) => {
+                    console.log(ui.value);
+                    localStorage.setItem("numWords", ui.value);
+                    createWordCloud()
+                }
+            });
+    });
+
+
+    $(function () {
+        $("#authorSlider")
+        .slider({
+            change:  (event, ui) => {
+                console.log(ui.value);
+                localStorage.setItem("numAuthors", ui.value);
+                createAuthorCloud()
+            }
+        });
+    });
 
 
 
@@ -44,6 +60,8 @@ $(document).ready(function () {
         $.post("/api/articles/", query)
             .done(data => {
                 localStorage.setItem("data", JSON.stringify(data));
+                localStorage.setItem("numWords", 100);
+                localStorage.setItem("numAuthors", 100);
                 doQuery();
             });
     }
@@ -75,8 +93,21 @@ $(document).ready(function () {
 
     function doQuery() {
         renderArticles(0, 49);
-        createWordCloud(JSON.parse(localStorage.getItem("data")).wordcloud);
-        createAuthorCloud(JSON.parse(localStorage.getItem("data")).authorcloud);
+        createWordCloud();
+        createAuthorCloud();
+
+        setSlider('#wordSlider',JSON.parse(localStorage.getItem("data")).wordcloud)
+        setSlider('#authorSlider',JSON.parse(localStorage.getItem("data")).authorcloud)
+    };
+
+    function setSlider(id, arr) {
+        let total = arr.length
+        $(id).slider("option", {
+            min: 0,
+            max: total,
+            value: total>100?100:total/2
+        });
+        
     }
 
     function initializePage() {
@@ -103,11 +134,11 @@ $(document).ready(function () {
     }
 
     function createWordCloud() {
-        createCloud(JSON.parse(localStorage.getItem("data")).wordcloud, 'wordCloud');
+        createCloud(JSON.parse(localStorage.getItem("data")).wordcloud.slice(0, JSON.parse(localStorage.getItem("numWords"))), 'wordCloud');
     }
 
     function createAuthorCloud() {
-        createCloud(JSON.parse(localStorage.getItem("data")).authorcloud, 'authorCloud');
+        createCloud(JSON.parse(localStorage.getItem("data")).authorcloud.slice(0, JSON.parse(localStorage.getItem("numAuthors"))), 'authorCloud');
     }
 
     function createCloud(tags, divId) {
@@ -126,7 +157,7 @@ $(document).ready(function () {
         // $('svg').remove();
 
         let div = document.getElementById(divId);
-        
+
         let position = div.getBoundingClientRect();
         // console.log('POSITION for '+divId+" --> "+JSON.stringify(position,null,2))
 
@@ -184,9 +215,9 @@ $(document).ready(function () {
                 h / Math.abs(bounds[1].y - h / 2),
                 h / Math.abs(bounds[0].y - h / 2)) / 2 : 1;
 
-                // console.log('SCALE in draw() --> '+JSON.stringify(scale,null,2))
-            
-                scale = 1.4;
+            // console.log('SCALE in draw() --> '+JSON.stringify(scale,null,2))
+
+            scale = 1.4;
 
             var text = vis.selectAll("text")
                 .data(data, function (d) {
@@ -226,8 +257,9 @@ $(document).ready(function () {
                     // console.log(d.text.toLowerCase());
                     query.words = d.text;
                     // console.log(JSON.stringify(query, null, 2))
-                    
-                    queryArticles();                });
+
+                    queryArticles();
+                });
 
             // vis.transition().attr("transform", "translate(" + [850, 400] + ")");
             // vis.transition().attr("transform", "translate(" + [750, 210] + ")scale(" + scale + ")");
