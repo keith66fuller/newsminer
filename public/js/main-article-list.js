@@ -36,6 +36,7 @@ $(document).ready(function () {
 
     function renderArticles(first, last) {
         let data = JSON.parse(localStorage.getItem("data"))
+        $('tbody').empty();
         data.articles.slice(first, last).forEach(article => {
             let tRow = $('<tr>').data('id', article.id);
             $(tRow).append($('<td>').text(article.author));
@@ -96,6 +97,8 @@ $(document).ready(function () {
             h = $('#' + divId).height();
         // w=1500
         // h=700
+
+        $('#'+divId).empty();
 
         let div = document.getElementById(divId);
         
@@ -194,9 +197,11 @@ $(document).ready(function () {
                 })
                 .style("cursor", "pointer")
                 .on("click", function (d, i) {
-                    window.open("/", "_blank");
                     console.log(d.text.toLowerCase());
-                });
+                    query.words = d.text;
+                    console.log(JSON.stringify(query, null, 2))
+                    
+                    queryArticles();                });
 
             // vis.transition().attr("transform", "translate(" + [850, 400] + ")");
             // vis.transition().attr("transform", "translate(" + [750, 210] + ")scale(" + scale + ")");
