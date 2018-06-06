@@ -1,23 +1,23 @@
 $(document).ready(function () {
-    var query = {
+    let query = {
         sources: [],
         authors: null,
         words: []
-    }
+    };
 
     var result = query;
 
     var defaultQuery = query;
 
     function makeArrayFromEachElement_0(arr) {
-        return arr.map(element => element[0])
+        return arr.map(element => element[0]);
     }
 
     function selectUpdate(id, arr) {
         let firstEl = $(id + " option:first-child");
         $(id).empty().append(firstEl);
         arr.forEach(element => {
-            $(id).append($('<option>').text(element))
+            $(id).append($('<option>').text(element));
         });
     }
 
@@ -25,17 +25,17 @@ $(document).ready(function () {
         $.post("/api/articles/", query)
             .done(data => {
                 localStorage.setItem("data", JSON.stringify(data));
-                doQuery()
+                doQuery();
             });
     }
 
-    function renderwords(count) {
-        let data = JSON.parse(localStorage.getItem("data"))
+    function renderwords() {
+        let data = JSON.parse(localStorage.getItem("data"));
         let words = makeArrayFromEachElement_0(data.words);
     }
 
     function renderArticles(first, last) {
-        let data = JSON.parse(localStorage.getItem("data"))
+        let data = JSON.parse(localStorage.getItem("data"));
         $('tbody').empty();
         data.articles.slice(first, last).forEach(article => {
             let tRow = $('<tr>').data('id', article.id);
@@ -55,9 +55,9 @@ $(document).ready(function () {
     }
 
     function doQuery() {
-        renderArticles(0, 49)
-        createWordCloud(JSON.parse(localStorage.getItem("data")).wordcloud)
-        createAuthorCloud(JSON.parse(localStorage.getItem("data")).authorcloud)
+        renderArticles(0, 49);
+        createWordCloud(JSON.parse(localStorage.getItem("data")).wordcloud);
+        createAuthorCloud(JSON.parse(localStorage.getItem("data")).authorcloud);
     }
 
     function initializePage() {
@@ -66,10 +66,10 @@ $(document).ready(function () {
                 sources: JSON.parse(userObj.sources),
                 authors: null,
                 words: []
-            }
+            };
 
         }).then(function () {
-            queryArticles()
+            queryArticles();
         });
     }
 
@@ -79,16 +79,16 @@ $(document).ready(function () {
             ["#author_sel", result.authors],
             ["#source_sel", result.sources]
         ].forEach(e => {
-            selectUpdate(e[0], e[1])
+            selectUpdate(e[0], e[1]);
         });
     }
 
     function createWordCloud() {
-        createCloud(JSON.parse(localStorage.getItem("data")).wordcloud, 'wordCloud')
+        createCloud(JSON.parse(localStorage.getItem("data")).wordcloud, 'wordCloud');
     }
 
     function createAuthorCloud() {
-        createCloud(JSON.parse(localStorage.getItem("data")).authorcloud, 'authorCloud')
+        createCloud(JSON.parse(localStorage.getItem("data")).authorcloud, 'authorCloud');
     }
 
     function createCloud(tags, divId) {
@@ -103,7 +103,7 @@ $(document).ready(function () {
         let div = document.getElementById(divId);
         
         let position = div.getBoundingClientRect();
-        console.log('POSITION for '+divId+" --> "+JSON.stringify(position,null,2))
+        console.log('POSITION for '+divId+" --> "+JSON.stringify(position,null,2));
 
         let bounds = [
             {
@@ -114,9 +114,9 @@ $(document).ready(function () {
                 x: position.right,
                 y: position.bottom,
             }
-        ]
+        ];
 
-        console.log('BOUNDS for '+divId+" --> "+JSON.stringify(bounds,null,2))
+        console.log('BOUNDS for '+divId+" --> "+JSON.stringify(bounds,null,2));
 
         var max,
             fontSize;
@@ -148,7 +148,7 @@ $(document).ready(function () {
         }
 
         function draw(data, bounds) {
-            console.log('BOUNDS in draw() --> '+JSON.stringify(bounds,null,2))
+            console.log('BOUNDS in draw() --> '+JSON.stringify(bounds,null,2));
 
             svg.attr("width", w).attr("height", h);
 
@@ -158,7 +158,7 @@ $(document).ready(function () {
                 h / Math.abs(bounds[1].y - h / 2),
                 h / Math.abs(bounds[0].y - h / 2)) / 2 : 1;
 
-                console.log('SCALE in draw() --> '+JSON.stringify(scale,null,2))
+                console.log('SCALE in draw() --> '+JSON.stringify(scale,null,2));
             
                 scale = 1.4;
 
@@ -199,7 +199,7 @@ $(document).ready(function () {
                 .on("click", function (d, i) {
                     console.log(d.text.toLowerCase());
                     query.words = d.text;
-                    console.log(JSON.stringify(query, null, 2))
+                    console.log(JSON.stringify(query, null, 2));
                     
                     queryArticles();                });
 
@@ -229,19 +229,19 @@ $(document).ready(function () {
     $('#source_sel').on('change', function (event) {
         query.sources = result.sources[this.selectedIndex - 1];
         queryArticles();
-    })
+    });
 
     $('#author_sel').on('change', function (event) {
         console.log("index: " + (this.selectedIndex - 1));
         query.authors = result.authors[this.selectedIndex - 1];
         queryArticles();
-    })
+    });
 
     $('#word_sel').on('change', function (event) {
         query.words = result.words[this.selectedIndex - 1];
         queryArticles();
 
-    })
+    });
 
 
-})
+});
