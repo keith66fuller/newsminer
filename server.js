@@ -37,12 +37,10 @@ require("./routes/html-routes.js")(app);
 require("./routes/source-api-routes.js")(app);
 require("./routes/article-api-routes.js")(app);
 require("./routes/user-api-routes.js")(app);
-require("./routes/news-api-routes.js")(app);
 require("./routes/source-routes.js")(app);
 
 // Start he API retrieval scheduler
 const apiScheduler = require("./utility/api_scheduler");
-
 
 
 // Syncing our sequelize models and then starting our Express app
@@ -51,7 +49,6 @@ db.sequelize.sync().then(function() {
   app.listen(PORT, function() {
     console.log("App listening on PORT " + PORT);
   });
-console.log("ENV: "+process.env.APISCHEDULER)
   if (process.env.APISCHEDULER == "true") {
     apiScheduler();
   }

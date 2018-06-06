@@ -1,0 +1,32 @@
+id,name,oldest,newest,Sourcescol,Sourcescol1
+abc-news,"ABC News","2018-05-01 23:26:08",2018-06-04,NULL,NULL
+bbc-news,"BBC News","2018-05-01 23:09:47",2018-06-04,NULL,NULL
+bloomberg,Bloomberg,"2018-05-01 21:15:49",2018-06-04,NULL,NULL
+breitbart-news,"Breitbart News","2018-05-02 20:21:38",2018-06-04,NULL,NULL
+business-insider,"Business Insider","2018-05-01 22:23:42",2018-06-04,NULL,NULL
+buzzfeed,Buzzfeed,"2018-05-01 20:31:03",2018-06-04,NULL,NULL
+cbs-news,"CBS News","2018-05-01 21:46:32",2018-06-04,NULL,NULL
+cnbc,CNBC,"2018-05-01 21:53:00",2018-05-29,NULL,NULL
+cnn,CNN,"2018-05-01 22:15:18",2018-05-29,NULL,NULL
+financial-times,"Financial Times","2018-05-01 17:58:39",2018-05-29,NULL,NULL
+fortune,Fortune,"2018-03-15 12:59:32",2018-05-29,NULL,NULL
+fox-news,"Fox News","2018-05-01 22:04:14",2018-05-29,NULL,NULL
+mirror,Mirror,"2018-05-01 22:44:15",2018-05-29,NULL,NULL
+msnbc,MSNBC,"2018-05-01 20:18:43",2018-05-29,NULL,NULL
+national-review,"National Review","2018-03-05 20:29:15",2018-05-29,NULL,NULL
+nbc-news,"NBC News","2018-02-28 20:44:24",2018-05-29,NULL,NULL
+newsweek,Newsweek,"2018-03-02 18:17:29",2018-05-29,NULL,NULL
+politico,Politico,"2018-02-28 10:04:50",2018-05-29,NULL,NULL
+the-economist,"The Economist","2018-03-01 15:44:27",2018-05-29,NULL,NULL
+the-guardian-uk,"The Guardian (UK)",NULL,NULL,NULL,NULL
+the-hill,"The Hill","2018-02-27 18:46:19",2018-05-29,NULL,NULL
+the-huffington-post,"The Huffington Post","2018-03-04 18:57:07",2018-05-29,NULL,NULL
+the-jerusalem-post,"The Jerusalem Post","2018-05-01 18:03:46",2018-05-29,NULL,NULL
+the-new-york-times,"The New York Times","2018-03-01 16:54:10",2018-05-29,NULL,NULL
+the-verge,"The Verge","2018-05-01 18:49:00",2018-05-28,NULL,NULL
+the-wall-street-journal,"The Wall Street Journal","2018-02-27 01:25:40",2018-05-29,NULL,NULL
+the-washington-post,"The Washington Post","2018-05-01 23:59:34",2018-06-04,NULL,NULL
+the-washington-times,"The Washington Times","2018-05-01 00:45:38",2018-05-29,NULL,NULL
+time,Time,"2018-05-02 17:09:59",2018-06-04,NULL,NULL
+usa-today,"USA Today","2018-03-09 17:03:30",2018-05-29,NULL,NULL
+vice-news,"Vice News","2018-03-15 21:43:58",2018-05-29,NULL,NULL

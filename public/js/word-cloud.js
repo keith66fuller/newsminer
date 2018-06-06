@@ -16,8 +16,12 @@ $(document).ready(function () {
                 // console.log(tags[i].value)
             }
 
+<<<<<<< HEAD
             console.log(tags);
             createWordCloud(tags);
+=======
+            // createWordCloud(tags);
+>>>>>>> 4e23206599e1f14c076ac658e7a0ff3389401a58
         });
 
 
@@ -33,6 +37,12 @@ $(document).ready(function () {
         //     h = 100;
         var w = 2000,
             h = 700;
+
+        var bounds = Math.min(
+            w / Math.abs(bounds[1].x - w / 2),
+            w / Math.abs(bounds[0].x - w / 2),
+            h / Math.abs(bounds[1].y - h / 2),
+            h / Math.abs(bounds[0].y - h / 2)) / 2 : 1;
 
         var max,
             fontSize;

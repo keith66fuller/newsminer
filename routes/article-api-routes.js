@@ -122,16 +122,13 @@ module.exports = function (app) {
 
     if (req.body.sources) {
       where.SourceId = req.body.sources
-      // where.SourceId = { [Op.or]: req.body.sources }
     }
 
     if (req.body.authors) {
       where.author = req.body.authors
-      // where.author = { [Op.or]: req.body.authors }
     }
 
     if (req.body.words) {
-      // where.title = { [Op.like]: '%'+req.body.words+'%' }
       where.title = { [Op.regexp]: '.+'+req.body.words+'.+' }
     }
 
@@ -214,7 +211,8 @@ module.exports = function (app) {
         words:   processCounts(wordsObj),
         authors: processCounts(authorsObj),
         sources: processCounts(sourcesObj),
-        wordcloud: sortWords(wordsObj, wclimit)
+        wordcloud: sortWords(wordsObj, wclimit),
+        authorcloud: sortWords(authorsObj, wclimit),
       });
     });
   });

@@ -16,7 +16,6 @@ $(document).ready(function () {
     }
 
     function selectUpdate(id, arr) {
-        console.log("ARRAY IS " + arr);
         let firstEl = $(id + " option:first-child");
         $(id).empty().append(firstEl);
         arr.forEach(element => {
@@ -25,48 +24,46 @@ $(document).ready(function () {
     }
 
     function queryArticles() {
+<<<<<<< HEAD
         $("#table-of-articles tr").remove(); 
         console.log("QUERY ARTICLES: \n" + JSON.stringify(query, null, 2));
+=======
+>>>>>>> 4e23206599e1f14c076ac658e7a0ff3389401a58
         $.post("/api/articles/", query)
             .done(data => {
-                doQuery(data)
+                localStorage.setItem("data", JSON.stringify(data));
+                doQuery()
             });
     }
 
-    function doQuery(data) {
-        // var articles = (data.articles).length;
-        // var articles = makeArrayFromEachElement_0(data.articles.title)
-        var words = makeArrayFromEachElement_0(data.words);
-        var sources = makeArrayFromEachElement_0(data.sources);
-        var authors = makeArrayFromEachElement_0(data.authors);
+    function renderwords(count) {
+        let data = JSON.parse(localStorage.getItem("data"))
+        let words = makeArrayFromEachElement_0(data.words);
+    }
 
-        console.log("Articles: " + JSON.stringify(data.articles));
-        console.log("Words: " + JSON.stringify(words));
-        console.log("Sources: " + JSON.stringify(sources));
-        console.log("Authors: " + JSON.stringify(authors));
-        console.log("Word Cloud: " + JSON.stringify(data.wordcloud));
-
-        result = {
-            sources: sources,
-            authors: authors,
-            words: words
-        };
-
-        data.articles.forEach(article => {
-            let tRow = $('<tr>').data('id',article.id);
+    function renderArticles(first, last) {
+        let data = JSON.parse(localStorage.getItem("data"))
+        data.articles.slice(first, last).forEach(article => {
+            let tRow = $('<tr>').data('id', article.id);
             $(tRow).append($('<td>').text(article.author));
-            // $(tRow).append('<img src="'+article.urlToImage+'" width="20" height="20"/>')
-            $(tRow).append($('<td>').text(article.title));
+            $(tRow).append($('<td>').append($('<img>').attr('src', article.urlToImage).attr('width', 70)));
+            $(tRow).append($('<td>').attr('href', '#').attr('onClick', 'window.open("' + article.url + '", "_blank")').text(article.title));
             $(tRow).append($('<td>').text(article.SourceId));
+
+            // <td><img src="{{this.urlToImage}}" alt=""  width="70"></td>
+            // <td><a href="#" onClick="window.open('{{this.url}}', '_blank')">{{this.title}}</a></td>
+
+
             // $(tRow).append($('<td>').text(article.newest));
             $('tbody').append(tRow);
-
         });
-        console.log(sourcesObj);
-        // updatePage(result)
 
-        
-        // $.post("/api/articles/", query);
+    }
+
+    function doQuery() {
+        renderArticles(0, 49)
+        createWordCloud(JSON.parse(localStorage.getItem("data")).wordcloud)
+        createAuthorCloud(JSON.parse(localStorage.getItem("data")).authorcloud)
     }
 
     function initializePage() {
@@ -76,7 +73,7 @@ $(document).ready(function () {
                 authors: null,
                 words: []
             }
-        
+
         }).then(function () {
             queryArticles()
         });
@@ -92,33 +89,167 @@ $(document).ready(function () {
         });
     }
 
+    function createWordCloud() {
+        createCloud(JSON.parse(localStorage.getItem("data")).wordcloud, 'wordCloud')
+    }
+
+    function createAuthorCloud() {
+        createCloud(JSON.parse(localStorage.getItem("data")).authorcloud, 'authorCloud')
+    }
+
+    function createCloud(tags, divId) {
+        var fill = d3.scale.category10();
+        var w = $('#' + divId).width(),
+            h = $('#' + divId).height();
+        // w=1500
+        // h=700
+
+        let div = document.getElementById(divId);
+        
+        let position = div.getBoundingClientRect();
+        console.log('POSITION for '+divId+" --> "+JSON.stringify(position,null,2))
+
+        let bounds = [
+            {
+                x: position.x,
+                y: position.y
+            },
+            {
+                x: position.right,
+                y: position.bottom,
+            }
+        ]
+
+        console.log('BOUNDS for '+divId+" --> "+JSON.stringify(bounds,null,2))
+
+        var max,
+            fontSize;
+
+        var layout = d3.layout.cloud()
+            .timeInterval(Infinity)
+            .size([w, h])
+            .fontSize(function (d) {
+                return fontSize(+d.value);
+            })
+            .text(function (d) {
+                return d.key;
+            })
+            .on("end", draw);
+
+        var svg = d3.select('#' + divId).append("svg")
+            .attr("width", w)
+            .attr("height", h);
+
+        var vis = svg.append("g").attr("transform", "translate(" + [w >> 1, h >> 1] + ")");
+
+        update();
+
+        if (window.attachEvent) {
+            window.attachEvent('onresize', update);
+        }
+        else if (window.addEventListener) {
+            window.addEventListener('resize', update);
+        }
+
+        function draw(data, bounds) {
+            console.log('BOUNDS in draw() --> '+JSON.stringify(bounds,null,2))
+
+            svg.attr("width", w).attr("height", h);
+
+            scale = bounds ? Math.min(
+                w / Math.abs(bounds[1].x - w / 2),
+                w / Math.abs(bounds[0].x - w / 2),
+                h / Math.abs(bounds[1].y - h / 2),
+                h / Math.abs(bounds[0].y - h / 2)) / 2 : 1;
+
+                console.log('SCALE in draw() --> '+JSON.stringify(scale,null,2))
+            
+                scale = 1.4;
+
+            var text = vis.selectAll("text")
+                .data(data, function (d) {
+                    return d.text.toLowerCase();
+                });
+            text.transition()
+                .duration(1000)
+                .attr("transform", function (d) {
+                    return "translate(" + [d.x, d.y] + ")rotate(" + d.rotate + ")";
+                })
+                .style("font-size", function (d) {
+                    return d.size + "px";
+                });
+            text.enter().append("text")
+                .attr("text-anchor", "middle")
+                .attr("transform", function (d) {
+                    return "translate(" + [d.x, d.y] + ")rotate(" + d.rotate + ")";
+                })
+                .style("font-size", function (d) {
+                    return d.size + "px";
+                })
+                .style("opacity", 1e-6)
+                .transition()
+                .duration(1000)
+                .style("opacity", 1);
+            text.style("font-family", function (d) {
+                return d.font;
+            })
+                .style("fill", function (d) {
+                    return fill(d.text.toLowerCase());
+                })
+                .text(function (d) {
+                    return d.text;
+                })
+                .style("cursor", "pointer")
+                .on("click", function (d, i) {
+                    window.open(d.url, "_blank");
+                    console.log(d.text.toLowerCase());
+                });
+
+            // vis.transition().attr("transform", "translate(" + [850, 400] + ")");
+            // vis.transition().attr("transform", "translate(" + [750, 210] + ")scale(" + scale + ")");
+        }
+
+        function update() {
+            // console.log("UPDATE THIS: "+this)
+            // layout.font('impact').spiral('rectangular');
+            layout.font('impact').rotate(function () { return ~~(Math.random() * 2) * 90; });
+            fontSize = d3.scale['sqrt']().range([10, 100]);
+            // console.log("UPDATE TAGS : "+JSON.stringify(tags))
+            if (tags.length) {
+                fontSize.domain([+tags[tags.length - 1].value || 1, +tags[0].value]);
+            }
+            layout.stop().words(tags).start();
+        }
+
+    }
     // At the very start, pull down the user object for the logged in user and set the "default" query to be only their default sources.
     initializePage();
 
 
 
-    $('.btn-danger').on('click', initializePage);
-
-
-
 
     $('#source_sel').on('change', function (event) {
-        query.sources = result.sources[this.selectedIndex-1];
+        query.sources = result.sources[this.selectedIndex - 1];
         queryArticles();
     })
 
     $('#author_sel').on('change', function (event) {
         console.log("index: " + (this.selectedIndex - 1));
-        query.authors = result.authors[this.selectedIndex-1];
+        query.authors = result.authors[this.selectedIndex - 1];
         queryArticles();
     })
 
     $('#word_sel').on('change', function (event) {
+<<<<<<< HEAD
         // query.words = result.words[this.selectedIndex-1];
         query.words = $("#word_sel").attr("option");
         console.log("change has occurred");
         // console.log(query.words);
+=======
+        query.words = result.words[this.selectedIndex - 1];
+>>>>>>> 4e23206599e1f14c076ac658e7a0ff3389401a58
         queryArticles();
+
     })
 
 
