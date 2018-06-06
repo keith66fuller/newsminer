@@ -33,6 +33,7 @@ $(document).ready(function () {
 
 
 
+    $("#word_filter").hide();
 
     var query = {
         sources: [],
@@ -57,6 +58,8 @@ $(document).ready(function () {
     }
 
     function queryArticles() {
+        $("#table-of-articles tr").remove(); 
+        console.log("QUERY ARTICLES: \n" + JSON.stringify(query, null, 2));
         $.post("/api/articles/", query)
             .done(data => {
                 localStorage.setItem("data", JSON.stringify(data));
@@ -296,7 +299,10 @@ $(document).ready(function () {
     });
 
     $('#word_sel').on('change', function (event) {
-        query.words = result.words[this.selectedIndex - 1];
+        // query.words = result.words[this.selectedIndex-1];
+        query.words = $("#word_sel").attr("option");
+        console.log("change has occurred");
+        // console.log(query.words);
         queryArticles();
 
     });

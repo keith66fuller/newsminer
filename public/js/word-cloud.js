@@ -1,5 +1,9 @@
 $(document).ready(function () {
 
+    // $.getscript("./main-article-list.js", function () {
+    //     queryArticles();
+    // });
+
     $.post("/api/articles/", { wclimit: 100 })
         .done(data => {
             // var weight = 40;
@@ -12,7 +16,12 @@ $(document).ready(function () {
                 // console.log(tags[i].value)
             }
 
+<<<<<<< HEAD
+            console.log(tags);
+            createWordCloud(tags);
+=======
             // createWordCloud(tags);
+>>>>>>> 4e23206599e1f14c076ac658e7a0ff3389401a58
         });
 
 
@@ -115,7 +124,9 @@ $(document).ready(function () {
                 })
                 .style("cursor", "pointer")
                 .on("click", function (d, i) {
-                    window.open(d.url, "_blank");
+                    // window.open(d.url, "_blank");
+                    $("#word_sel").attr("option",d.text.toLowerCase());
+                    // console.log()
                     console.log(d.text.toLowerCase());
                 });
 
