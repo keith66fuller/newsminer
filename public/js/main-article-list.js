@@ -6,15 +6,13 @@ $(document).ready(function () {
     //                                                                                 //
     //                                   SLIDER                                        //
     /////////////////////////////////////////////////////////////////////////////////////
+    $( function() {
+        $( "#wordSlider" ).slider();
+      } );
+    $( function() {
+        $( "#authorSlider" ).slider();
+      } );
 
-    var wordSlider = $("#wordSlider").slider({
-        min: 0,
-        orientation: 'horizontal'
-    });
-    var authorSlider = $("#authorSlider").slider({
-        min: 0,
-        orientation: 'horizontal'
-    });
 
 
 
@@ -125,7 +123,7 @@ $(document).ready(function () {
         // This removes the SVG
         d3.select('#' + divId + ' svg ').remove();
 
-        $('svg').remove();
+        // $('svg').remove();
 
         let div = document.getElementById(divId);
         
@@ -159,7 +157,8 @@ $(document).ready(function () {
             })
             .on("end", draw);
 
-        var svg = d3.select('#' + divId).append("svg")
+        // This is what places the SVG on the page before the slider element.
+        var svg = d3.select('#' + divId).insert("svg", ".slider")
             .attr("width", w)
             .attr("height", h);
 
