@@ -36,6 +36,7 @@ $(document).ready(function () {
 
     function renderArticles(first, last) {
         let data = JSON.parse(localStorage.getItem("data"))
+        $('tbody').empty();
         data.articles.slice(first, last).forEach(article => {
             let tRow = $('<tr>').data('id', article.id);
             $(tRow).append($('<td>').text(article.author));
@@ -200,12 +201,7 @@ $(document).ready(function () {
                     query.words = d.text;
                     console.log(JSON.stringify(query, null, 2))
                     
-                    $.post("/api/articles/", query)
-                    .done(data => {
-                        localStorage.setItem("data", JSON.stringify(data));
-                        doQuery()
-                    });
-                });
+                    queryArticles();                });
 
             // vis.transition().attr("transform", "translate(" + [850, 400] + ")");
             // vis.transition().attr("transform", "translate(" + [750, 210] + ")scale(" + scale + ")");
