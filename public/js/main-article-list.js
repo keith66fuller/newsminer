@@ -97,6 +97,8 @@ $(document).ready(function () {
         // w=1500
         // h=700
 
+        $('#'+divId).empty();
+
         let div = document.getElementById(divId);
         
         let position = div.getBoundingClientRect();
@@ -194,8 +196,15 @@ $(document).ready(function () {
                 })
                 .style("cursor", "pointer")
                 .on("click", function (d, i) {
-                    window.open(d.url, "_blank");
                     console.log(d.text.toLowerCase());
+                    query.words = d.text;
+                    console.log(JSON.stringify(query, null, 2))
+                    
+                    $.post("/api/articles/", query)
+                    .done(data => {
+                        localStorage.setItem("data", JSON.stringify(data));
+                        doQuery()
+                    });
                 });
 
             // vis.transition().attr("transform", "translate(" + [850, 400] + ")");
