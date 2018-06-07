@@ -11,6 +11,15 @@
         crossorigin="anonymous">
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
     <link rel="stylesheet" type="text/css" media="screen" href="./css/main.css">
+
+    <script type="text/javascript" src="./bower_components/d3/d3.js"></script>
+    <script type="text/javascript" src="./bower_components/d3-cloud/d3.layout.cloud.js"></script>
+    <!-- SLIDER -->
+    <link rel="stylesheet" href="//code.jquery.com/ui/1.12.1/themes/base/jquery-ui.css">
+    <!-- <link rel="stylesheet" href="/resources/demos/style.css"> -->
+    <!-- <script src="https://code.jquery.com/jquery-1.12.4.js"></script> -->
+    <script src="https://code.jquery.com/ui/1.12.1/jquery-ui.js"></script>
+    <script type="text/javascript" src="./js/main.js"></script>
     <link href="https://fonts.googleapis.com/css?family=PT+Serif" rel="stylesheet">
 </head>
 
@@ -24,11 +33,6 @@
             </button>
             <div class="collapse navbar-collapse" id="navbarResponsive">
                 <ul class="navbar-nav ml-auto">
-                    <li class="nav-item">
-                        <a class="nav-link" href="#">Home
-                            <span class="sr-only">(current)</span>
-                        </a>
-                    </li>
                     <li class="nav-item active">
                         <a class="nav-link" href="./main.html">Main</a>
                         <span class="sr-only">(current)</span>
@@ -45,37 +49,49 @@
     </nav>
 
 
-    <div class="jumbotron jumbotron-fluid">
-        <div class="container word-cloud">
-            <h1 class="display-4">WORD CLOUD</h1>
-            <p class="lead">This is where our word cloud would go</p>
+    <div class="jumbotron jumbotron-fluid" style="width: 100%">
+        <div class="row">
+            <div id="wordCloud" class="word-cloud col-lg-6">
+                <div id="wordSlider" class="slider"></div>
+            </div>
+            <div id="authorCloud" class="word-cloud col-lg-6">
+                <div id="authorSlider" class="slider"></div>
+            </div>
         </div>
+
+        <div class="row">
+
+
+
+            <!-- <div id="wordSlider" class="col-lg-6">
+                <input id="wordSlider" class="slider" data-slider-id='wordSlider' type="text" data-slider-min="1" data-slider-max="00" data-slider-step="1"
+                    data-slider-value="50" />
+            </div>
+
+
+
+            <div id="authorSlider" class="col-lg-6">
+                <input id="authorSlider" class="slider" data-slider-id='authorSlider' type="text" data-slider-min="1" data-slider-max="00"
+                    data-slider-step="1" data-slider-value="50" />
+            </div> -->
+        </div>
+
+        
     </div>
 
     <div class="container-fluid text-center">
         <div class="row content">
-            <div class="col-sm-12 col-md-8 text-left">
-                <h1 class="text-center">The Latest</h1>
-                <br>
-                <table style="width:100%">
+            <div class="col-lg-12 col-sm-12 col-md-8 text-left">
+                <table class="table table-hover" style="width:100%">
                     <tr>
                         <th>Author</th>
+                        <th></th>
                         <th>Headline</th>
                         <th>Source</th>
                     </tr>
-                    <tr>
-                        <td>Keith</td>
-                        <td>All Your Base Are Belong To Us!</td>
-                        <td>Tribune</td>
-                    </tr>
-                    <tr>
-                        <td>James</td>
-                        <td>It's Gonna Be A Hot One</td>
-                        <td>Sun Times</td>
-                    </tr>
                 </table>
             </div>
-            <div class="col-sm-6 col-md-4 sidenav">
+            <!-- <div class="col-sm-6 col-md-4 sidenav">
                 <form>
                     <h2>Search By</h2>
                     <div class="form-group row">
@@ -93,12 +109,13 @@
                     <div>
                         Article Date:
                         <input type="text" name="date-range" value="mm/dd/yyyy">
-                    </div><br>
+                    </div>
+                    <br>
                     <div>
                         <button type="submit" class="btn btn-primary main-submit">Submit</button>
                     </div>
                 </form>
-            </div>
+            </div> -->
         </div>
     </div>
 
@@ -111,19 +128,6 @@
         <a class="a-footer" href="https://newsapi.org/">Powered by News API</a>
         <br>
     </footer>
-
-    <!-- <script type="text/javascript">
-        $(function() {
-            $('input[name="date-range"]').daterangepicker({
-                singleDatePicker: true,
-                showDropdowns: true
-            }, 
-            function(start, end, label) {
-                var years = moment().diff(start, 'years');
-                alert("You are " + years + " years old.");
-            });
-        });
-    </script> -->
 
 </body>
 
