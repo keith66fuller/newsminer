@@ -12,11 +12,15 @@
     <link rel="stylesheet" type="text/css" media="screen" href="./css/login.css">
     <!-- <script src="https://www.gstatic.com/firebasejs/4.12.1/firebase.js"></script> -->
     <script src="https://www.gstatic.com/firebasejs/5.0.4/firebase.js"></script>
+    <link href="https://fonts.googleapis.com/css?family=Oswald:700|Patua+One|Roboto+Condensed:700" rel="stylesheet">
 </head>
 
 <body>
-    <nav class="navbar navbar-expand-lg navbar-dark bg-dark fixed-top">
+    <nav class="navbar navbar-expand-lg fixed-top">
         <div class="container">
+            <a class="main-logo"><img src="./img/digger.jpg" height="55" width="55"></a>
+            <!-- <a class="main-logo"><img src="./img/hammer.jpg" height="45" width="45"></a>
+            <a class="main-logo"><img src="./img/helmet.jpg" height="50" width="50"></a> -->
             <a class="navbar-brand" href="#">News Miner</a>
             <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarResponsive" aria-controls="navbarResponsive"
                 aria-expanded="false" aria-label="Toggle navigation">
@@ -28,6 +32,7 @@
                     </li>
                     <li class="nav-item">
                         <a class="nav-link" href="./main.html">Main</a>
+                        <span class="sr-only">(current)</span>
                     </li>
                     <li class="nav-item">
                         <a class="nav-link" href="./user-setup.html">Profile</a>
@@ -44,10 +49,12 @@
         <div class="row content">
             <div class="col-sm-12">
                 <div class="card-body">
-                    <img class="logo" src="./img/news.jpg">
+                    <!-- <img class="logo" src="./img/Miner1.png" height="400" width="450"> -->
+                    <!-- <img class="logo img-circle" src="./img/Miner2.png" height="400" width="450"> -->
+                    <img class="logo" src="./img/Miner3.png" height="350" width="400">
                     <br>
                     <br>
-                    <p>Your Daily Source for All Things News</p>
+                    <p><b>Your Daily Source for All Things News</b></p>
                 </div>
             </div>
         </div>
@@ -57,13 +64,13 @@
         <div class="row content">
             <div class="col-sm-12">
                 <div class="card-body">
-                    <a href="#" id="google-login">
-                        <img src="./img/google.jpg" alt="Google" height="42" width="42">Login with Google
+                    <a href="#" id="google-login" class="btn">
+                        <img src="./img/google2.png" alt="Google" height="40" width="40"><b>Login with Google</b>
                     </a>
                 </div>
                 <div class="card-body">
-                    <a href="#" id="github-login">
-                        <img src="./img/github.png" alt="Github" height="42" width="42">Login with GitHub
+                    <a href="#" id="github-login" class="btn">
+                        <img src="./img/github2.png" alt="Github" height="40" width="40"><b>Login with GitHub</b>
                     </a>
                 </div>
             </div>
@@ -75,6 +82,8 @@
         <a class="a-footer" href="https://dashboard.heroku.com/apps/salty-taiga-82539">Heroku</a>
         <br>
         <a class="a-footer" href="https://github.com/allYourBase-AreBelongToUs/project_2/tree/master">Github</a>
+        <br>
+        <a class="a-footer" href="https://newsapi.org/">Powered by News API</a>
     </footer>
 </body>
 
