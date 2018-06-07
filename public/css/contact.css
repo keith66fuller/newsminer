@@ -1,14 +1,18 @@
+.navbar {
+	background-color: black;
+}
+
 body{
 	width:100%;
 	height:100%;
-	font-family: 'Roboto Condensed', sans-serif;
-	
+	/* font-family: 'Roboto Condensed', sans-serif; */
+	font-family: 'Patua One';
 }
 
 
 h1,h2,h3 {
 	margin:0 0 35px 0;
-	font-family: 'Patua One', cursive;
+	font-family: 'Patua One';
 	text-transform: uppercase;
     letter-spacing:1px;
     text-align: center;
@@ -20,7 +24,11 @@ p{
 	line-height:1.6em;
 }
 
-a{
+.nav-link, .navbar-brand {
+	color: white;
+}
+
+.a-footer{
 	color:#26a5d3;
 }
 
@@ -30,7 +38,7 @@ a:hover,a:focus{
 }
 
 footer {
-    background:#333333;
+    background:black;
 	color:#f4f4f4;
 }
 

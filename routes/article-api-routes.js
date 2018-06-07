@@ -40,14 +40,14 @@ function processCounts(objArr) {
   return arrResult.sort(sortByCount)
 }
 
-function sortWords(obj, limit) {
+function sortWords(obj) {
   let retVal = [];
   Object.keys(obj).sort((a,b) => {
     return obj[b] - obj[a]
   }).forEach(e => {
     retVal.push( { key: e, value: obj[e] } )
   })
-  return retVal.slice(0,limit)
+  return retVal
 }
 function makeWordCloud(objArr) {
   let arrResult = []
@@ -93,7 +93,7 @@ module.exports = function (app) {
   //   words:   processCounts(wordsObj),
   //   authors: processCounts(authorsObj),
   //   sources: processCounts(sourcesObj),
-  //   wordcloud: sortWords(wordsObj, wclimit)
+  //   wordcloud: sortWords(wordsObj)
   // }
 
 
@@ -102,9 +102,6 @@ module.exports = function (app) {
     console.log("REQUEST: " + JSON.stringify(req.body, null, 2))
 
     
-    let wclimit = req.body.wclimit?req.body.wclimit:100
-
-
     let toDate = req.body.toDate?req.body.toDate:moment().format('YYYY-MM-DD HH:mm:ss')
     let fromDate = req.body.fromDate?req.body.fromDate:moment().subtract(1, 'days').format('YYYY-MM-DD HH:mm:ss')
 
@@ -176,6 +173,7 @@ module.exports = function (app) {
                 //reject author that is the same as source
                 return
               }
+
               if (!author.match(/[a-z]+/i)) {
                 //reject author with no alpha characters
                 return
@@ -184,6 +182,13 @@ module.exports = function (app) {
                 //reject bogus parts of speech authors
                 return
               }
+
+              
+              if (author.toLowerCase().match(   article.SourceId.toLowerCase().replace("-"," ")   )) {
+                //reject authors that contain the source name
+                return
+              }
+
               // console.log("\tAUTHOR: " + author)
               incObj(authorsObj, author)
             })
@@ -204,15 +209,14 @@ module.exports = function (app) {
 
       ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
       // Response Object
-      console.log(wclimit);
 
       res.json({
         articles: articles,
         words:   processCounts(wordsObj),
         authors: processCounts(authorsObj),
         sources: processCounts(sourcesObj),
-        wordcloud: sortWords(wordsObj, wclimit),
-        authorcloud: sortWords(authorsObj, wclimit),
+        wordcloud: sortWords(wordsObj),
+        authorcloud: sortWords(authorsObj),
       });
     });
   });

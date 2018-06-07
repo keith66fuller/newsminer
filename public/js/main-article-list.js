@@ -1,43 +1,81 @@
 $(document).ready(function () {
+
+
+
+    /////////////////////////////////////////////////////////////////////////////////////
+    //                                                                                 //
+    //                                   SLIDER                                        //
+    /////////////////////////////////////////////////////////////////////////////////////
+    $(function () {
+        $("#wordSlider")
+            .slider({
+                change:  (event, ui) => {
+                    console.log(ui.value);
+                    localStorage.setItem("numWords", ui.value);
+                    createWordCloud()
+                }
+            });
+    });
+
+
+    $(function () {
+        $("#authorSlider")
+        .slider({
+            change:  (event, ui) => {
+                console.log(ui.value);
+                localStorage.setItem("numAuthors", ui.value);
+                createAuthorCloud()
+            }
+        });
+    });
+
+
+
+
+
     $("#word_filter").hide();
 
     var query = {
         sources: [],
         authors: null,
         words: []
-    }
+    };
 
     var result = query;
 
     var defaultQuery = query;
 
     function makeArrayFromEachElement_0(arr) {
-        return arr.map(element => element[0])
+        return arr.map(element => element[0]);
     }
 
     function selectUpdate(id, arr) {
         let firstEl = $(id + " option:first-child");
         $(id).empty().append(firstEl);
         arr.forEach(element => {
-            $(id).append($('<option>').text(element))
+            $(id).append($('<option>').text(element));
         });
     }
 
     function queryArticles() {
+        $("#table-of-articles tr").remove(); 
+        console.log("QUERY ARTICLES: \n" + JSON.stringify(query, null, 2));
         $.post("/api/articles/", query)
             .done(data => {
                 localStorage.setItem("data", JSON.stringify(data));
-                doQuery()
+                localStorage.setItem("numWords", 100);
+                localStorage.setItem("numAuthors", 100);
+                doQuery();
             });
     }
 
-    function renderwords(count) {
-        let data = JSON.parse(localStorage.getItem("data"))
+    function renderwords() {
+        let data = JSON.parse(localStorage.getItem("data"));
         let words = makeArrayFromEachElement_0(data.words);
     }
 
     function renderArticles(first, last) {
-        let data = JSON.parse(localStorage.getItem("data"))
+        let data = JSON.parse(localStorage.getItem("data"));
         $('tbody').empty();
         data.articles.slice(first, last).forEach(article => {
             let tRow = $('<tr>').data('id', article.id);
@@ -57,9 +95,22 @@ $(document).ready(function () {
     }
 
     function doQuery() {
-        renderArticles(0, 49)
-        createWordCloud(JSON.parse(localStorage.getItem("data")).wordcloud)
-        createAuthorCloud(JSON.parse(localStorage.getItem("data")).authorcloud)
+        renderArticles(0, 49);
+        createWordCloud();
+        createAuthorCloud();
+
+        setSlider('#wordSlider',JSON.parse(localStorage.getItem("data")).wordcloud)
+        setSlider('#authorSlider',JSON.parse(localStorage.getItem("data")).authorcloud)
+    };
+
+    function setSlider(id, arr) {
+        let total = arr.length
+        $(id).slider("option", {
+            min: 0,
+            max: total,
+            value: total>100?100:total/2
+        });
+        
     }
 
     function initializePage() {
@@ -68,10 +119,10 @@ $(document).ready(function () {
                 sources: JSON.parse(userObj.sources),
                 authors: null,
                 words: []
-            }
+            };
 
         }).then(function () {
-            queryArticles()
+            queryArticles();
         });
     }
 
@@ -81,16 +132,16 @@ $(document).ready(function () {
             ["#author_sel", result.authors],
             ["#source_sel", result.sources]
         ].forEach(e => {
-            selectUpdate(e[0], e[1])
+            selectUpdate(e[0], e[1]);
         });
     }
 
     function createWordCloud() {
-        createCloud(JSON.parse(localStorage.getItem("data")).wordcloud, 'wordCloud')
+        createCloud(JSON.parse(localStorage.getItem("data")).wordcloud.slice(0, JSON.parse(localStorage.getItem("numWords"))), 'wordCloud');
     }
 
     function createAuthorCloud() {
-        createCloud(JSON.parse(localStorage.getItem("data")).authorcloud, 'authorCloud')
+        createCloud(JSON.parse(localStorage.getItem("data")).authorcloud.slice(0, JSON.parse(localStorage.getItem("numAuthors"))), 'authorCloud');
     }
 
     function createCloud(tags, divId) {
@@ -100,12 +151,18 @@ $(document).ready(function () {
         // w=1500
         // h=700
 
-        $('#'+divId).empty();
+        // This empties the entire div
+        // $('#'+divId).empty();
+
+        // This removes the SVG
+        d3.select('#' + divId + ' svg ').remove();
+
+        // $('svg').remove();
 
         let div = document.getElementById(divId);
-        
+
         let position = div.getBoundingClientRect();
-        console.log('POSITION for '+divId+" --> "+JSON.stringify(position,null,2))
+        // console.log('POSITION for '+divId+" --> "+JSON.stringify(position,null,2))
 
         let bounds = [
             {
@@ -116,9 +173,9 @@ $(document).ready(function () {
                 x: position.right,
                 y: position.bottom,
             }
-        ]
+        ];
 
-        console.log('BOUNDS for '+divId+" --> "+JSON.stringify(bounds,null,2))
+        // console.log('BOUNDS for '+divId+" --> "+JSON.stringify(bounds,null,2))
 
         var max,
             fontSize;
@@ -134,7 +191,8 @@ $(document).ready(function () {
             })
             .on("end", draw);
 
-        var svg = d3.select('#' + divId).append("svg")
+        // This is what places the SVG on the page before the slider element.
+        var svg = d3.select('#' + divId).insert("svg", ".slider")
             .attr("width", w)
             .attr("height", h);
 
@@ -150,7 +208,7 @@ $(document).ready(function () {
         }
 
         function draw(data, bounds) {
-            console.log('BOUNDS in draw() --> '+JSON.stringify(bounds,null,2))
+            // console.log('BOUNDS in draw() --> '+JSON.stringify(bounds,null,2))
 
             svg.attr("width", w).attr("height", h);
 
@@ -160,9 +218,9 @@ $(document).ready(function () {
                 h / Math.abs(bounds[1].y - h / 2),
                 h / Math.abs(bounds[0].y - h / 2)) / 2 : 1;
 
-                console.log('SCALE in draw() --> '+JSON.stringify(scale,null,2))
-            
-                scale = 1.4;
+            // console.log('SCALE in draw() --> '+JSON.stringify(scale,null,2))
+
+            scale = 1.4;
 
             var text = vis.selectAll("text")
                 .data(data, function (d) {
@@ -199,11 +257,12 @@ $(document).ready(function () {
                 })
                 .style("cursor", "pointer")
                 .on("click", function (d, i) {
-                    console.log(d.text.toLowerCase());
+                    // console.log(d.text.toLowerCase());
                     query.words = d.text;
-                    console.log(JSON.stringify(query, null, 2))
-                    
-                    queryArticles();                });
+                    // console.log(JSON.stringify(query, null, 2))
+
+                    queryArticles();
+                });
 
             // vis.transition().attr("transform", "translate(" + [850, 400] + ")");
             // vis.transition().attr("transform", "translate(" + [750, 210] + ")scale(" + scale + ")");
@@ -231,19 +290,22 @@ $(document).ready(function () {
     $('#source_sel').on('change', function (event) {
         query.sources = result.sources[this.selectedIndex - 1];
         queryArticles();
-    })
+    });
 
     $('#author_sel').on('change', function (event) {
         console.log("index: " + (this.selectedIndex - 1));
         query.authors = result.authors[this.selectedIndex - 1];
         queryArticles();
-    })
+    });
 
     $('#word_sel').on('change', function (event) {
-        query.words = result.words[this.selectedIndex - 1];
+        // query.words = result.words[this.selectedIndex-1];
+        query.words = $("#word_sel").attr("option");
+        console.log("change has occurred");
+        // console.log(query.words);
         queryArticles();
 
-    })
+    });
 
 
-})
+});
