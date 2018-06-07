@@ -6,11 +6,21 @@
     border-radius: 0;
     background-color: black !important;
     color: white;
+    font-family: 'Patua One';
+}
+
+.nav-item, .navbar-brand {
+	color: white;
+}
+
+.a-footer{
+	color:#26a5d3;
 }
 
 body {
     padding-top: 55px;
-    font-family: 'PT Serif', serif;
+    /* font-family: 'PT Serif', serif; */
+    font-family: 'Patua One';
 }
 
 .word-cloud {
@@ -40,7 +50,7 @@ body {
 }
 
 .a-footer {
-    color: white;
+    color:#26a5d3;
 }
 
 .slider {
@@ -62,6 +72,7 @@ footer {
     background-color:black;
     color: white;
     padding: 15px;
+    font-family: 'Patua One';
 }
 
 /* settings for sidenav background and size */
