@@ -1,16 +1,34 @@
 $(document).ready(function () {
 
-    var config = {
-        apiKey: "AIzaSyDr59vCL72gV07FpEUyu61F8QZVdy4iEuY",
-        authDomain: "fireauthen-1c11b.firebaseapp.com",
-        databaseURL: "https://fireauthen-1c11b.firebaseio.com",
-        projectId: "fireauthen-1c11b",
-        storageBucket: "fireauthen-1c11b.appspot.com",
-        messagingSenderId: "183413100827"
-    };
+    // var config = {
+    //     apiKey: "AIzaSyDr59vCL72gV07FpEUyu61F8QZVdy4iEuY",
+    //     authDomain: "fireauthen-1c11b.firebaseapp.com",
+    //     databaseURL: "https://fireauthen-1c11b.firebaseio.com",
+    //     projectId: "fireauthen-1c11b",
+    //     storageBucket: "fireauthen-1c11b.appspot.com",
+    //     messagingSenderId: "183413100827"
+    // };
 
-    firebase.initializeApp(config);
+    // firebase.initializeApp(config);
+
+
+    var config = {
+        apiKey: "AIzaSyAay3IEcIfVqgYpo9NwTQDRWFBSmQuhW1c",
+        authDomain: "news-miner-beefd.firebaseapp.com",
+        databaseURL: "https://news-miner-beefd.firebaseio.com",
+        projectId: "news-miner-beefd",
+        storageBucket: "news-miner-beefd.appspot.com",
+        messagingSenderId: "983822948368"
+      };
+      firebase.initializeApp(config);
     var database = firebase.database();
+
+
+
+
+  
+
+
 
     $('#google-login').on('click', function () {
         event.preventDefault();
