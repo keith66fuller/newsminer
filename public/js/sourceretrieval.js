@@ -1,6 +1,6 @@
 $(document).ready(function () {
 
-    $.get("/api/sources", function (sourcesObj) {
+    $.get("/api/sourceretrieval", function (sourcesObj) {
         // console.log("SOURCES: "+JSON.stringify(sourcesObj, null, 2));
         sourcesObj.forEach(sourceObj => {
             let tRow = $('<tr>').data('id',sourceObj.id);
@@ -11,7 +11,6 @@ $(document).ready(function () {
             $('tbody').append(tRow);
 
         });
-        console.log(sourcesObj);
     });
 
 

@@ -19,8 +19,18 @@
     <!-- <link rel="stylesheet" href="/resources/demos/style.css"> -->
     <!-- <script src="https://code.jquery.com/jquery-1.12.4.js"></script> -->
     <script src="https://code.jquery.com/ui/1.12.1/jquery-ui.js"></script>
-    <script type="text/javascript" src="./js/main.js"></script>
+    <script type="text/javascript" src="./js/main-article-list.js"></script>
     <link href="https://fonts.googleapis.com/css?family=PT+Serif" rel="stylesheet">
+
+    <!-- Search Meta Tags -->
+    <meta property="og:type" content="website">
+    <meta property="og:url" content="https://newsminer.herokuapp.com/">
+    <meta property="og:site_name" content="News Miner">
+    <meta property="og:image" itemprop="image primaryImageOfPage" content="https://newsminer.herokuapp.com/assets/img/screenshot_sm.png">
+    <meta name="twitter:card" content="summary">
+    <meta name="twitter:domain" content="herokuapp.com">
+    <meta name="twitter:title" property="og:title" itemprop="title name" content="News Miner">
+    <meta name="twitter:description" property="og:description" itemprop="description" content="Dig the news?  NewsMiner is for you!">
 </head>
 
 <body>
@@ -57,6 +67,7 @@
             <div id="authorCloud" class="word-cloud col-lg-6">
                 <div id="authorSlider" class="slider"></div>
             </div>
+
         </div>
 
         <div class="row">
@@ -75,14 +86,15 @@
                     data-slider-step="1" data-slider-value="50" />
             </div> -->
         </div>
-
-        
     </div>
 
     <div class="container-fluid text-center">
         <div class="row content">
+
             <div class="col-lg-12 col-sm-12 col-md-8 text-left">
+
                 <table class="table table-hover" style="width:100%">
+
                     <tr>
                         <th>Author</th>
                         <th></th>
@@ -113,6 +125,9 @@
                     <br>
                     <div>
                         <button type="submit" class="btn btn-primary main-submit">Submit</button>
+                    </div>
+                    <div class="form-group" id="word_filter">
+                        <div id="word_sel" value=""></div>                        
                     </div>
                 </form>
             </div> -->

@@ -20,15 +20,16 @@ body {
 }
 
 .word-cloud {
-    text-align: center;
+    text-align: left;
     height: 400px;
 }
 
 /* Set height of the grid so .sidenav can be 100% (adjust as needed) */
-.row.content {
+/* .row.content {
+    height: 600px;
     padding: 10px;
     border: 1px solid black;
-}
+} */
 
 .main-submit {
     background-color: black !important;
@@ -53,6 +54,9 @@ body {
     color: white;
 }
 
+.slider {
+	background: #BABABA;
+}
 .form-group {
     justify-content: center;
 }
