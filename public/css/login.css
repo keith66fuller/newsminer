@@ -51,8 +51,17 @@ footer {
     background-color:black;
     color: white;
     padding: 15px;
+    position: fixed;
+    left: 0;
+    bottom: 0;
+    width: 100%;
 }
 
 .logo {
     background-color: black;
+}
+
+.headline{
+    font-family: 'Racing Sans One', cursive;
+    font-size: 30px;
 }

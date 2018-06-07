@@ -24,11 +24,6 @@ $(document).ready(function () {
     }
 
     function queryArticles() {
-<<<<<<< HEAD
-        $("#table-of-articles tr").remove(); 
-        console.log("QUERY ARTICLES: \n" + JSON.stringify(query, null, 2));
-=======
->>>>>>> 4e23206599e1f14c076ac658e7a0ff3389401a58
         $.post("/api/articles/", query)
             .done(data => {
                 localStorage.setItem("data", JSON.stringify(data));
@@ -245,14 +240,7 @@ $(document).ready(function () {
     })
 
     $('#word_sel').on('change', function (event) {
-<<<<<<< HEAD
-        // query.words = result.words[this.selectedIndex-1];
-        query.words = $("#word_sel").attr("option");
-        console.log("change has occurred");
-        // console.log(query.words);
-=======
         query.words = result.words[this.selectedIndex - 1];
->>>>>>> 4e23206599e1f14c076ac658e7a0ff3389401a58
         queryArticles();
 
     })
