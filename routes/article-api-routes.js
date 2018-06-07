@@ -161,7 +161,7 @@ module.exports = function (app) {
         // Process Authors
         //  Split authors string on commas, dashes, "by", and "and"
         if (typeof article.author != 'undefined' && article.author != null) {
-          console.log("ORIGINAL AUTHOR: " + article.author)
+          // console.log("ORIGINAL AUTHOR: " + article.author)
           article.author.split(/ +(at|and|by) +/i).forEach(a => {
             a.split(/ +- +| *, */).forEach(author => {
               author = author.trim()
@@ -189,7 +189,7 @@ module.exports = function (app) {
                 return
               }
 
-              console.log("\tAUTHOR: " + author)
+              // console.log("\tAUTHOR: " + author)
               incObj(authorsObj, author)
             })
           });
