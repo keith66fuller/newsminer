@@ -33,6 +33,13 @@ body {
     height: 400px;
 }
 
+.resetquery {
+    height: 10em
+}
+.querydiv-row {
+    height:33%;
+    overflow: hidden;
+}
 /* Set height of the grid so .sidenav can be 100% (adjust as needed) */
 /* .row.content {
     height: 600px;

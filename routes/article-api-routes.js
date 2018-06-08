@@ -119,17 +119,29 @@ module.exports = function (app) {
         }
       }
     }
-
-    if (req.body.sources) {
+    
+    if (req.body.sources && req.body.sources != "null") {
       where.SourceId = req.body.sources
     }
 
-    if (req.body.authors) {
-      where.author = { [Op.like]: '%'+req.body.authors+'%' };
+    if (req.body.authors && req.body.authors != "null") {
+      console.log("AUTHORS: "+req.body.authors)
+      let phrase = []
+      req.body.authors.forEach(e => {
+        phrase.push({ [Op.like]: '%'+e+'%' })
+      });
+      where.author = { [Op.and]: phrase };
     }
 
-    if (req.body.words) {
+    if (req.body.words && req.body.words != "null") {
       where.title = { [Op.regexp]: '.+'+req.body.words+'.+' }
+
+      console.log("AUTHORS: "+req.body.words)
+      let phrase = []
+      req.body.words.forEach(e => {
+        phrase.push({ [Op.like]: '%'+e+'%' })
+      });
+      where.title = { [Op.and]: phrase };
     }
 
     console.log("WHERE str: " + JSON.stringify(where, null, 2) + "\nWHERE o: " + where)

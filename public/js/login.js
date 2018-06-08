@@ -1,5 +1,10 @@
 $(document).ready(function () {
-
+    Storage.prototype.setObj = function(key, obj) {
+        return this.setItem(key, JSON.stringify(obj))
+    }
+    Storage.prototype.getObj = function(key) {
+        return JSON.parse(this.getItem(key))
+    }
     // var config = {
     //     apiKey: "AIzaSyDr59vCL72gV07FpEUyu61F8QZVdy4iEuY",
     //     authDomain: "fireauthen-1c11b.firebaseapp.com",
@@ -36,8 +41,8 @@ $(document).ready(function () {
             // The signed-in user info.
             var user = result.user;
 
-            localStorage.setItem("uid", user.uid);
-            localStorage.setItem("email", user.email);
+            localStorage.setObj("uid", user.uid);
+            localStorage.setObj("email", user.email);
             console.log("UID: "+ localStorage.uid+" EMAIL: "+localStorage.email);
             $.get("/api/user/" + localStorage.uid, function (userObj) {
                 if (userObj) {
@@ -63,7 +68,7 @@ $(document).ready(function () {
         var provider = new firebase.auth.GithubAuthProvider();
 
         return firebase.auth().signInWithRedirect(provider).then(function (result) {
-            localStorage.setItem("uid", user.uid);
+            localStorage.setObj("uid", user.uid);
             console.log(localStorage.uid);
 
             // This gives you a GitHub Access Token. You can use it to access the GitHub API.
