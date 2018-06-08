@@ -12,11 +12,25 @@
     color:black;
 }
 
+/* .main-logo { 
+    align-content: center; 
+} */
 
-.nav-link, .navbar-brand {
-	color:skyblue;
+
+.navbar-brand {
+    font-family: 'Fredericka the Great', cursive;
+    font-size: 30px;
+    /* font-family: 'Rye', cursive; */
 }
 
+.nav-link, .navbar-brand {
+	color: white;
+}
+
+.biline {
+    font-family: 'Fredericka the Great', cursive;
+    font-size: 30px;
+}
 
 body {
     padding-top: 55px;
@@ -43,14 +57,14 @@ a:hover {
     color: black !important;
     border: 3px solid black;
     padding: 15px;
-    background-color: rgb(243, 166, 24);
+    background-color: lightgrey;
 }
 
 #google-login:hover, #github-login:hover {
     color: black !important;
     border: 3px solid black;
     padding: 15px;
-    background-color: gold;
+    background-color: lightgrey;
 }
 
 /* Set black background color, white text and some padding */
@@ -63,7 +77,3 @@ footer {
 .a-footer{
 	color: skyblue;
 }
-
-/* p {
-    color: red;
-} */
