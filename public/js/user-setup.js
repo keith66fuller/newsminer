@@ -82,9 +82,14 @@ $(document).ready(function () {
     //     // $(location).attr('href', '/main.html')
     // });
 
+    $("#checkAll").click(function () {
+        $(".Checkbox").prop('checked', $(this).prop('checked'));
+    });
+
     $("#exampleModal").on("click", function () {
         // check to see which checkboxes were selected by the user
         // grab this info and create as a string/array
+        var emptyArray = [];
         var checklistString = $('.Checkbox:checked').map(function () {
             return this.value;
         }).get()

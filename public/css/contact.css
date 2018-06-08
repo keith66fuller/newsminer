@@ -28,6 +28,16 @@ p{
 	color: white;
 }
 
+.navbar-brand {
+	font-family: 'Fredericka the Great', cursive;
+	font-size: 30px;
+	color: white;
+}
+ 
+.card-body {
+	font-family: 'Fredericka the Great', cursive;
+}
+
 .a-footer{
 	color:#26a5d3;
 }
@@ -49,7 +59,7 @@ footer {
 }
 
 textarea.form-control{
-    height:100px;
+    height:200px;
 }
 
 .contact-form {
@@ -57,3 +67,4 @@ textarea.form-control{
     padding-left: 400X;
     padding-right: 400X;
 }
+
