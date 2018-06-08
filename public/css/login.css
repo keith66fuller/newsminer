@@ -4,24 +4,47 @@
 .navbar {
     margin-bottom: 0;
     border-radius: 0;
-    background-color: black !important;
+    background: black;
     color: white;
 }
 
 .navbar:hover {
-    color: grey;
+    color:black;
+}
+
+/* .main-logo { 
+    align-content: center; 
+} */
+
+
+.navbar-brand {
+    font-family: 'Fredericka the Great', cursive;
+    font-size: 30px;
+    /* font-family: 'Rye', cursive; */
+}
+
+.nav-link, .navbar-brand {
+	color: white;
+}
+
+.biline {
+    font-family: 'Fredericka the Great', cursive;
+    font-size: 30px;
 }
 
 body {
     padding-top: 55px;
+    font-family: 'Roboto Condensed', sans-serif;
+    background-color: white;
 }
 
 .a-footer {
-    color: white;
+	color:#26a5d3;
+    /* color: white; */
 }
 
 a:hover {
-    color: grey;
+    color:black;
     text-decoration: none;
     cursor:pointer;
 }
@@ -34,15 +57,19 @@ a:hover {
     color: black !important;
     border: 3px solid black;
     padding: 15px;
+    background-color: lightgrey;
 }
 
 #google-login:hover, #github-login:hover {
-    color: grey !important;
+    color: black !important;
+    border: 3px solid black;
+    padding: 15px;
+    background-color: lightgrey;
 }
 
 /* Set black background color, white text and some padding */
 footer {
-    background-color:black;
+    background: black;
     color: white;
     padding: 15px;
 }
@@ -51,8 +78,22 @@ footer {
     background-color:black;
     color: white;
     padding: 15px;
+    position: fixed;
+    left: 0;
+    bottom: 0;
+    width: 100%;
 }
 
 .logo {
     background-color: black;
 }
+
+.headline{
+    font-family: 'Racing Sans One', cursive;
+    font-size: 30px;
+}
+.a-footer{
+	color: skyblue;
+}
+    color: red;
+} */

@@ -16,12 +16,7 @@ $(document).ready(function () {
                 // console.log(tags[i].value)
             }
 
-<<<<<<< HEAD
-            console.log(tags);
-            createWordCloud(tags);
-=======
             // createWordCloud(tags);
->>>>>>> 4e23206599e1f14c076ac658e7a0ff3389401a58
         });
 
 

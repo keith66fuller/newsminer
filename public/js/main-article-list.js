@@ -138,12 +138,20 @@ $(document).ready(function () {
     }
 
     function initializePage() {
-        $.get("/api/user/keith66fuller", function (userObj) {
+        $.get("/api/user/asdf", function (userObj) {
+            console.log(userObj);
+            // userObj = JSON.parse(userObj);
+            userObj = JSON.stringify(userObj);
+            console.log("converted object");
+            console.log(userObj);
             query = {
+                sources: JSON.parse(userObj).sources,
                 // sources: JSON.parse(userObj.sources),
                 authors: null,
                 words: null,
             };
+            console.log("converted object");
+            console.log(query);
 
         }).then(function () {
             queryArticles();
