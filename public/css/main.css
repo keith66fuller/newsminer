@@ -14,7 +14,7 @@ html {
     font-family: 'Patua One';
 }
 
-.nav-item, .navbar-brand {
+.navbar-nav, .navbar-brand {
 	color: white;
 }
 
