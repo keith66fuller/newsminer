@@ -102,11 +102,14 @@ module.exports = function (app) {
     console.log("REQUEST: " + JSON.stringify(req.body, null, 2))
 
     
-    let toDate = req.body.toDate?req.body.toDate:moment().format('YYYY-MM-DD HH:mm:ss')
-    let fromDate = req.body.fromDate?req.body.fromDate:moment().subtract(1, 'days').format('YYYY-MM-DD HH:mm:ss')
+    let toDate = req.body.toDate?req.body.toDate:moment().toISOString()
+    let fromDate = req.body.fromDate?req.body.fromDate:moment().subtract(1, 'days').toISOString()
 
     console.log("fromDate: "+fromDate)
     console.log("toDate: "+toDate)
+    // let where = {
+    //   publishedAt: fromDate
+    // }
     let where = {
       publishedAt: {
         [Op.and]:
@@ -121,8 +124,8 @@ module.exports = function (app) {
       where.SourceId = req.body.sources
     }
 
-    if (req.body.authors) {
-      where.author = req.body.authors
+    if (req.body.authors != "") {
+      where.author = { [Op.like]: '%'+req.body.authors+'%' };
     }
 
     if (req.body.words) {
@@ -131,11 +134,11 @@ module.exports = function (app) {
 
     console.log("WHERE str: " + JSON.stringify(where, null, 2) + "\nWHERE o: " + where)
 
-
+    
     db.Article.findAll({
       where: where
     }).then(function (dbArticle) {
-      // console.log("DBARTICLE: "+JSON.stringify(dbArticle, null, 2))
+      console.log("RETURNED ARTICLES: "+dbArticle.length)
       let articles = []
 
       let wordsObj = {}

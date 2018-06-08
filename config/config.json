@@ -6,7 +6,7 @@
     "host": "zf4nk2bcqjvif4in.cbetxkdyhwsb.us-east-1.rds.amazonaws.com",
     "port": 3306,
     "dialect": "mysql",
-    "logging": false
+    "logging": true
   },
   "developmentA": {
     "username": "root",
