@@ -23,15 +23,9 @@ html {
 }
 
 body {
-<<<<<<< HEAD
-    font-family: 'PT Serif', serif;
-    padding-top: 55px;
-    padding-bottom: 150px;
-=======
     padding-top: 55px;
     /* font-family: 'PT Serif', serif; */
     font-family: 'Patua One';
->>>>>>> ea6c91139edfb1d3816ee196f4516aa00243a8cc
 }
 
 .word-cloud {
@@ -51,8 +45,15 @@ body {
     color: white;
 }
 
-.user-setup {
+/* .user-setup {
     margin-left: 20px;
+} */
+
+.news-sources-list {
+    height: 100px;
+    width: 100%;
+    display: flex;
+    justify-content: space-between;
 }
 
 .submit-area {
@@ -91,11 +92,8 @@ footer {
     width: 100%;
     background-color:black;
     color: white;
-<<<<<<< HEAD
-=======
     padding: 15px;
     font-family: 'Patua One';
->>>>>>> ea6c91139edfb1d3816ee196f4516aa00243a8cc
 }
 
 /* settings for sidenav background and size */
