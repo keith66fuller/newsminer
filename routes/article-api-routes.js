@@ -103,7 +103,7 @@ module.exports = function (app) {
 
     
     let toDate = req.body.toDate?req.body.toDate:moment().toISOString()
-    let fromDate = req.body.fromDate?req.body.fromDate:moment().subtract(1, 'days').toISOString()
+    let fromDate = req.body.fromDate?req.body.fromDate:moment().subtract(10, 'days').toISOString()
 
     console.log("fromDate: "+fromDate)
     console.log("toDate: "+toDate)
@@ -124,7 +124,7 @@ module.exports = function (app) {
       where.SourceId = req.body.sources
     }
 
-    if (req.body.authors != "") {
+    if (req.body.authors) {
       where.author = { [Op.like]: '%'+req.body.authors+'%' };
     }
 
