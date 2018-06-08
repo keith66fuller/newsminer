@@ -14,8 +14,14 @@ html {
     font-family: 'Patua One';
 }
 
-.navbar-nav, .navbar-brand {
+.nav-link {
 	color: white;
+}
+
+.navbar-brand{
+    font-family: 'Fredericka the Great', cursive;
+    font-size: 30px;
+    color: white;
 }
 
 .a-footer{

@@ -17,6 +17,12 @@
 	color: white;
 }
 
+.navbar-brand {
+    font-family: 'Fredericka the Great', cursive;
+    font-size: 30px;
+    color: white;
+}
+
 .a-footer{
 	color:#26a5d3;
 }
@@ -56,7 +62,6 @@ footer {
 .a-footer {
     font-family: 'Patua One';
 }
-
 
 
 /* On small screens, set height to 'auto' for sidenav and grid */
