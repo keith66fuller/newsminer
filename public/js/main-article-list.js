@@ -1,7 +1,10 @@
 $(document).ready(function () {
-
-
-
+    Storage.prototype.setObj = function(key, obj) {
+        return this.setItem(key, JSON.stringify(obj))
+    }
+    Storage.prototype.getObj = function(key) {
+        return JSON.parse(this.getItem(key))
+    }
     /////////////////////////////////////////////////////////////////////////////////////
     //                                                                                 //
     //                                   SLIDER                                        //
@@ -11,7 +14,7 @@ $(document).ready(function () {
             .slider({
                 change: (event, ui) => {
                     console.log(ui.value);
-                    localStorage.setItem("numWords", ui.value);
+                    localStorage.setObj("numWords", ui.value);
                     createWordCloud()
                 }
             });
@@ -23,12 +26,79 @@ $(document).ready(function () {
             .slider({
                 change: (event, ui) => {
                     console.log(ui.value);
-                    localStorage.setItem("numAuthors", ui.value);
+                    localStorage.setObj("numAuthors", ui.value);
                     createAuthorCloud()
                 }
             });
     });
 
+    /////////////////////////////////////////////////////////////////////////////////////
+    //                                                                                 //
+    //                 EVENTS FOR QUERY_REMOVE BUTTONS                                 //
+    /////////////////////////////////////////////////////////////////////////////////////
+
+    $('#queryDiv').on('click', '.querybutton', function (event) {
+        console.log("QUERYBUTTON CLICK: "+$(this).data('type')+" "+$(this).data('val')  )
+        popSsArray($(this).data('type'),$(this).data('val'))
+        $(this).remove();
+        doQuery();
+        queryArticles();
+    })
+
+    /////////////////////////////////////////////////////////////////////////////////////
+    //                                                                                 //
+    //                 EVENTS TO RESET QUERIES TO DEFAULTS
+    /////////////////////////////////////////////////////////////////////////////////////
+
+    $('.resetquery').on('click', function(e) {
+        const type = $(this).data('type')
+        console.log("RESET BUTTON FOR "+$(this).data('type'))
+        localStorage.setObj(type, localStorage.getObj("default_"+type));
+        queryArticles();
+    })
+
+    function pushSsArray(type, val) {
+        curVal = localStorage.getObj(type)
+        console.log("pushSsArray curVal: "+curVal+" val: "+val)
+        if (curVal != null) {
+            console.log("pushSsArray TYPE EXIST: "+type+" ARR: "+curVal+" "+localStorage.getObj(type))
+            if (curVal == val) {
+                return
+            } else {
+                try {
+                    curVal.push(val)
+                } catch (e) {
+                    curVal = val;
+                }
+                localStorage.setObj(type, curVal)
+            }
+        } else {
+            console.log("TYPE NEW : "+type+" ARR: "+curVal+" "+localStorage.getObj(type))
+            localStorage.setObj(type, val)
+        }
+        renderQueryDiv(type)
+    }
+    function isJson(str) {
+        try {
+            JSON.parse(str);
+        } catch (e) {
+            return false;
+        }
+        return true;
+    }
+    function popSsArray(type, val) {
+        curVal = isJson(localStorage.getObj(type))?JSON.parse(localStorage.getObj(type)):localStorage.getObj(type);
+        if (curVal != null) {
+            console.log("TYPE EXIST: "+type+" ARR: "+curVal+" "+localStorage.getObj(type))
+            console.log("REMOVE INDEX: "+curVal.indexOf(val))
+            curVal.splice(curVal.indexOf(val,1))
+            localStorage.setObj(type, curVal)
+            renderQueryDiv(type)
+        } else {
+            console.log("NO ARRAY TO POP: "+type+" ARR: "+curVal+" "+localStorage.getObj(type))
+
+        }
+    }
     /////////////////////////////////////////////////////////////////////////////////////
     //                                                                                 //
     //          LISTENERs FOR CLICKS ON SVG TEXT                                       //
@@ -40,66 +110,39 @@ $(document).ready(function () {
 
         switch ($(this).attr('class')) {
             case 'txt_authorCloud':
-                query.authors = $(this).text()
+                pushSsArray('authors', $(this).text())
                 break;
             case 'txt_wordCloud':
-                query.words = $(this).text()
+                pushSsArray('words', $(this).text());
                 break;
 
             default:
                 break;
         }
-
-        console.log("QUERY: " + JSON.stringify(query, null, 2))
         queryArticles();
     })
-
-
-
-
-    $("#word_filter").hide();
-
-    var query = {
-        sources: [],
-        authors: null,
-        words: []
-    };
-
-    var result = query;
-
-    var defaultQuery = query;
-
-    function makeArrayFromEachElement_0(arr) {
-        return arr.map(element => element[0]);
-    }
-
-    function selectUpdate(id, arr) {
-        let firstEl = $(id + " option:first-child");
-        $(id).empty().append(firstEl);
-        arr.forEach(element => {
-            $(id).append($('<option>').text(element));
-        });
-    }
-
+    
     function queryArticles() {
         $("#table-of-articles tr").remove();
-        console.log("QUERY ARTICLES: \n" + JSON.stringify(query, null, 2));
-        $.post("/api/articles/", query)
+        console.log("QUERY ARTICLES SOURCES: " + localStorage.getObj("sources"));
+        console.log("QUERY ARTICLES WORDS: " + localStorage.getObj("words"));
+        console.log("QUERY ARTICLES AUTHORS: " + localStorage.getObj("authors"));
+
+        $.post("/api/articles/", {
+            sources: localStorage.getObj("sources"),
+            words: localStorage.getObj("words"),
+            authors: localStorage.getObj("authors")
+        })
             .done(data => {
-                localStorage.setItem("data", JSON.stringify(data));
-                localStorage.setItem("numWords", 100);
-                localStorage.setItem("numAuthors", 100);
+                localStorage.setObj("data", data);
+                localStorage.setObj("numWords", 100);
+                localStorage.setObj("numAuthors", 100);
                 doQuery();
             });
     }
 
-    function renderwords() {
-        let data = JSON.parse(localStorage.getItem("data"));
-        let words = makeArrayFromEachElement_0(data.words);
-    }
-
     function renderArticles(first, last) {
-        let data = JSON.parse(localStorage.getItem("data"));
+        let data = localStorage.getObj("data");
         $('tbody').empty();
         data.articles.slice(first, last).forEach(article => {
             let tRow = $('<tr>').data('id', article.id);
@@ -107,12 +150,6 @@ $(document).ready(function () {
             $(tRow).append($('<td>').append($('<img>').attr('src', article.urlToImage).attr('width', 70)));
             $(tRow).append($('<td>').attr('href', '#').attr('onClick', 'window.open("' + article.url + '", "_blank")').text(article.title));
             $(tRow).append($('<td>').text(article.SourceId));
-
-            // <td><img src="{{this.urlToImage}}" alt=""  width="70"></td>
-            // <td><a href="#" onClick="window.open('{{this.url}}', '_blank')">{{this.title}}</a></td>
-
-
-            // $(tRow).append($('<td>').text(article.newest));
             $('tbody').append(tRow);
         });
 
@@ -122,9 +159,12 @@ $(document).ready(function () {
         renderArticles(0, 49);
         createWordCloud();
         createAuthorCloud();
+        renderQueryDiv('sources');
+        renderQueryDiv('words');
+        renderQueryDiv('authors');
 
-        setSlider('#wordSlider', JSON.parse(localStorage.getItem("data")).wordcloud)
-        setSlider('#authorSlider', JSON.parse(localStorage.getItem("data")).authorcloud)
+        setSlider('#wordSlider', localStorage.getObj("data").wordcloud)
+        setSlider('#authorSlider', localStorage.getObj("data").authorcloud)
     };
 
     function setSlider(id, arr) {
@@ -140,53 +180,43 @@ $(document).ready(function () {
     function initializePage() {
         if (localStorage.uid) {
             $.get("/api/user/" + localStorage.uid, function (userObj) {
-                console.log("GOT USEROBJ: "+JSON.stringify(userObj));
-                // userObj = JSON.parse(userObj);
-                // userObj = JSON.stringify(userObj);
-                console.log("converted object");
-                console.log(userObj);
-                query = {
-                    sources: userObj.sources,
-                    authors: null,
-                    words: null,
-                };
-                console.log("converted object");
-                console.log(query);
-
+                localStorage.setObj("sources", userObj.sources);
+                localStorage.setObj("default_sources", userObj.sources);
+                localStorage.setObj("authors", []);
+                localStorage.setObj("default_authors", []);
+                localStorage.setObj("words", []);
+                localStorage.setObj("default_words", []);
             }).then(function () {
                 queryArticles();
             });
         }
     }
-
+    function renderQueryDiv(type) {
+        let arr = localStorage.getObj(type);
+        console.log("renderQueryDiv " + type + ": " + arr + " LENGTH: "+arr.length)
+        $('#query'+type+'Row .querybutton').remove();
+        if (arr) {
+            let div = $('#query' + type + 'Row')
+            arr.forEach(e => {
+                if (e != "null") { div.append($('<button>').attr('class','querybutton').data('type',type).data('val',e).text(e))}
+            });
+        }
+    }
     function createWordCloud() {
-        createCloud(JSON.parse(localStorage.getItem("data")).wordcloud.slice(0, JSON.parse(localStorage.getItem("numWords"))), 'wordCloud');
+        createCloud(localStorage.getObj("data").wordcloud.slice(0, localStorage.getObj("numWords")), 'wordCloud');
     }
 
     function createAuthorCloud() {
-        createCloud(JSON.parse(localStorage.getItem("data")).authorcloud.slice(0, JSON.parse(localStorage.getItem("numAuthors"))), 'authorCloud');
+        createCloud(localStorage.getObj("data").authorcloud.slice(0, localStorage.getObj("numAuthors")), 'authorCloud');
     }
 
     function createCloud(tags, divId) {
         var fill = d3.scale.category10();
         var w = $('#' + divId).width(),
             h = $('#' + divId).height();
-        // w=1500
-        // h=700
-
-        // This empties the entire div
-        // $('#'+divId).empty();
-
-        // This removes the SVG
         d3.select('#' + divId + ' svg ').remove();
-
-        // $('svg').remove();
-
         let div = document.getElementById(divId);
-
         let position = div.getBoundingClientRect();
-        // console.log('POSITION for '+divId+" --> "+JSON.stringify(position,null,2))
-
         let bounds = [
             {
                 x: position.x,
@@ -197,12 +227,8 @@ $(document).ready(function () {
                 y: position.bottom,
             }
         ];
-
-        // console.log('BOUNDS for '+divId+" --> "+JSON.stringify(bounds,null,2))
-
         var max,
             fontSize;
-
         var layout = d3.layout.cloud()
             .timeInterval(Infinity)
             .size([w, h])
@@ -213,26 +239,20 @@ $(document).ready(function () {
                 return d.key;
             })
             .on("end", draw);
-
         // This is what places the SVG on the page before the slider element.
         var svg = d3.select('#' + divId).insert("svg", ".slider")
             .attr("width", w)
             .attr("height", h);
 
         var vis = svg.append("g").attr("transform", "translate(" + [w >> 1, h >> 1] + ")");
-
         update();
-
         if (window.attachEvent) {
             window.attachEvent('onresize', update);
         }
         else if (window.addEventListener) {
             window.addEventListener('resize', update);
         }
-
         function draw(data, bounds) {
-            // console.log('BOUNDS in draw() --> '+JSON.stringify(bounds,null,2))
-
             svg.attr("width", w).attr("height", h);
 
             scale = bounds ? Math.min(
@@ -240,8 +260,6 @@ $(document).ready(function () {
                 w / Math.abs(bounds[0].x - w / 2),
                 h / Math.abs(bounds[1].y - h / 2),
                 h / Math.abs(bounds[0].y - h / 2)) / 2 : 1;
-
-            // console.log('SCALE in draw() --> '+JSON.stringify(scale,null,2))
 
             scale = 1.4;
 
@@ -281,26 +299,11 @@ $(document).ready(function () {
                 })
                 .style("cursor", "pointer")
                 .attr("class", "txt_" + divId)
-            // .on("click", function (d, i) {
-            //     console.log("D: "+d);
-            //     console.log("I: "+i);
-            //     // console.log("D: "+JSON.parse(d,null,2));
-            //     query.words = d.text;
-            //     // console.log(JSON.stringify(query, null, 2))
-
-            //     queryArticles();
-            // });
-
-            // vis.transition().attr("transform", "translate(" + [850, 400] + ")");
-            // vis.transition().attr("transform", "translate(" + [750, 210] + ")scale(" + scale + ")");
         }
 
         function update() {
-            // console.log("UPDATE THIS: "+this)
-            // layout.font('impact').spiral('rectangular');
             layout.font('impact').rotate(function () { return ~~(Math.random() * 2) * 90; });
             fontSize = d3.scale['sqrt']().range([10, 100]);
-            // console.log("UPDATE TAGS : "+JSON.stringify(tags))
             if (tags.length) {
                 fontSize.domain([+tags[tags.length - 1].value || 1, +tags[0].value]);
             }
@@ -308,31 +311,11 @@ $(document).ready(function () {
         }
 
     }
+
+
+    $("#word_filter").hide();
+
     // At the very start, pull down the user object for the logged in user and set the "default" query to be only their default sources.
     initializePage();
-
-
-
-
-    $('#source_sel').on('change', function (event) {
-        query.sources = result.sources[this.selectedIndex - 1];
-        queryArticles();
-    });
-
-    $('#author_sel').on('change', function (event) {
-        console.log("index: " + (this.selectedIndex - 1));
-        query.authors = result.authors[this.selectedIndex - 1];
-        queryArticles();
-    });
-
-    $('#word_sel').on('change', function (event) {
-        // query.words = result.words[this.selectedIndex-1];
-        query.words = $("#word_sel").attr("option");
-        console.log("change has occurred");
-        // console.log(query.words);
-        queryArticles();
-
-    });
-
 
 });

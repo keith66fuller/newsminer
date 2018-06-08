@@ -1,4 +1,10 @@
 $(document).ready(function () {
+    Storage.prototype.setObj = function(key, obj) {
+        return this.setItem(key, JSON.stringify(obj))
+    }
+    Storage.prototype.getObj = function(key) {
+        return JSON.parse(this.getItem(key))
+    }
 
     /////////////////////////////////////////////////////////////////////////////////////
     //                                                                                 //
@@ -9,7 +15,7 @@ $(document).ready(function () {
             .slider({
                 change:  (event, ui) => {
                     console.log(ui.value);
-                    localStorage.setItem("numWords", ui.value);
+                    localStorage.setObj("numWords", ui.value);
                     createWordCloud()
                 }
             });
@@ -20,7 +26,7 @@ $(document).ready(function () {
         .slider({
             change:  (event, ui) => {
                 console.log(ui.value);
-                localStorage.setItem("numAuthors", ui.value);
+                localStorage.setObj("numAuthors", ui.value);
                 createAuthorCloud()
             }
         });
@@ -51,20 +57,20 @@ $(document).ready(function () {
     function queryArticles() {
         $.post("/api/articles/", query)
             .done(data => {
-                localStorage.setItem("data", JSON.stringify(data));
-                localStorage.setItem("numWords", 100);
-                localStorage.setItem("numAuthors", 100);
+                localStorage.setObj("data", data);
+                localStorage.setObj("numWords", 100);
+                localStorage.setObj("numAuthors", 100);
                 doQuery();
             });
     }
 
     function renderwords() {
-        let data = JSON.parse(localStorage.getItem("data"));
+        let data = JSON.parse(localStorage.getObj("data"));
         let words = makeArrayFromEachElement_0(data.words);
     }
 
     function renderArticles(first, last) {
-        let data = JSON.parse(localStorage.getItem("data"));
+        let data = JSON.parse(localStorage.getObj("data"));
         $('tbody').empty();
         data.articles.slice(first, last).forEach(article => {
             let tRow = $('<tr>').data('id', article.id);
@@ -85,9 +91,10 @@ $(document).ready(function () {
         renderArticles(0, 49);
         createWordCloud();
         createAuthorCloud();
+        renderQueryDiv();
 
-        setSlider('#wordSlider',JSON.parse(localStorage.getItem("data")).wordcloud)
-        setSlider('#authorSlider',JSON.parse(localStorage.getItem("data")).authorcloud)
+        setSlider('#wordSlider',JSON.parse(localStorage.getObj("data")).wordcloud)
+        setSlider('#authorSlider',JSON.parse(localStorage.getObj("data")).authorcloud)
     };
 
     function setSlider(id, arr) {
@@ -112,22 +119,19 @@ $(document).ready(function () {
         });
     }
 
-    function updatePage(result) {
-        [
-            ["#word_sel", result.words],
-            ["#author_sel", result.authors],
-            ["#source_sel", result.sources]
-        ].forEach(e => {
-            selectUpdate(e[0], e[1]);
+    function renderQueryDiv() {
+        $('.querydiv-row').empty()
+        query.sources.forEach(source => {
+            $('#querySources').append($('<button>').text(element))
         });
     }
 
     function createWordCloud() {
-        createCloud(JSON.parse(localStorage.getItem("data")).wordcloud.slice(0, JSON.parse(localStorage.getItem("numWords"))), 'wordCloud');
+        createCloud(JSON.parse(localStorage.getObj("data")).wordcloud.slice(0, JSON.parse(localStorage.getObj("numWords"))), 'wordCloud');
     }
 
     function createAuthorCloud() {
-        createCloud(JSON.parse(localStorage.getItem("data")).authorcloud.slice(0, JSON.parse(localStorage.getItem("numAuthors"))), 'authorCloud');
+        createCloud(JSON.parse(localStorage.getObj("data")).authorcloud.slice(0, JSON.parse(localStorage.getObj("numAuthors"))), 'authorCloud');
     }
 
     function createCloud(tags, divId) {
