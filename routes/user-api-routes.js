@@ -26,6 +26,20 @@ module.exports = function (app) {
         })
     })
 
+    app.post("/api/user/:username", function (req, res) {
+        db.User
+            .findOrCreate({ where: { username: req.params.username } })
+            .spread((user, created) => {
+                console.log(user.get({
+                    plain: true
+                }))
+                    // .then(function (created) {
+                        console.log(created);
+                        res.send(created)
+                    // })
+            })
+    })
+
     app.delete("/api/user/:username", function (req, res) {
         db.User.destroy({
             where: {

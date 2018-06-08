@@ -1,16 +1,31 @@
 /* CSS STYLESHEET FOR MAIN PAGE */
 
+html {
+    position: relative;
+    min-height: 100%;
+}
+
 /* Remove the navbar's default margin-bottom and rounded borders */
 .navbar {
     margin-bottom: 0;
     border-radius: 0;
     background-color: black !important;
     color: white;
+    font-family: 'Patua One';
+}
+
+.navbar-nav, .navbar-brand {
+	color: white;
+}
+
+.a-footer{
+	color:#26a5d3;
 }
 
 body {
     padding-top: 55px;
-    font-family: 'PT Serif', serif;
+    /* font-family: 'PT Serif', serif; */
+    font-family: 'Patua One';
 }
 
 .word-cloud {
@@ -30,8 +45,20 @@ body {
     color: white;
 }
 
-.user-setup {
+/* .user-setup {
     margin-left: 20px;
+} */
+
+.news-sources-list {
+    height: 100px;
+    width: 100%;
+    display: flex;
+    justify-content: space-between;
+}
+
+.submit-area {
+    width: 100%;
+    text-align: center;
 }
 
 .user-setup-submit {
@@ -40,7 +67,7 @@ body {
 }
 
 .a-footer {
-    color: white;
+    color:#26a5d3;
 }
 
 .slider {
@@ -59,9 +86,14 @@ body {
 
 /* Set black background color, white text and some padding */
 footer {
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    width: 100%;
     background-color:black;
     color: white;
     padding: 15px;
+    font-family: 'Patua One';
 }
 
 /* settings for sidenav background and size */

@@ -24,12 +24,6 @@ $(document).ready(function () {
     var database = firebase.database();
 
 
-
-
-  
-
-
-
     $('#google-login').on('click', function () {
         event.preventDefault();
         var provider = new firebase.auth.GoogleAuthProvider();
@@ -43,8 +37,18 @@ $(document).ready(function () {
             var user = result.user;
 
             localStorage.setItem("uid", user.uid);
+            localStorage.setItem("email", user.email);
             console.log(localStorage.uid);
-            window.location = './main.html';
+            console.log(localStorage.email);
+            $.get("/api/user/"+localStorage.uid, function (userObj) {
+                console.log(userObj);
+                if(userObj){window.location = './main.html';}
+                else{window.location = './user-setup.html';}
+            })
+            // $.post("/api/user/"+localStorage.uid, function (userObj) {
+            //     console.log(userObj);
+            // })
+            // window.location = './main.html';
             // ...
         })
             .catch(function (error) {

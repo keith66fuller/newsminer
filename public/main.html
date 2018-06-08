@@ -20,7 +20,8 @@
     <!-- <script src="https://code.jquery.com/jquery-1.12.4.js"></script> -->
     <script src="https://code.jquery.com/ui/1.12.1/jquery-ui.js"></script>
     <script type="text/javascript" src="./js/main-article-list.js"></script>
-    <link href="https://fonts.googleapis.com/css?family=PT+Serif" rel="stylesheet">
+    <!-- <link href="https://fonts.googleapis.com/css?family=PT+Serif" rel="stylesheet"> -->
+    <link href="https://fonts.googleapis.com/css?family=Oswald:700|Patua+One|Roboto+Condensed:700" rel="stylesheet">
 
     <!-- Search Meta Tags -->
     <meta property="og:type" content="website">
@@ -34,8 +35,13 @@
 </head>
 
 <body>
-    <nav class="navbar navbar-expand-lg navbar-dark bg-dark fixed-top">
+    <nav class="navbar navbar-expand-lg fixed-top">
         <div class="container">
+            <!-- <a class="main-logo"><img src="./img/digger.jpg" height="45" width="45"></a> -->
+            <a class="main-logo">
+                <img src="./img/hammer.jpg" height="45" width="45">
+            </a>
+            <!-- <a class="main-logo"><img src="./img/helmet.jpg" height="45" width="45"></a> -->
             <a class="navbar-brand" href="#">News Miner</a>
             <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarResponsive" aria-controls="navbarResponsive"
                 aria-expanded="false" aria-label="Toggle navigation">
@@ -67,6 +73,7 @@
             <div id="authorCloud" class="word-cloud col-lg-6">
                 <div id="authorSlider" class="slider"></div>
             </div>
+
         </div>
 
         <div class="row">
@@ -85,8 +92,6 @@
                     data-slider-step="1" data-slider-value="50" />
             </div> -->
         </div>
-
-
     </div>
 
     <div class="container-fluid text-center">
@@ -142,21 +147,7 @@
         <a class="a-footer" href="https://github.com/allYourBase-AreBelongToUs/project_2/tree/master">Github</a>
         <br>
         <a class="a-footer" href="https://newsapi.org/">Powered by News API</a>
-        <br>
     </footer>
-
-    <!-- <script type="text/javascript">
-        $(function() {
-            $('input[name="date-range"]').daterangepicker({
-                singleDatePicker: true,
-                showDropdowns: true
-            },
-                function (start, end, label) {
-                    var years = moment().diff(start, 'years');
-                    alert("You are " + years + " years old.");
-                });
-        });
-    </script> -->
 
 </body>
 
