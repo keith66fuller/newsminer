@@ -178,8 +178,8 @@ $(document).ready(function () {
     }
 
     function initializePage() {
-        if (localStorage.uid) {
-            $.get("/api/user/" + localStorage.uid, function (userObj) {
+        if (localStorage.getObj('uid')) {
+            $.get("/api/user/" + localStorage.getObj('uid'), function (userObj) {
                 localStorage.setObj("sources", userObj.sources);
                 localStorage.setObj("default_sources", userObj.sources);
                 localStorage.setObj("authors", []);
@@ -189,6 +189,8 @@ $(document).ready(function () {
             }).then(function () {
                 queryArticles();
             });
+        } else {
+            window.location = './main.html';
         }
     }
     function renderQueryDiv(type) {

@@ -44,7 +44,7 @@ $(document).ready(function () {
             localStorage.setObj("uid", user.uid);
             localStorage.setObj("email", user.email);
             console.log("UID: "+ localStorage.uid+" EMAIL: "+localStorage.email);
-            $.get("/api/user/" + localStorage.uid, function (userObj) {
+            $.get("/api/user/" + user.uid, function (userObj) {
                 if (userObj) {
                     console.log("USEROBJ FROM DB: " + JSON.stringify(userObj));
                     window.location = './main.html';
