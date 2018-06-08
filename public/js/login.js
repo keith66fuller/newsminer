@@ -19,8 +19,8 @@ $(document).ready(function () {
         projectId: "news-miner-beefd",
         storageBucket: "news-miner-beefd.appspot.com",
         messagingSenderId: "983822948368"
-      };
-      firebase.initializeApp(config);
+    };
+    firebase.initializeApp(config);
     var database = firebase.database();
 
 
@@ -38,12 +38,14 @@ $(document).ready(function () {
 
             localStorage.setItem("uid", user.uid);
             localStorage.setItem("email", user.email);
-            console.log(localStorage.uid);
-            console.log(localStorage.email);
-            $.get("/api/user/"+localStorage.uid, function (userObj) {
-                console.log(userObj);
-                if(userObj){window.location = './main.html';}
-                else{window.location = './user-setup.html';}
+            console.log("UID: "+ localStorage.uid+" EMAIL: "+localStorage.email);
+            $.get("/api/user/" + localStorage.uid, function (userObj) {
+                if (userObj) {
+                    console.log("USEROBJ FROM DB: " + JSON.stringify(userObj));
+                    window.location = './main.html';
+                } else {
+                    window.location = './user-setup.html'
+                }
             })
             // $.post("/api/user/"+localStorage.uid, function (userObj) {
             //     console.log(userObj);
@@ -73,19 +75,19 @@ $(document).ready(function () {
             // ...
         }).catch(function (error) {
             // Handle Errors here.
-            var errorCode = error.code;
-            var errorMessage = error.message;
+            // var errorCode = error.code;
+            // var errorMessage = error.message;
             // The email of the user's account used.
-            var email = error.email;
+            // var email = error.email;
             // The firebase.auth.AuthCredential type that was used.
-            var credential = error.credential;
+            // var credential = error.credential;
             // ...
         });
     });
 
     firebase.auth().onAuthStateChanged(function (firebaseUser) {
         if (firebaseUser) {
-            console.log(firebaseUser);
+            console.log("LOGGED IN USER: " + JSON.stringify(firebaseUser, null, 2));
         }
         else {
             console.log("not logged in");

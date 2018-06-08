@@ -35,7 +35,7 @@ $(document).ready(function () {
     /////////////////////////////////////////////////////////////////////////////////////
 
     $(document).on("click", "text", function (e) {
-        console.log("CLICKED: "+$(this).attr('class') )
+        console.log("CLICKED: " + $(this).attr('class'))
         let divId = $(this).attr('class').replace("txt_")
 
         switch ($(this).attr('class')) {
@@ -45,12 +45,12 @@ $(document).ready(function () {
             case 'txt_wordCloud':
                 query.words = $(this).text()
                 break;
-        
+
             default:
                 break;
         }
 
-        console.log("QUERY: "+JSON.stringify(query, null, 2))
+        console.log("QUERY: " + JSON.stringify(query, null, 2))
         queryArticles();
     })
 
@@ -138,34 +138,25 @@ $(document).ready(function () {
     }
 
     function initializePage() {
-        $.get("/api/user/asdf", function (userObj) {
-            console.log(userObj);
-            // userObj = JSON.parse(userObj);
-            userObj = JSON.stringify(userObj);
-            console.log("converted object");
-            console.log(userObj);
-            query = {
-                sources: JSON.parse(userObj).sources,
-                // sources: JSON.parse(userObj.sources),
-                authors: null,
-                words: null,
-            };
-            console.log("converted object");
-            console.log(query);
+        if (localStorage.uid) {
+            $.get("/api/user/" + localStorage.uid, function (userObj) {
+                console.log("GOT USEROBJ: "+JSON.stringify(userObj));
+                // userObj = JSON.parse(userObj);
+                // userObj = JSON.stringify(userObj);
+                console.log("converted object");
+                console.log(userObj);
+                query = {
+                    sources: userObj.sources,
+                    authors: null,
+                    words: null,
+                };
+                console.log("converted object");
+                console.log(query);
 
-        }).then(function () {
-            queryArticles();
-        });
-    }
-
-    function updatePage(result) {
-        [
-            ["#word_sel", result.words],
-            ["#author_sel", result.authors],
-            ["#source_sel", result.sources]
-        ].forEach(e => {
-            selectUpdate(e[0], e[1]);
-        });
+            }).then(function () {
+                queryArticles();
+            });
+        }
     }
 
     function createWordCloud() {
@@ -289,7 +280,7 @@ $(document).ready(function () {
                     return d.text;
                 })
                 .style("cursor", "pointer")
-                .attr("class", "txt_"+divId)
+                .attr("class", "txt_" + divId)
             // .on("click", function (d, i) {
             //     console.log("D: "+d);
             //     console.log("I: "+i);

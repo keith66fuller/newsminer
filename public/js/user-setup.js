@@ -87,26 +87,28 @@ $(document).ready(function () {
         // grab this info and create as a string/array
         var checklistString = $('.Checkbox:checked').map(function () {
             return this.value;
-        // }).get().join('\",\"');
-        }).get().join(', ');
-        // checklistString = "[\'" + checklistString + "\']";
-        console.log(checklistString);
+        }).get()
+
+        console.log("CHECKLISTSTRING: "+checklistString);
+
+        checklistString.forEach((e,i) => {
+            console.log("CLS: "+i+" "+e)
+        });
 
         var newUser = {
-            username: "asdf",
+            uid: localStorage.uid,
+            username: $("#userName").val(),
             firstName: $("#firstName").val(),
             lastName: $("#lastName").val(),
-            email: $("#email").val(),
+            email: localStorage.email,
             sources: checklistString
         }
 
-        console.log(newUser);
+        console.log("NEWUSER: "+JSON.stringify(newUser, null,2));
 
         $.post("/api/user", newUser)
             .then(console.log("user created"));
 
-        // enter these news sources into user table as a string
-        // redirect user to main.html
-        // $(location).attr('href', '/main.html')
+        $(location).attr('href', '/main.html')
     });
 });

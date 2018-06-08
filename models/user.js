@@ -1,8 +1,7 @@
 module.exports = function (sequelize, DataTypes) {
   var User = sequelize.define("User", {
-    id: {
-      type: DataTypes.INTEGER,
-      autoIncrement: true,
+    uid: {
+      type: DataTypes.STRING,
       primaryKey: true
     },
     username: DataTypes.STRING,
@@ -10,7 +9,7 @@ module.exports = function (sequelize, DataTypes) {
     lastName: DataTypes.STRING,
     email: DataTypes.STRING,
     password: DataTypes.STRING,
-    sources: DataTypes.STRING,
+    sources: DataTypes.JSON,
     customExcludedWords: DataTypes.STRING,
     customInitialTimeRange: DataTypes.STRING,
     maxWords: DataTypes.STRING,
@@ -18,10 +17,6 @@ module.exports = function (sequelize, DataTypes) {
     maxAuthors: DataTypes.STRING
   }, {
     timestamps: false,
-    indexes: [{
-      unique: true,
-      fields: ['email']
-    }]
   });
 
   return User;

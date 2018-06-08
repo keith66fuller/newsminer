@@ -10,23 +10,18 @@ module.exports = function (app) {
         })
     })
 
-    app.get("/api/user/:username", function (req, res) {
+    app.get("/api/user/:uid", function (req, res) {
         db.User.findOne({
             where: {
-                username: req.params.username
+                uid: req.params.uid
             }
         }).then(function (dbUser) {
             res.send(dbUser)
         })
     })
 
-    app.post("/api/user", function (req, res) {
-        db.User.create(req.body).then(function (dbUser) {
-            res.json(dbUser)
-        })
-    })
-
     app.post("/api/user/:username", function (req, res) {
+        console.log("CREATE USER: "+JSON.stringify(req.body))
         db.User
             .findOrCreate({ where: { username: req.params.username } })
             .spread((user, created) => {
