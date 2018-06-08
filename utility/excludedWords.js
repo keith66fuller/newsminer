@@ -28,6 +28,7 @@ exports.excludedWords = [
     "him",
     "his",
     "how",
+    "i",
     "if",
     "in",
     "into",

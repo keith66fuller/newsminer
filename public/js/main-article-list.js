@@ -9,7 +9,7 @@ $(document).ready(function () {
     $(function () {
         $("#wordSlider")
             .slider({
-                change:  (event, ui) => {
+                change: (event, ui) => {
                     console.log(ui.value);
                     localStorage.setItem("numWords", ui.value);
                     createWordCloud()
@@ -20,15 +20,39 @@ $(document).ready(function () {
 
     $(function () {
         $("#authorSlider")
-        .slider({
-            change:  (event, ui) => {
-                console.log(ui.value);
-                localStorage.setItem("numAuthors", ui.value);
-                createAuthorCloud()
-            }
-        });
+            .slider({
+                change: (event, ui) => {
+                    console.log(ui.value);
+                    localStorage.setItem("numAuthors", ui.value);
+                    createAuthorCloud()
+                }
+            });
     });
 
+    /////////////////////////////////////////////////////////////////////////////////////
+    //                                                                                 //
+    //          LISTENERs FOR CLICKS ON SVG TEXT                                       //
+    /////////////////////////////////////////////////////////////////////////////////////
+
+    $(document).on("click", "text", function (e) {
+        console.log("CLICKED: "+$(this).attr('class') )
+        let divId = $(this).attr('class').replace("txt_")
+
+        switch ($(this).attr('class')) {
+            case 'txt_authorCloud':
+                query.authors = $(this).text()
+                break;
+            case 'txt_wordCloud':
+                query.words = $(this).text()
+                break;
+        
+            default:
+                break;
+        }
+
+        console.log("QUERY: "+JSON.stringify(query, null, 2))
+        queryArticles();
+    })
 
 
 
@@ -58,7 +82,7 @@ $(document).ready(function () {
     }
 
     function queryArticles() {
-        $("#table-of-articles tr").remove(); 
+        $("#table-of-articles tr").remove();
         console.log("QUERY ARTICLES: \n" + JSON.stringify(query, null, 2));
         $.post("/api/articles/", query)
             .done(data => {
@@ -99,8 +123,8 @@ $(document).ready(function () {
         createWordCloud();
         createAuthorCloud();
 
-        setSlider('#wordSlider',JSON.parse(localStorage.getItem("data")).wordcloud)
-        setSlider('#authorSlider',JSON.parse(localStorage.getItem("data")).authorcloud)
+        setSlider('#wordSlider', JSON.parse(localStorage.getItem("data")).wordcloud)
+        setSlider('#authorSlider', JSON.parse(localStorage.getItem("data")).authorcloud)
     };
 
     function setSlider(id, arr) {
@@ -108,17 +132,17 @@ $(document).ready(function () {
         $(id).slider("option", {
             min: 0,
             max: total,
-            value: total>100?100:total/2
+            value: total > 100 ? 100 : total / 2
         });
-        
+
     }
 
     function initializePage() {
         $.get("/api/user/keith66fuller", function (userObj) {
             query = {
-                sources: JSON.parse(userObj.sources),
+                // sources: JSON.parse(userObj.sources),
                 authors: null,
-                words: []
+                words: null,
             };
 
         }).then(function () {
@@ -246,6 +270,7 @@ $(document).ready(function () {
                 .transition()
                 .duration(1000)
                 .style("opacity", 1);
+
             text.style("font-family", function (d) {
                 return d.font;
             })
@@ -256,13 +281,16 @@ $(document).ready(function () {
                     return d.text;
                 })
                 .style("cursor", "pointer")
-                .on("click", function (d, i) {
-                    // console.log(d.text.toLowerCase());
-                    query.words = d.text;
-                    // console.log(JSON.stringify(query, null, 2))
+                .attr("class", "txt_"+divId)
+            // .on("click", function (d, i) {
+            //     console.log("D: "+d);
+            //     console.log("I: "+i);
+            //     // console.log("D: "+JSON.parse(d,null,2));
+            //     query.words = d.text;
+            //     // console.log(JSON.stringify(query, null, 2))
 
-                    queryArticles();
-                });
+            //     queryArticles();
+            // });
 
             // vis.transition().attr("transform", "translate(" + [850, 400] + ")");
             // vis.transition().attr("transform", "translate(" + [750, 210] + ")scale(" + scale + ")");

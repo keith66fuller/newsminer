@@ -102,11 +102,14 @@ module.exports = function (app) {
     console.log("REQUEST: " + JSON.stringify(req.body, null, 2))
 
     
-    let toDate = req.body.toDate?req.body.toDate:moment().format('YYYY-MM-DD HH:mm:ss')
-    let fromDate = req.body.fromDate?req.body.fromDate:moment().subtract(1, 'days').format('YYYY-MM-DD HH:mm:ss')
+    let toDate = req.body.toDate?req.body.toDate:moment().toISOString()
+    let fromDate = req.body.fromDate?req.body.fromDate:moment().subtract(10, 'days').toISOString()
 
     console.log("fromDate: "+fromDate)
     console.log("toDate: "+toDate)
+    // let where = {
+    //   publishedAt: fromDate
+    // }
     let where = {
       publishedAt: {
         [Op.and]:
@@ -122,7 +125,7 @@ module.exports = function (app) {
     }
 
     if (req.body.authors) {
-      where.author = req.body.authors
+      where.author = { [Op.like]: '%'+req.body.authors+'%' };
     }
 
     if (req.body.words) {
@@ -131,11 +134,11 @@ module.exports = function (app) {
 
     console.log("WHERE str: " + JSON.stringify(where, null, 2) + "\nWHERE o: " + where)
 
-
+    
     db.Article.findAll({
       where: where
     }).then(function (dbArticle) {
-      // console.log("DBARTICLE: "+JSON.stringify(dbArticle, null, 2))
+      console.log("RETURNED ARTICLES: "+dbArticle.length)
       let articles = []
 
       let wordsObj = {}
@@ -161,7 +164,7 @@ module.exports = function (app) {
         // Process Authors
         //  Split authors string on commas, dashes, "by", and "and"
         if (typeof article.author != 'undefined' && article.author != null) {
-          console.log("ORIGINAL AUTHOR: " + article.author)
+          // console.log("ORIGINAL AUTHOR: " + article.author)
           article.author.split(/ +(at|and|by) +/i).forEach(a => {
             a.split(/ +- +| *, */).forEach(author => {
               author = author.trim()
@@ -189,7 +192,7 @@ module.exports = function (app) {
                 return
               }
 
-              console.log("\tAUTHOR: " + author)
+              // console.log("\tAUTHOR: " + author)
               incObj(authorsObj, author)
             })
           });
