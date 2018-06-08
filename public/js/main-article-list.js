@@ -121,7 +121,7 @@ $(document).ready(function () {
             console.log("converted object");
             console.log(userObj);
             query = {
-                sources: JSON.parse(userObj).sources,
+                sources: userObj.sources,
                 authors: null,
                 words: []
             };
