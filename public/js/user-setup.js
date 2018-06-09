@@ -1,5 +1,10 @@
 $(document).ready(function () {
-
+    Storage.prototype.setObj = function(key, obj) {
+        return this.setItem(key, JSON.stringify(obj))
+    }
+    Storage.prototype.getObj = function(key) {
+        return JSON.parse(this.getItem(key))
+    }
     // SHOW NEWS SOURCES ON PAGE LOAD
     // =========================================
 
@@ -101,11 +106,11 @@ $(document).ready(function () {
         });
 
         var newUser = {
-            uid: localStorage.uid,
+            uid: localStorage.getObj("uid"),
             username: $("#userName").val(),
             firstName: $("#firstName").val(),
             lastName: $("#lastName").val(),
-            email: localStorage.email,
+            email: localStorage.getObj("email"),
             sources: checklistString
         }
 
