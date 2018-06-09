@@ -19,21 +19,26 @@ module.exports = function (app) {
             res.send(dbUser)
         })
     })
-
-    app.post("/api/user/:username", function (req, res) {
-        console.log("CREATE USER: "+JSON.stringify(req.body))
-        db.User
-            .findOrCreate({ where: { username: req.params.username } })
-            .spread((user, created) => {
-                console.log(user.get({
-                    plain: true
-                }))
-                    // .then(function (created) {
-                        console.log(created);
-                        res.send(created)
-                    // })
-            })
+    app.post("/api/user", function (req, res) {
+        db.User.create(req.body).then(function (dbUser) {
+            res.json(dbUser)
+        })
     })
+
+    // app.post("/api/user/:username", function (req, res) {
+    //     console.log("CREATE USER: "+JSON.stringify(req.body))
+    //     db.User
+    //         .findOrCreate({ where: { username: req.params.username } })
+    //         .spread((user, created) => {
+    //             console.log(user.get({
+    //                 plain: true
+    //             }))
+    //                 // .then(function (created) {
+    //                     console.log(created);
+    //                     res.send(created)
+    //                 // })
+    //         })
+    // })
 
     app.delete("/api/user/:username", function (req, res) {
         db.User.destroy({

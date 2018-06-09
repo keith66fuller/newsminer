@@ -7,7 +7,7 @@
     "test": "echo \"Error: no test specified\" && exit 1",
     "start": "node server.js",
     "watch": "nodemon server.js",
-    "postinstall": "./node_modules/bower/bin/bower install"
+    "postinstall": "bower install"
   },
   "keywords": [],
   "author": "James, Shrish, Jason, Keith",
