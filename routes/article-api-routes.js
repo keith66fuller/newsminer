@@ -4,10 +4,11 @@ var moment = require("moment");
 
 const Op = Sequelize.Op;
 
-const utility = require("../utility/excludedWords")
-const excludedWords = utility.excludedWords
+const utility = require("../utility/excludedWords");
+const excludedWords = utility.excludedWords;
 
 function sortByCount(arr, objCounts) {
+  "use strict";
   // arr:       an array of scalar values
   // objCounts: an object where each property corresponds to an element in arr and has an integer value
   //
@@ -32,84 +33,62 @@ function sortByCount(arr, objCounts) {
 
 }
 
-function processCounts(objArr) {
-  let arrResult = []
-  for (var p in objArr) {
-    arrResult.push([p, objArr[p]])
-  }
-  return arrResult.sort(sortByCount)
-}
 
 function sortWords(obj) {
+  "use strict";
   let retVal = [];
   Object.keys(obj).sort((a,b) => {
-    return obj[b] - obj[a]
+    return obj[b] - obj[a];
   }).forEach(e => {
-    retVal.push( { key: e, value: obj[e] } )
-  })
+    retVal.push( { key: e, value: obj[e] } );
+  });
   return retVal
-}
-function makeWordCloud(objArr) {
-  let arrResult = []
-  for (var p in objArr) {
-    arrResult.push({
-      key: p,
-      value: objArr[p]
-    })
-  }
-  return arrResult
 }
 
 function sortByCount(a, b) {
+  "use strict"
   if (a[1] > b[1])
     return -1;
   if (a[1] < b[1])
     return 1;
   return 0;
 }
+function makeWordCloud(objArr) {
+  "use strict"
+  let arrResult = [];
+  for (var p in objArr) {
+    arrResult.push({
+      key: p,
+      value: objArr[p]
+    });
+  }
+  return arrResult
+}
+function processCounts(objArr) {
+  "use strict";
+  let arrResult = [];
+  for (var p in objArr) {
+    arrResult.push([p, objArr[p]])
+  }
+  return arrResult.sort(sortByCount)
+}
 
 function incObj(obj, p) {
+  "use strict";
   obj[p] = (typeof obj[p] === "undefined") ? 1 : ++obj[p]
 }
 
 module.exports = function (app) {
-
+  "use strict";
   app.post("/api/query", function (req, res) {
-    console.log(req.body)
-    res.send(JSON.stringify(req.body.params, null, 2))
-  })
-
-  // POST route for getting all of the articles filtered by "query" which is in the JSON POST body.
-  // req.body = {
-  //   toDate: date,
-  //   fromDate: date,
-  //   sources: "string",
-  //   authors: "string",
-  //   words: "string",
-  // }
-
-  // res = {
-  //   articles: articles,
-  //   words:   processCounts(wordsObj),
-  //   authors: processCounts(authorsObj),
-  //   sources: processCounts(sourcesObj),
-  //   wordcloud: sortWords(wordsObj)
-  // }
-
-
+    console.log(req.body);
+    res.send(JSON.stringify(req.body.params, null, 2));
+  });
 
   app.post("/api/articles", function (req, res) {
-    console.log("REQUEST: " + JSON.stringify(req.body, null, 2))
+    let toDate = req.body.toDate?req.body.toDate:moment().toISOString();
+    let fromDate = req.body.fromDate?req.body.fromDate:moment().subtract(1, 'days').toISOString();
 
-    
-    let toDate = req.body.toDate?req.body.toDate:moment().toISOString()
-    let fromDate = req.body.fromDate?req.body.fromDate:moment().subtract(1, 'days').toISOString()
-
-    console.log("fromDate: "+fromDate)
-    console.log("toDate: "+toDate)
-    // let where = {
-    //   publishedAt: fromDate
-    // }
     let where = {
       publishedAt: {
         [Op.and]:
@@ -125,7 +104,6 @@ module.exports = function (app) {
     }
 
     if (req.body.authors && req.body.authors != "null") {
-      console.log("AUTHORS: "+req.body.authors)
       let phrase = []
       req.body.authors.forEach(e => {
         phrase.push({ [Op.like]: '%'+e+'%' })
@@ -136,7 +114,6 @@ module.exports = function (app) {
     if (req.body.words && req.body.words != "null") {
       where.title = { [Op.regexp]: '.+'+req.body.words+'.+' }
 
-      console.log("AUTHORS: "+req.body.words)
       let phrase = []
       req.body.words.forEach(e => {
         phrase.push({ [Op.like]: '%'+e+'%' })
@@ -144,9 +121,6 @@ module.exports = function (app) {
       where.title = { [Op.and]: phrase };
     }
 
-    console.log("WHERE str: " + JSON.stringify(where, null, 2) + "\nWHERE o: " + where)
-
-    
     db.Article.findAll({
       where: where
     }).then(function (dbArticle) {
@@ -161,10 +135,7 @@ module.exports = function (app) {
       dbArticle.forEach(article => {
         ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
         // Process Words
-        // console.log(article.title)
         article.title.split(" ").forEach(function (word) {
-          // console.log("WORD: "+word)
-
           //trim punctuation from word
           word = word.replace(/^[^a-z]+|[^a-z]+$/gi, "");
           if (excludedWords.indexOf(word.toLowerCase()) == -1 && word.match(/[a-z]+/i)) {
@@ -176,7 +147,6 @@ module.exports = function (app) {
         // Process Authors
         //  Split authors string on commas, dashes, "by", and "and"
         if (typeof article.author != 'undefined' && article.author != null) {
-          // console.log("ORIGINAL AUTHOR: " + article.author)
           article.author.split(/ +(at|and|by) +/i).forEach(a => {
             a.split(/ +- +| *, */).forEach(author => {
               author = author.trim()
@@ -235,16 +205,3 @@ module.exports = function (app) {
       });
     });
   });
-
-  // Get route for retrieving a single article
-  app.get("/api/articles/:id", function (req, res) {
-    db.Article.findOne({
-      where: {
-        sourceId: req.params.id
-      },
-      include: [db.Source]
-    }).then(function (dbArticle) {
-      res.json(dbArticle);
-    });
-  });
-};
