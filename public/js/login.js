@@ -5,26 +5,17 @@ $(document).ready(function () {
     Storage.prototype.getObj = function(key) {
         return JSON.parse(this.getItem(key))
     }
-    // var config = {
-    //     apiKey: "AIzaSyDr59vCL72gV07FpEUyu61F8QZVdy4iEuY",
-    //     authDomain: "fireauthen-1c11b.firebaseapp.com",
-    //     databaseURL: "https://fireauthen-1c11b.firebaseio.com",
-    //     projectId: "fireauthen-1c11b",
-    //     storageBucket: "fireauthen-1c11b.appspot.com",
-    //     messagingSenderId: "183413100827"
-    // };
-
-    // firebase.initializeApp(config);
-
 
     var config = {
-        apiKey: "AIzaSyAay3IEcIfVqgYpo9NwTQDRWFBSmQuhW1c",
-        authDomain: "news-miner-beefd.firebaseapp.com",
-        databaseURL: "https://news-miner-beefd.firebaseio.com",
-        projectId: "news-miner-beefd",
-        storageBucket: "news-miner-beefd.appspot.com",
-        messagingSenderId: "983822948368"
-    };
+        apiKey: "AIzaSyByX1cmYh12rRWMJD7oNelv4zZAvgSQb3U",
+        authDomain: "newsminer-26561.firebaseapp.com",
+        databaseURL: "https://newsminer-26561.firebaseio.com",
+        projectId: "newsminer-26561",
+        storageBucket: "newsminer-26561.appspot.com",
+        messagingSenderId: "901938764289",
+        appId: "1:901938764289:web:00dac6d5ab38be9f2e7e00",
+        measurementId: "G-974BSKWPSK"
+      };
     firebase.initializeApp(config);
     var database = firebase.database();
 

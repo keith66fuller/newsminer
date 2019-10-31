@@ -1,0 +1,23 @@
+<!-- The core Firebase JS SDK is always required and must be listed first -->
+<script src="https://www.gstatic.com/firebasejs/7.2.2/firebase-app.js"></script>
+
+<!-- TODO: Add SDKs for Firebase products that you want to use
+     https://firebase.google.com/docs/web/setup#available-libraries -->
+<script src="https://www.gstatic.com/firebasejs/7.2.2/firebase-analytics.js"></script>
+
+<script>
+  // Your web app's Firebase configuration
+  var firebaseConfig = {
+    apiKey: "AIzaSyByX1cmYh12rRWMJD7oNelv4zZAvgSQb3U",
+    authDomain: "newsminer-26561.firebaseapp.com",
+    databaseURL: "https://newsminer-26561.firebaseio.com",
+    projectId: "newsminer-26561",
+    storageBucket: "newsminer-26561.appspot.com",
+    messagingSenderId: "901938764289",
+    appId: "1:901938764289:web:00dac6d5ab38be9f2e7e00",
+    measurementId: "G-974BSKWPSK"
+  };
+  // Initialize Firebase
+  firebase.initializeApp(firebaseConfig);
+  firebase.analytics();
+</script>
