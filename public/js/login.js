@@ -17,7 +17,8 @@ $(document).ready(function () {
         measurementId: "G-974BSKWPSK"
       };
     firebase.initializeApp(config);
-    var database = firebase.database();
+    firebase.analytics();
+    //var database = firebase.database();
 
 
     $('#google-login').on('click', function () {
