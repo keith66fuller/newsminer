@@ -10,7 +10,7 @@
   },
   "developmentA": {
     "username": "root",
-    "password": "ou812",
+    "password": "ou812mysql",
     "database": "newsminer",
     "host": "127.0.0.1",
     "port": 3306,
