@@ -1,4 +1,7 @@
 $(document).ready(function () {
+
+    var showAuthors = true;
+
     Storage.prototype.setObj = function(key, obj) {
         return this.setItem(key, JSON.stringify(obj))
     }
@@ -30,6 +33,20 @@ $(document).ready(function () {
                     createAuthorCloud()
                 }
             });
+    });
+
+    $('#showAuthorItem').on('click', function(event) {
+        showAuthors = ! showAuthors;
+        if (!showAuthors) {
+            $("#authorCloud").hide()
+            $("#wordCloud").removeClass("col-lg-6").addClass("col-lg-10");
+        } else {
+            $("#authorCloud").show()
+            $("#wordCloud").removeClass("col-lg-10").addClass("col-lg-6");
+        }
+
+
+        console.log("showAuthors "+showAuthors);
     });
 
     /////////////////////////////////////////////////////////////////////////////////////
@@ -316,6 +333,7 @@ $(document).ready(function () {
 
 
     $("#word_filter").hide();
+    
 
     // At the very start, pull down the user object for the logged in user and set the "default" query to be only their default sources.
     initializePage();
