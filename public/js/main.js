@@ -1,6 +1,8 @@
 $(document).ready(function () {
 
-    var showAuthors = true;
+   
+
+
 
     Storage.prototype.setObj = function(key, obj) {
         return this.setItem(key, JSON.stringify(obj))
@@ -8,6 +10,18 @@ $(document).ready(function () {
     Storage.prototype.getObj = function(key) {
         return JSON.parse(this.getItem(key))
     }
+
+
+
+
+    if (typeof(localStorage.getObj("showAuthors"))=='undefined') {
+        localStorage.setItem("showAuthors", true)
+    };
+
+
+    var showAuthors = localStorage.getObj("showAuthors");
+
+    
     /////////////////////////////////////////////////////////////////////////////////////
     //                                                                                 //
     //                                   SLIDER                                        //

@@ -1,6 +1,6 @@
 $(document).ready(function () {
 
-    // $.getscript("./main-article-list.js", function () {
+    // $.getscript("./main.js", function () {
     //     queryArticles();
     // });
 
